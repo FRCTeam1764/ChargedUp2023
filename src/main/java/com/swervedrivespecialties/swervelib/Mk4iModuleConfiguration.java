@@ -14,7 +14,7 @@ public class Mk4iModuleConfiguration {
     private double steerCurrentLimit = 20.0;
 
     public double getNominalVoltage() {
-        return nominalVoltage;
+        return nominalVoltage;  
     }
 
     public void setNominalVoltage(double nominalVoltage) {
