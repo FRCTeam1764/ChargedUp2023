@@ -23,8 +23,8 @@ this.Blinkin = new BlinkinSubsystem();
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-Blinkin.setLEDs(LEDColor);
-
+    Blinkin.setLEDs(LEDColor);
+    System.out.println("It gets here");
 
   }
 

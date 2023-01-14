@@ -17,7 +17,7 @@ public class BlinkinSubsystem extends SubsystemBase {
   }
   //zach is so very cool :D (better than aiden and sawyer) he's so cool :3
   public void setLEDs(double LEDColor){
-
+    System.out.println("it gets here");
     blinkin.set(LEDColor);
   }
 //i did it :DDDDDDDDDDDDDDDDDDD
