@@ -9,6 +9,7 @@ import frc.robot.libraries.external.control.Trajectory;
 import frc.robot.libraries.external.math.Rotation2;
 import frc.robot.libraries.external.robot.input.Axis;
 import frc.robot.libraries.external.robot.input.XboxController;
+import frc.robot.libraries.external.robot.input.DPadButton.Direction;
 
 public class RobotContainer {
     private final XboxController primaryController = new XboxController(0);
@@ -17,6 +18,7 @@ public class RobotContainer {
 
     private final DrivetrainSubsystem drivetrainSubsystem = new DrivetrainSubsystem();
     private final VisionSubsystem visionSubsystem = new VisionSubsystem(drivetrainSubsystem);
+    private final Elevator elevator = new Elevator();
     private Trajectory[] trajectories;
     private final AutonomousChooser autonomousChooser;
 
@@ -43,9 +45,12 @@ public class RobotContainer {
         primaryController.getBackButton().whenPressed(
                 () -> drivetrainSubsystem.resetGyroAngle(Rotation2.ZERO)
         );
+        
     }
 
     private void configureCoPilotButtonBindings() {
+        primaryController.getDPadButton(Direction.UP).whenPressed(new ElevatorCommand(elevator,0.7));
+        primaryController.getDPadButton(Direction.DOWN).whenPressed(new ElevatorCommand(elevator,-0.7));
     }
 
     public Command getAutonomousCommand() {
