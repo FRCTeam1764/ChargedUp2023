@@ -47,6 +47,10 @@ public final class Constants {
     public static final double FRONT_RIGHT_MODULE_STEER_OFFSET = Math.toRadians(-300.42);
     public static final double BACK_LEFT_MODULE_STEER_OFFSET = Math.toRadians(-194.77);
     public static final double BACK_RIGHT_MODULE_STEER_OFFSET = Math.toRadians(-332.06);
-    
-    public static final int PRESSURE_SENSOR_PORT = 0;
+
+    //pivoty stuff
+    public static final int PIVOTY_MOTOR1 = 7; //7 is just a placeholder :D
+    public static final int PIVOTY_MOTOR2 = 7; //this 7 is also a placeholder
+
+    public static final int PRESSURE_SENSOR_PORT = 0; // we dont know what this is used for
 }
