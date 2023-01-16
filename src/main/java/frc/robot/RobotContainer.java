@@ -19,6 +19,8 @@ public class RobotContainer {
     private final DrivetrainSubsystem drivetrainSubsystem = new DrivetrainSubsystem();
     private final VisionSubsystem visionSubsystem = new VisionSubsystem(drivetrainSubsystem);
     private final Elevator elevator = new Elevator();
+    private final GrabberSubsystem grabber = new GrabberSubsystem();
+    private final GrabberSubsystemCone grabberCone = new GrabberSubsystemCone();
     private Trajectory[] trajectories;
     private final AutonomousChooser autonomousChooser;
 
@@ -51,6 +53,10 @@ public class RobotContainer {
     private void configureCoPilotButtonBindings() {
         primaryController.getDPadButton(Direction.UP).whenPressed(new ElevatorCommand(elevator,0.7));
         primaryController.getDPadButton(Direction.DOWN).whenPressed(new ElevatorCommand(elevator,-0.7));
+        primaryController.getAButton().onTrue(new GrabberCommand(grabber, 0.7));
+        primaryController.getBButton().onTrue(new GrabberCommand(grabber, -.07));
+        primaryController.getXButton().onTrue(new GrabberCommandCone(grabberCone, 0.7));
+        primaryController.getYButton().OnTrue(new GrabberCommandCone(grabberCone, -.07));
     }
 
     public Command getAutonomousCommand() {
