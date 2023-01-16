@@ -2,14 +2,15 @@ package frc.robot.libraries.external.robot.input;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.Button;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 /**
- * A button for different directions on a directional-pad.
+ * A Trigger for different directions on a directional-pad.
  *
  * @author Jacob Bublitz
  * @since 1.0
  */
-public class DPadButton extends Button {
+public class DPadButton extends Trigger {
 
 	public enum Direction {
 		UP(0),
@@ -47,7 +48,7 @@ public class DPadButton extends Button {
 		this(joystick, direction, 0);
 	}
 
-	@Override
+	
 	public boolean get() {
 		return joystick.getPOV(pov) == direction.getAngle();
 	}

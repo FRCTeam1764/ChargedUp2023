@@ -3,6 +3,8 @@ package com.swervedrivespecialties.swervelib.rev;
 import com.revrobotics.*;
 import com.revrobotics.CANSparkMax.ControlType;
 import com.swervedrivespecialties.swervelib.*;
+import com.swervedrivespecialties.swervelib.AbsoluteEncoder;
+
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardContainer;
 
 public final class NeoSteerControllerFactoryBuilder {

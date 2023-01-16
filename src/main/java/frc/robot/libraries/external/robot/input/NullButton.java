@@ -1,8 +1,9 @@
 package frc.robot.libraries.external.robot.input;
 
 import edu.wpi.first.wpilibj2.command.button.Button;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 
-public final class NullButton extends Button {
+public final class NullButton extends Trigger {
 	private boolean value;
 
 	public NullButton() {
@@ -13,7 +14,7 @@ public final class NullButton extends Button {
 		value = initialValue;
 	}
 
-	@Override
+
 	public boolean get() {
 		return value;
 	}
