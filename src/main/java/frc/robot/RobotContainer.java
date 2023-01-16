@@ -21,6 +21,7 @@ public class RobotContainer {
     private final Elevator elevator = new Elevator();
     private final GrabberSubsystem grabber = new GrabberSubsystem();
     private final GrabberSubsystemCone grabberCone = new GrabberSubsystemCone();
+    private final PivotySubsystem pivoty = new PivotySubsystem();
     private Trajectory[] trajectories;
     private final AutonomousChooser autonomousChooser;
 
@@ -51,12 +52,14 @@ public class RobotContainer {
     }
 
     private void configureCoPilotButtonBindings() {
-        primaryController.getDPadButton(Direction.UP).whenPressed(new ElevatorCommand(elevator,0.7));
-        primaryController.getDPadButton(Direction.DOWN).whenPressed(new ElevatorCommand(elevator,-0.7));
+        primaryController.getDPadButton(Direction.UP).onTrue(new ElevatorCommand(elevator,0.7));
+        primaryController.getDPadButton(Direction.DOWN).onTrue(new ElevatorCommand(elevator,-0.7));
         primaryController.getAButton().onTrue(new GrabberCommand(grabber, 0.7));
         primaryController.getBButton().onTrue(new GrabberCommand(grabber, -.07));
         primaryController.getXButton().onTrue(new GrabberCommandCone(grabberCone, 0.7));
         primaryController.getYButton().OnTrue(new GrabberCommandCone(grabberCone, -.07));
+        primaryController.getDPadButton(Direction.LEFT).onTrue(new PivotyCommand(pivoty,0.7));
+        primaryController.getDPadButton(Direction.RIGHT).onTrue(new PivotyCommand(pivoty,-0.7));
     }
 
     public Command getAutonomousCommand() {
