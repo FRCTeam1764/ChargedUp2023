@@ -45,10 +45,14 @@ public class RobotContainer {
     }
 
     private void configurePilotButtonBindings() {
+<<<<<<< HEAD
         primaryController.getBackButton().whenPressed(
                 () -> drivetrainSubsystem.resetGyroAngle(Rotation2.ZERO)
         );
         
+=======
+        primaryController.getBackButton().onTrue(new ResetGyroCommand(drivetrainSubsystem));
+>>>>>>> 2023_Update
     }
 
     private void configureCoPilotButtonBindings() {
