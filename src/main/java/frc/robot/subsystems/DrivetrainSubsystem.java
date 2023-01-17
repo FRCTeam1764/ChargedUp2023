@@ -2,9 +2,9 @@ package frc.robot.subsystems;
 
 import com.google.errorprone.annotations.concurrent.GuardedBy;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.networktables.GenericEntry;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.RobotController;
-import com.swervedrivespecialties.swervelib.Mk4iSwerveModuleHelper;
 import com.swervedrivespecialties.swervelib.SwerveModule;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
@@ -21,10 +21,12 @@ import frc.robot.libraries.external.math.Vector2;
 import frc.robot.libraries.external.robot.drivers.NavX;
 import frc.robot.libraries.external.robot.UpdateManager;
 import frc.robot.libraries.external.util.*;
+import com.swervedrivespecialties.swervelib.Mk4iSwerveModuleHelper;
 
 import static frc.robot.constants.Constants.*;
 
 import java.util.Optional;
+
 
 public class DrivetrainSubsystem implements Subsystem, UpdateManager.Updatable {
   public static final double TRACKWIDTH = 1.0;
@@ -88,9 +90,9 @@ public class DrivetrainSubsystem implements Subsystem, UpdateManager.Updatable {
   private HolonomicDriveSignal driveSignal = null;
 
   // Logging
-  private final NetworkTableEntry odometryXEntry;
-  private final NetworkTableEntry odometryYEntry;
-  private final NetworkTableEntry odometryAngleEntry;
+  private final GenericEntry odometryXEntry;
+  private final GenericEntry odometryYEntry;
+  private final GenericEntry odometryAngleEntry;
 
   public DrivetrainSubsystem() {
     synchronized (sensorLock) {
@@ -153,9 +155,9 @@ public class DrivetrainSubsystem implements Subsystem, UpdateManager.Updatable {
       .withSize(1, 1)
       .getEntry();
     odometryYEntry = tab.add("Y", 0.0)
-      .withPosition(0, 1)
-      .withSize(1, 1)
-      .getEntry();
+    .withPosition(0, 1)
+    .withSize(1, 1)
+    .getEntry();
     odometryAngleEntry = tab.add("Angle", 0.0)
       .withPosition(0, 2)
       .withSize(1, 1)

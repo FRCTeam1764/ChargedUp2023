@@ -1,6 +1,7 @@
 package frc.robot.libraries.external.robot.input;
 
 import edu.wpi.first.wpilibj2.command.button.Button;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 /**
  * <p>An interface for easily implementing gamepads as an input source.</p>
@@ -23,91 +24,91 @@ public abstract class Controller {
 	public abstract Axis getRightYAxis();
 
 	/**
-	 * Get the A button of the controller.
+	 * Get the A Trigger of the controller.
 	 *
 	 * @return The A button
 	 * @since 1.0
 	 */
-	public abstract Button getAButton();
+	public abstract Trigger getAButton();
 
 	/**
-	 * Get the B button of the controller.
+	 * Get the B Trigger of the controller.
 	 *
 	 * @return The B button
 	 * @since 1.0
 	 */
-	public abstract Button getBButton();
+	public abstract Trigger getBButton();
 
 	/**
-	 * Get the X button of the controller.
+	 * Get the X Trigger of the controller.
 	 *
 	 * @return The X button
 	 * @since 1.0
 	 */
-	public abstract Button getXButton();
+	public abstract Trigger getXButton();
 
 	/**
-	 * Get the Y button of the controller.
+	 * Get the Y Trigger of the controller.
 	 *
 	 * @return The Y button
 	 * @since 1.0
 	 */
-	public abstract Button getYButton();
+	public abstract Trigger getYButton();
 
 	/**
-	 * Get the left bumper button of the controller.
+	 * Get the left bumper Trigger of the controller.
 	 *
 	 * @return The left bumper button
 	 * @since 1.0
 	 */
-	public abstract Button getLeftBumperButton();
+	public abstract Trigger getLeftBumperButton();
 
 	/**
-	 * Get the right bumper button of the controller.
+	 * Get the right bumper Trigger of the controller.
 	 *
 	 * @return The right bumper button
 	 * @since 1.0
 	 */
-	public abstract Button getRightBumperButton();
+	public abstract Trigger getRightBumperButton();
 
 	/**
-	 * Get the back button of the controller.
+	 * Get the back Trigger of the controller.
 	 *
 	 * @return The back button
 	 * @since 1.0
 	 */
-	public abstract Button getBackButton();
+	public abstract Trigger getBackButton();
 
 	/**
-	 * Get the start button of the controller.
+	 * Get the start Trigger of the controller.
 	 *
 	 * @return The start button
 	 * @since 1.0
 	 */
-	public abstract Button getStartButton();
+	public abstract Trigger getStartButton();
 
 	/**
-	 * Get the left joystick button of the controller.
+	 * Get the left joystick Trigger of the controller.
 	 *
 	 * @return The left joystick button
 	 * @since 1.0
 	 */
-	public abstract Button getLeftJoystickButton();
+	public abstract Trigger getLeftJoystickButton();
 
 	/**
-	 * Get the right joystick button of the controller.
+	 * Get the right joystick Trigger of the controller.
 	 *
 	 * @return The right joystick button
 	 * @since 1.0
 	 */
-	public abstract Button getRightJoystickButton();
+	public abstract Trigger getRightJoystickButton();
 
 	/**
-	 * Get a D-Pad button of the controller.
+	 * Get a D-Pad Trigger of the controller.
 	 *
 	 * @param direction The direction of the D-Pad button
-	 * @return The D-Pad button of the specified direction
+	 * @return The D-Pad Trigger of the specified direction
 	 * @since 1.0
 	 */
-	public abstract Button getDPadButton(DPadButton.Direction direction);
+	public abstract Trigger getDPadButton(DPadButton.Direction direction);
 }

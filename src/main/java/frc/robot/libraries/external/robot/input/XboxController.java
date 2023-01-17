@@ -3,6 +3,7 @@ package frc.robot.libraries.external.robot.input;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 /**
  * IGamepad implementation for XBox-like gamepads.
@@ -19,16 +20,16 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 public final class XboxController extends Controller {
 	private final Joystick joystick;
 
-	private final Button aButton;
-	private final Button bButton;
-	private final Button xButton;
-	private final Button yButton;
-	private final Button leftBumperButton;
-	private final Button rightBumperButton;
-	private final Button backButton;
-	private final Button startButton;
-	private final Button leftStickButton;
-	private final Button rightStickButton;
+	private final Trigger aButton;
+	private final Trigger bButton;
+	private final Trigger xButton;
+	private final Trigger yButton;
+	private final Trigger leftBumperButton;
+	private final Trigger rightBumperButton;
+	private final Trigger backButton;
+	private final Trigger startButton;
+	private final Trigger leftStickButton;
+	private final Trigger rightStickButton;
 
 	private final Axis leftTriggerAxis;
 	private final Axis leftXAxis;
@@ -103,57 +104,57 @@ public final class XboxController extends Controller {
 	}
 
 	@Override
-	public Button getAButton() {
+	public Trigger getAButton() {
 		return aButton;
 	}
 
 	@Override
-	public Button getBButton() {
+	public Trigger getBButton() {
 		return bButton;
 	}
 
 	@Override
-	public Button getXButton() {
+	public Trigger getXButton() {
 		return xButton;
 	}
 
 	@Override
-	public Button getYButton() {
+	public Trigger getYButton() {
 		return yButton;
 	}
 
 	@Override
-	public Button getLeftBumperButton() {
+	public Trigger getLeftBumperButton() {
 		return leftBumperButton;
 	}
 
 	@Override
-	public Button getRightBumperButton() {
+	public Trigger getRightBumperButton() {
 		return rightBumperButton;
 	}
 
 	@Override
-	public Button getBackButton() {
+	public Trigger getBackButton() {
 		return backButton;
 	}
 
 	@Override
-	public Button getStartButton() {
+	public Trigger getStartButton() {
 		return startButton;
 	}
 
 	@Override
-	public Button getLeftJoystickButton() {
+	public Trigger getLeftJoystickButton() {
 		return leftStickButton;
 	}
 
 	@Override
-	public Button getRightJoystickButton() {
+	public Trigger getRightJoystickButton() {
 		return rightStickButton;
 	}
 
 	@Override
-	public Button getDPadButton(DPadButton.Direction direction) {
+	public Trigger getDPadButton(DPadButton.Direction direction) {
 		return dpadButtons[direction.ordinal()];
 	}
 
