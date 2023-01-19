@@ -32,6 +32,9 @@ public class Robot extends TimedRobot {
     @Override
     public void robotPeriodic() {
         CommandScheduler.getInstance().run();
+        if(controller.getAButton()){
+             blinkin.set(.69);
+        }
     }
 
     @Override
