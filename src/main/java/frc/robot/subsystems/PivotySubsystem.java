@@ -19,10 +19,16 @@ public class PivotySubsystem extends SubsystemBase {
   public PivotySubsystem(){
     pivotyMotor = new LazyTalonFX(0);
     breakBeamOne = new DigitalInput(5);
-    breakBeamTwo = new DigitalInput(6);
+  //  breakBeamTwo = new DigitalInput(6);
   }
-  
-  public void pivotyOn(double elevatorSpeed, int desiredEncoderValue){
+  public void pivotyOn(double pivotySpeed, int desiredEncoderValue){
+    if(!breakBeamOne.get()){
+      pivotyMotor.configIntegratedSensorOffset(0);
+    }
+    pivotyMotor.set(pivotySpeed);
+
+ 
+    /* 
     if(pivotySpeed > 0 && breakBeamOne.get()){
     pivotyMotor.set(pivotySpeed);
     }else if(pivotySpeed < 0 && breakBeamTwo.get()){
@@ -30,6 +36,7 @@ public class PivotySubsystem extends SubsystemBase {
     }else{
       pivotyMotor.set(0);
     }
+    */
   }
 
   public void pivotyOff(){
