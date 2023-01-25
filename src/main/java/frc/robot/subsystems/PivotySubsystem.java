@@ -11,21 +11,27 @@ import frc.robot.libraries.internal.LazyTalonFX;
 
 public class PivotySubsystem extends SubsystemBase {
   /** Creates a new Elevator. */
-  LazyTalonFX pivotyMotor;
+  LazyTalonFX pivotyMotor1;
+  LazyTalonFX pivotyMotor2;
   double pivotySpeed;
   DigitalInput breakBeamOne;
   DigitalInput breakBeamTwo;
 
   public PivotySubsystem(){
-    pivotyMotor = new LazyTalonFX(0);
+    pivotyMotor1 = new LazyTalonFX(0);
+    pivotyMotor2 = new LazyTalonFX(2);
     breakBeamOne = new DigitalInput(5);
   //  breakBeamTwo = new DigitalInput(6);
   }
   public void pivotyOn(double pivotySpeed, int desiredEncoderValue){
     if(!breakBeamOne.get()){
-      pivotyMotor.configIntegratedSensorOffset(0);
+      pivotyMotor1.configIntegratedSensorOffset(0);
+      pivotyMotor2.configIntegratedSensorOffset(0);
+
     }
-    pivotyMotor.set(pivotySpeed);
+    pivotyMotor1.set(pivotySpeed);
+    pivotyMotor2.set(pivotySpeed);
+
 
  
     /* 
@@ -40,7 +46,9 @@ public class PivotySubsystem extends SubsystemBase {
   }
 
   public void pivotyOff(){
-    pivotyMotor.set(0);
+    pivotyMotor1.set(0);
+    pivotyMotor2.set(0);
+
   }
   
   @Override
