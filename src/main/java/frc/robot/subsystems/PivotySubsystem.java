@@ -12,17 +12,17 @@ public class PivotySubsystem extends SubsystemBase {
   /** Creates a new Elevator. */
   LazyTalonFX pivotyMotor;
   double pivotySpeed;
-  Encoder magneticEncoder;
+  Encoder thruboreEncoder;
 
   public PivotySubsystem(){
     pivotyMotor = new LazyTalonFX(0);
-    magneticEncoder = new Encoder(3, 4);
+    thruboreEncoder = new Encoder(3, 4);
   }
   
   public void pivotyOn(double elevatorSpeed, int desiredEncoderValue){
-    if(pivotySpeed > 0 && (magneticEncoder.get() <= desiredEncoderValue)){
+    if(pivotySpeed > 0 && (thruboreEncoder.get() <= 0)){
     pivotyMotor.set(pivotySpeed);
-    }else if(pivotySpeed < 0 && (magneticEncoder.get() <= desiredEncoderValue)){
+    }else if(pivotySpeed < 0 && (thruboreEncoder.get() <= 106)){
       pivotyMotor.set(pivotySpeed);
     }else{
       pivotyMotor.set(0);

@@ -39,6 +39,7 @@ public class Robot extends TimedRobot {
 
     @Override
     public void autonomousInit() {
+        
         robotContainer.getDrivetrainSubsystem().resetPose(RigidTransform2.ZERO);
         robotContainer.getDrivetrainSubsystem().resetGyroAngle(Rotation2.ZERO);
 
