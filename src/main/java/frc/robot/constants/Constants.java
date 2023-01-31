@@ -41,6 +41,16 @@ public final class Constants {
     public static final CanPort BACK_LEFT_MODULE_STEER_ENCODER = new CanPort(18);
     public static final CanPort BACK_RIGHT_MODULE_STEER_ENCODER = new CanPort(17);
 
+    public static final CanPort BACK_INTAKE_MOTOR = new CanPort(21);
+    public static final CanPort SIDE_INTAKE_MOTOR = new CanPort(22);
+    public static final CanPort INTAKE_OPENER_MOTOR = new CanPort(23);
+
+    public static final CanPort PIVOTY_THRUBORE_ENCODER = new CanPort(31);
+    public static final CanPort PIVOTY_MOTOR = new CanPort(32);
+
+    public static final CanPort ELEVEATOR_ENCODER = new CanPort(41);
+    public static final CanPort ELEVATOR_MOTOR = new CanPort(42);
+
     // In degrees
     // increasing turns clockwise
     public static final double FRONT_LEFT_MODULE_STEER_OFFSET = Math.toRadians(-11.46);
