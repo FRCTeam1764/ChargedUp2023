@@ -11,8 +11,8 @@ public class LazyTalonFX extends WPI_TalonFX {
     protected double mLastSet = Double.NaN;
     protected ControlMode mLastControlMode = null;
 
-    public LazyTalonFX(int deviceNumber) {
-        super(deviceNumber);
+    public LazyTalonFX(int deviceNumber,String canbus) {
+        super(deviceNumber, canbus);
     }
 
     public double getLastSet() {

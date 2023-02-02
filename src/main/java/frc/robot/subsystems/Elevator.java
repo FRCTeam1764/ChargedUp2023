@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.libraries.internal.LazyTalonFX;
+import static frc.robot.constants.Constants.*;
 
 public class Elevator extends SubsystemBase {
   /** Creates a new Elevator. */
@@ -15,7 +16,7 @@ public class Elevator extends SubsystemBase {
   Encoder encoder;
 
   public Elevator(){
-    elevatorMotor = new LazyTalonFX(0);
+    elevatorMotor = new LazyTalonFX(0,CANIVORE_NAME);
     encoder = new Encoder(1,2);
   }
   

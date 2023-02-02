@@ -3,9 +3,9 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.subsystems;
-
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.libraries.internal.LazyTalonFX;
+import static frc.robot.constants.Constants.*;
 
 public class GrabberSubsystem extends SubsystemBase {
   /** Creates a new GrabberSubsystem. */
@@ -13,7 +13,7 @@ public class GrabberSubsystem extends SubsystemBase {
   // double grabberSpeed;
 
   public GrabberSubsystem() {
-    grabberMotor = new LazyTalonFX(1);
+    grabberMotor = new LazyTalonFX(1,CANIVORE_NAME);
   }
 
   public void grabberOn(double grabberSpeed){

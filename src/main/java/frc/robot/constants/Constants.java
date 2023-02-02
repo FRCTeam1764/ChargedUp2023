@@ -1,6 +1,6 @@
 package frc.robot.constants;
 
-import com.swervedrivespecialties.swervelib.CanPort;
+// import com.swervedrivespecialties.swervelib.CanPort;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -26,28 +26,20 @@ public final class Constants {
 
     // public static final int DRIVETRAIN_PIGEON_ID = 0; // FIXME Set Pigeon ID
 
-    public static final CanPort FRONT_LEFT_MODULE_DRIVE_MOTOR = new CanPort(6);
-    public static final CanPort FRONT_RIGHT_MODULE_DRIVE_MOTOR = new CanPort(7);
-    public static final CanPort BACK_LEFT_MODULE_DRIVE_MOTOR = new CanPort(9);
-    public static final CanPort BACK_RIGHT_MODULE_DRIVE_MOTOR = new CanPort(8);
-
-    public static final CanPort FRONT_LEFT_MODULE_STEER_MOTOR = new CanPort(10);
-    public static final CanPort FRONT_RIGHT_MODULE_STEER_MOTOR = new CanPort(11);
-    public static final CanPort BACK_LEFT_MODULE_STEER_MOTOR = new CanPort(13);
-    public static final CanPort BACK_RIGHT_MODULE_STEER_MOTOR = new CanPort(12);
-
-    public static final CanPort FRONT_LEFT_MODULE_STEER_ENCODER = new CanPort(15);
-    public static final CanPort FRONT_RIGHT_MODULE_STEER_ENCODER = new CanPort(16);
-    public static final CanPort BACK_LEFT_MODULE_STEER_ENCODER = new CanPort(18);
-    public static final CanPort BACK_RIGHT_MODULE_STEER_ENCODER = new CanPort(17);
+    // public static final CanPort FRONT_LEF
 
     // In degrees
     // increasing turns clockwise
-    public static final double FRONT_LEFT_MODULE_STEER_OFFSET = Math.toRadians(-11.46);
-    public static final double FRONT_RIGHT_MODULE_STEER_OFFSET = Math.toRadians(-300.42);
-    public static final double BACK_LEFT_MODULE_STEER_OFFSET = Math.toRadians(-194.77);
-    public static final double BACK_RIGHT_MODULE_STEER_OFFSET = Math.toRadians(-332.06);
+    public static final double FRONT_LEFT_MODULE_STEER_OFFSET = Math.toRadians(59.0625);
+    public static final double FRONT_RIGHT_MODULE_STEER_OFFSET = Math.toRadians(217.25976562500003);
+    public static final double BACK_LEFT_MODULE_STEER_OFFSET = Math.toRadians(40.884375000000006);
+    public static final double BACK_RIGHT_MODULE_STEER_OFFSET = Math.toRadians(94.07343750000001-90);
     
+    
+
+    public static final String CANIVORE_NAME = "1764 canivore";
+
+
     public static final int PRESSURE_SENSOR_PORT = 0;
 
     // HI :D

@@ -8,6 +8,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.libraries.internal.LazyTalonFX;
+import static frc.robot.constants.Constants.*;
 
 public class PivotySubsystem extends SubsystemBase {
   /** Creates a new Elevator. */
@@ -17,7 +18,7 @@ public class PivotySubsystem extends SubsystemBase {
   DigitalInput breakBeamTwo;
 
   public PivotySubsystem(){
-    pivotyMotor = new LazyTalonFX(0);
+    pivotyMotor = new LazyTalonFX(0, CANIVORE_NAME);
     breakBeamOne = new DigitalInput(5);
     breakBeamTwo = new DigitalInput(6);
   }
