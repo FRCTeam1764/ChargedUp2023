@@ -1,5 +1,6 @@
 package frc.robot;
 
+
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.*;
@@ -11,91 +12,121 @@ import frc.robot.libraries.external.robot.input.Axis;
 import frc.robot.libraries.external.robot.input.XboxController;
 import frc.robot.libraries.external.robot.input.DPadButton.Direction;
 
+
 public class RobotContainer {
-    private final XboxController primaryController = new XboxController(0);
+   private final XboxController primaryController = new XboxController(0);
 
-    private final Superstructure superstructure = new Superstructure();
 
-    private final DrivetrainSubsystem drivetrainSubsystem = new DrivetrainSubsystem();
-    private final VisionSubsystem visionSubsystem = new VisionSubsystem(drivetrainSubsystem);
-    private final Elevator elevator = new Elevator();
-    private final GrabberSubsystem grabber = new GrabberSubsystem();
-    private final GrabberSubsystemCone grabberCone = new GrabberSubsystemCone();
-    private final PivotySubsystem pivoty = new PivotySubsystem();
-    private Trajectory[] trajectories;
-    private final AutonomousChooser autonomousChooser;
+   private final Superstructure superstructure = new Superstructure();
 
-    public RobotContainer() {
-        primaryController.getLeftXAxis().setInverted(true);
-        primaryController.getRightXAxis().setInverted(true);
 
-        CommandScheduler.getInstance().registerSubsystem(visionSubsystem);
-        CommandScheduler.getInstance().registerSubsystem(drivetrainSubsystem);
+   private final DrivetrainSubsystem drivetrainSubsystem = new DrivetrainSubsystem();
+   private final VisionSubsystem visionSubsystem = new VisionSubsystem(drivetrainSubsystem);
+   private final Elevator elevator = new Elevator();
+   private final GrabberSubsystem grabber = new GrabberSubsystem();
+   private final GrabberSubsystemCone grabberCone = new GrabberSubsystemCone();
+   private final PivotySubsystem pivoty = new PivotySubsystem();
+   private Trajectory[] trajectories;
+   private final AutonomousChooser autonomousChooser;
 
-        CommandScheduler.getInstance().setDefaultCommand(drivetrainSubsystem, new DriveCommand(drivetrainSubsystem, getDriveForwardAxis(), getDriveStrafeAxis(), getDriveRotationAxis()));
-        
-        setTrajectories();
-        configurePilotButtonBindings();
-        configureCoPilotButtonBindings();
-        autonomousChooser = new AutonomousChooser(trajectories);
-    }
 
-    private void setTrajectories() {
-        trajectories = Trajectories.getTrajectories();
-    }
+   public RobotContainer() {
+       primaryController.getLeftXAxis().setInverted(true);
+       primaryController.getRightXAxis().setInverted(true);
 
-    private void configurePilotButtonBindings() {
-        primaryController.getBackButton().onTrue(new ResetGyroCommand(drivetrainSubsystem));
-    }
 
-    private void configureCoPilotButtonBindings() {
-        primaryController.getDPadButton(Direction.UP).onTrue(new ElevatorCommand(elevator,0.7));
-        primaryController.getDPadButton(Direction.DOWN).onTrue(new ElevatorCommand(elevator,-0.7));
-        primaryController.getAButton().onTrue(new GrabberCommand(grabber, 0.7));
-        primaryController.getBButton().onTrue(new GrabberCommand(grabber, -.07));
-        primaryController.getXButton().onTrue(new GrabberCommandCone(grabberCone, 0.7));
-        primaryController.getYButton().onTrue(new GrabberCommandCone(grabberCone, -.07));
-        primaryController.getDPadButton(Direction.LEFT).onTrue(new PivotyCommand(pivoty,0.7));
-        primaryController.getDPadButton(Direction.RIGHT).onTrue(new PivotyCommand(pivoty,-0.7));
-    }
+       CommandScheduler.getInstance().registerSubsystem(visionSubsystem);
+       CommandScheduler.getInstance().registerSubsystem(drivetrainSubsystem);
+      
 
-    public Command getAutonomousCommand() {
-        return autonomousChooser.getCommand(this);
-    }
 
-    private Axis getDriveForwardAxis() {
-        return primaryController.getLeftYAxis();
-    }
+       CommandScheduler.getInstance().setDefaultCommand(drivetrainSubsystem, new DriveCommand(drivetrainSubsystem, getDriveForwardAxis(), getDriveStrafeAxis(), getDriveRotationAxis()));
+      
+       setTrajectories();
+       configurePilotButtonBindings();
+       configureCoPilotButtonBindings();
+       autonomousChooser = new AutonomousChooser(trajectories);
+   }
 
-    private Axis getDriveStrafeAxis() {
-        return primaryController.getLeftXAxis();
-    }
 
-    private Axis getDriveRotationAxis() {
-        return primaryController.getRightXAxis();
-    }
+   private void setTrajectories() {
+       trajectories = Trajectories.getTrajectories();
+   }
 
-    public DrivetrainSubsystem getDrivetrainSubsystem() {
-        return drivetrainSubsystem;
-    }
 
-    public Superstructure getSuperstructure() {
-        return superstructure;
-    }
+   private void configurePilotButtonBindings() {
+       primaryController.getBackButton().onTrue(new ResetGyroCommand(drivetrainSubsystem));
+   }
 
-    public VisionSubsystem getVisionSubsystem() {
-        return visionSubsystem;
-    }
 
-    public XboxController getPrimaryController() {
-        return primaryController;
-    }
+   private void configureCoPilotButtonBindings() {
+       primaryController.getDPadButton(Direction.UP).onTrue(new ElevatorCommand(elevator,0.7));
+       primaryController.getDPadButton(Direction.DOWN).onTrue(new ElevatorCommand(elevator,-0.7));
+       primaryController.getAButton().onTrue(new GrabberCommand(grabber, 0.7));
+       primaryController.getBButton().onTrue(new GrabberCommand(grabber, -.07));
+       primaryController.getXButton().onTrue(new GrabberCommandCone(grabberCone, 0.7));
+       primaryController.getYButton().onTrue(new GrabberCommandCone(grabberCone, -.07));
+       primaryController.getDPadButton(Direction.LEFT).onTrue(new PivotyCommand(pivoty,0.7));
+       primaryController.getDPadButton(Direction.RIGHT).onTrue(new PivotyCommand(pivoty,-0.7));
+   }
 
-    public AutonomousChooser getAutonomousChooser() {
-        return autonomousChooser;
-    }
 
-    public Trajectory[] getTrajectories() {
-        return trajectories;
-    }
+   public Command getAutonomousCommand() {
+       return autonomousChooser.getCommand(this);
+   }
+
+
+   private Axis getDriveForwardAxis() {
+       return primaryController.getLeftYAxis();
+   }
+
+
+   private Axis getDriveStrafeAxis() {
+       return primaryController.getLeftXAxis();
+   }
+
+
+   private Axis getDriveRotationAxis() {
+       return primaryController.getRightXAxis();
+   }
+
+
+   public DrivetrainSubsystem getDrivetrainSubsystem() {
+       return drivetrainSubsystem;
+   }
+
+
+   public Superstructure getSuperstructure() {
+       return superstructure;
+   }
+
+
+   public VisionSubsystem getVisionSubsystem() {
+       return visionSubsystem;
+   }
+
+
+   public XboxController getPrimaryController() {
+       return primaryController;
+   }
+
+
+   public AutonomousChooser getAutonomousChooser() {
+       return autonomousChooser;
+   }
+
+
+   public Trajectory[] getTrajectories() {
+       return trajectories;
+   }
+
+
+   public GrabberSubsystem getGrabberSubsystem() {
+       return grabber;
+   }
+
+
+   public GrabberSubsystemCone getGrabberConeSubsystem() {
+       return grabberCone;
+   }
 }

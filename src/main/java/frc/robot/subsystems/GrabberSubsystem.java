@@ -13,7 +13,7 @@ public class GrabberSubsystem extends SubsystemBase {
   // double grabberSpeed;
 
   public GrabberSubsystem() {
-    grabberMotor = new LazyTalonFX(1);
+    grabberMotor = new LazyTalonFX(Constants.SIDE_INTAKE_MOTOR);
   }
 
   public void grabberOn(double grabberSpeed){
