@@ -61,7 +61,7 @@ public final class Constants {
     public static final int PRESSURE_SENSOR_PORT = 0;
 
     // HI :D
-    public static final int INTAKE_SOLENOID_FORWARD = 0;
-    public static final int INTAKE_SOLENOID_REVERSE = 1;
+    //public static final int INTAKE_SOLENOID_FORWARD = 0;
+    //public static final int INTAKE_SOLENOID_REVERSE = 1;
 
 }

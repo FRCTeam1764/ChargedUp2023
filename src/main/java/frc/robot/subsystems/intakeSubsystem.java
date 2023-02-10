@@ -20,9 +20,9 @@ public class intakeSubsystem extends SubsystemBase {
 
   
   public intakeSubsystem(double openPosition, double closedPosition) {
-  this.intakeMotor = new SparkMaxAlternateEncoder(, , 42);
+  //this.intakeMotor = new SparkMaxAlternateEncoder(42);
   this.openPosition = openPosition;
-  this.losedPosition = openPosition;
+  //this.losedPosition = openPosition;
 
   }
   public void intakeOn(double openPosition){

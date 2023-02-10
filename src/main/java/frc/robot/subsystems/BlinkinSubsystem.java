@@ -10,17 +10,22 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class BlinkinSubsystem extends SubsystemBase {
   /** Creates a new BlinkinSubsystem. */
   Spark blinkin;
+  // double LEDColor;
+
 
   public BlinkinSubsystem() {
     //:D wahoo!
     blinkin = new Spark(1);
+    // this.LEDColor = LEDColor;
+    
   }
   //zach is so very cool :D (better than aiden and sawyer) he's so cool :3
   public void setLEDs(double LEDColor){
-    System.out.println("it gets here");
+    System.out.println("set LEDs");
     blinkin.set(LEDColor);
   }
 //i did it :DDDDDDDDDDDDDDDDDDD
+
 
   @Override
   public void periodic() {

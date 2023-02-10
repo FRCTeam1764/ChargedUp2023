@@ -9,11 +9,12 @@ import frc.robot.subsystems.BlinkinSubsystem;
 
 public class BlinkinCommand extends CommandBase {
   /** Creates a new BlinkinCommand. */
-  double LEDColor;
 BlinkinSubsystem Blinkin;
-  public BlinkinCommand(double LEDColor) {
-this.LEDColor = LEDColor;
-this.Blinkin = new BlinkinSubsystem();
+double LEDColor;
+  public BlinkinCommand(double LEDColor, BlinkinSubsystem Blinkin) {
+  this.Blinkin = Blinkin;
+  addRequirements(Blinkin);
+  this.LEDColor = LEDColor;
   }
 
   // Called when the command is initially scheduled.

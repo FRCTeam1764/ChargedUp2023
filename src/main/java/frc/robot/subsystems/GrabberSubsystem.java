@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.constants.Constants;
 import frc.robot.libraries.internal.LazyTalonFX;
 
 public class GrabberSubsystem extends SubsystemBase {
@@ -12,9 +13,9 @@ public class GrabberSubsystem extends SubsystemBase {
   LazyTalonFX grabberMotor;
   // double grabberSpeed;
 
-  public GrabberSubsystem() {
-    grabberMotor = new LazyTalonFX(Constants.SIDE_INTAKE_MOTOR);
-  }
+  //public GrabberSubsystem() {
+    //grabberMotor = new LazyTalonFX(Constants.SIDE_INTAKE_MOTOR);
+  //}
 
   public void grabberOn(double grabberSpeed){
     grabberMotor.set(grabberSpeed);

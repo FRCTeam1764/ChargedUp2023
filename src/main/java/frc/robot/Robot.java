@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.BlinkinCommand;
 import frc.robot.libraries.external.math.RigidTransform2;
 import frc.robot.libraries.external.math.Rotation2;
 import frc.robot.libraries.external.robot.UpdateManager;
@@ -50,10 +51,10 @@ public class Robot extends TimedRobot {
 
    @Override
    public void robotInit() {
-       grabberCone = robotContainer.getGrabberConeSubsystem();
-       grabber = robotContainer.getGrabberSubsystem();
+       //grabberCone = new robotContainer.getGrabberConeSubsystem();
+       //grabber = new robotContainer.getGrabberSubsystem();
 
-
+        CommandScheduler.getInstance().schedule(new BlinkinCommand(-.95, robotContainer.getBlinkinSubsystem()));
 
 
        updateManager.startLoop(5.0e-3);

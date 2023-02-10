@@ -14,10 +14,9 @@ import frc.robot.libraries.external.robot.input.DPadButton.Direction;
 
 
 public class RobotContainer {
-   private final XboxController primaryController = new XboxController(0);
-
-
-   private final Superstructure superstructure = new Superstructure();
+    private final XboxController primaryController = new XboxController(0);
+    private final XboxController secondaryController = new XboxController(1);
+    private final Superstructure superstructure = new Superstructure();
 
 
    private final DrivetrainSubsystem drivetrainSubsystem = new DrivetrainSubsystem();
@@ -25,6 +24,7 @@ public class RobotContainer {
    private final Elevator elevator = new Elevator();
    private final GrabberSubsystem grabber = new GrabberSubsystem();
    private final GrabberSubsystemCone grabberCone = new GrabberSubsystemCone();
+   private final BlinkinSubsystem blinkin = new BlinkinSubsystem();
    private final PivotySubsystem pivoty = new PivotySubsystem();
    private Trajectory[] trajectories;
    private final AutonomousChooser autonomousChooser;
@@ -60,6 +60,8 @@ public class RobotContainer {
 
 
    private void configureCoPilotButtonBindings() {
+        secondaryController.getYButton().whileTrue(new BlinkinCommand(0.67, blinkin));
+        secondaryController.getXButton().whileTrue(new BlinkinCommand(0.89, blinkin));
        primaryController.getDPadButton(Direction.UP).onTrue(new ElevatorCommand(elevator,0.7));
        primaryController.getDPadButton(Direction.DOWN).onTrue(new ElevatorCommand(elevator,-0.7));
        primaryController.getAButton().onTrue(new GrabberCommand(grabber, 0.7));
@@ -128,5 +130,8 @@ public class RobotContainer {
 
    public GrabberSubsystemCone getGrabberConeSubsystem() {
        return grabberCone;
+   }
+   public BlinkinSubsystem getBlinkinSubsystem() {
+    return blinkin;
    }
 }
