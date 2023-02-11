@@ -9,6 +9,7 @@ import frc.robot.subsystems.Elevator;
 
 public class ElevatorCommand extends CommandBase {
   /** Creates a new ElevatorCommand. */
+  //needs fixed
   Elevator elevator;
   double elevatorSpeed;
   int desiredEncoderSpeed;

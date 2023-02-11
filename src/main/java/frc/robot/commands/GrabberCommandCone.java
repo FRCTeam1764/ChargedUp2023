@@ -11,7 +11,7 @@ public class GrabberCommandCone extends CommandBase {
   /** Creates a new GrabberCommand. */
   GrabberSubsystemCone grabberCone;
   double grabberSpeedCone;
-
+  
   public GrabberCommandCone(GrabberSubsystemCone grabberCone, double grabberSpeedCone) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.grabberCone = grabberCone;

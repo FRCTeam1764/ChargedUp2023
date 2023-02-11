@@ -16,8 +16,8 @@ import frc.robot.libraries.external.robot.input.DPadButton.Direction;
 import edu.wpi.first.wpilibj.XboxController;
 
 public class RobotContainer {
-    private final XboxController driver = new XboxController(0);
-    private final XboxController secondaryController = new XboxController(1);
+    private final Joystick driver = new Joystick(0);
+    private final Joystick secondaryController = new Joystick(1);
 
     /* Drive Controls */
     private final int translationAxis = XboxController.Axis.kLeftY.value;
@@ -31,6 +31,7 @@ public class RobotContainer {
     /* Subsystems */
     private final Swerve s_Swerve = new Swerve();
     // private final XboxController secondaryController = new XboxController(0);
+    private final JoystickButton blinkinButton = new JoystickButton(driver, XboxController.Button.kY.value);
 
     private final Superstructure superstructure = new Superstructure();
 
@@ -76,9 +77,9 @@ public class RobotContainer {
         // secondaryController.getBackButton().onTrue(new ResetGyroCommand(drivetrainSubsystem));
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
     }
-
+//do new button bindings
     private void configureCoPilotButtonBindings() {
-        secondaryController.getYButton().whileTrue(new BlinkinCommand(0.67, blinkin));
+        blinkinButton.whileTrue(new BlinkinCommand(0.67, blinkin));
         secondaryController.getXButton().whileTrue(new BlinkinCommand(0.89, blinkin));
         secondaryController.getDPadButton(Direction.UP).onTrue(new ElevatorCommand(elevator,0.7));
         secondaryController.getDPadButton(Direction.DOWN).onTrue(new ElevatorCommand(elevator,-0.7));

@@ -11,6 +11,7 @@ public class BlinkinCommand extends CommandBase {
   /** Creates a new BlinkinCommand. */
 BlinkinSubsystem Blinkin;
 double LEDColor;
+//needs toggle and state
   public BlinkinCommand(double LEDColor, BlinkinSubsystem Blinkin) {
   this.Blinkin = Blinkin;
   addRequirements(Blinkin);

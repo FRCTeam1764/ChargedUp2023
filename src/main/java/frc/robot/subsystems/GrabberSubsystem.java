@@ -16,7 +16,6 @@ public class GrabberSubsystem extends SubsystemBase {
   public GrabberSubsystem() {
     grabberMotor = new LazyTalonFX(1,CANIVORE_NAME);
   }
-
   public void grabberOn(double grabberSpeed){
     grabberMotor.set(grabberSpeed);
   }

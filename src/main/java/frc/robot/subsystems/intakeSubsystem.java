@@ -18,7 +18,7 @@ public class intakeSubsystem extends SubsystemBase {
   double openPosition;
   double closedPosition;
 
-  
+  //needs fixed
   public intakeSubsystem(double openPosition, double closedPosition) {
   //this.intakeMotor = new SparkMaxAlternateEncoder(42);
   this.openPosition = openPosition;

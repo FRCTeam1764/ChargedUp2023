@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.libraries.internal.LazyTalonFX;
+import edu.wpi.first.wpilibj.Encoder;
 import static frc.robot.constants.Constants.*;
 
 public class PivotySubsystem extends SubsystemBase {
@@ -13,7 +14,7 @@ public class PivotySubsystem extends SubsystemBase {
   LazyTalonFX pivotyMotor;
   double pivotySpeed;
   Encoder thruboreEncoder;
-
+  //needs fixed
   public PivotySubsystem(){
     pivotyMotor = new LazyTalonFX(0, CANIVORE_NAME);
     breakBeamOne = new DigitalInput(5);
@@ -22,7 +23,9 @@ public class PivotySubsystem extends SubsystemBase {
   
   public void pivotyOn(double elevatorSpeed, int desiredEncoderValue){
     if(pivotySpeed > 0 && (thruboreEncoder.get() <= 0)){
+    if(pivotySpeed > 0 && (thruboreEncoder.get() <= 0)){
     pivotyMotor.set(pivotySpeed);
+    }else if(pivotySpeed < 0 && (thruboreEncoder.get() <= 106)){
     }else if(pivotySpeed < 0 && (thruboreEncoder.get() <= 106)){
       pivotyMotor.set(pivotySpeed);
     }else{

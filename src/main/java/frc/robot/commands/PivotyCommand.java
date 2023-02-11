@@ -14,6 +14,7 @@ public class PivotyCommand extends CommandBase {
   double pivotySpeed;
   DigitalInput breakBeamOne;
   DigitalInput breakBeamTwo;
+  //needs fixed
   public PivotyCommand(PivotySubsystem pivoty, double pivotySpeed) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.pivoty = pivoty;

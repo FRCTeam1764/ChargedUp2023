@@ -12,7 +12,7 @@ public class intakeCommand extends CommandBase {
   intakeSubsystem intake;
   double openPosition;
   double closedPosition;
-
+  //needs fixed
   public intakeCommand(intakeSubsystem intake, double openPosition, double closedPosition) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.openPosition = openPosition;

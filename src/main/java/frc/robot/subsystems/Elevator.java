@@ -17,9 +17,9 @@ public class Elevator extends SubsystemBase {
 
   public Elevator(){
     elevatorMotor = new LazyTalonFX(0,CANIVORE_NAME);
-    encoder = new Encoder(1,2);
+    
   }
-  
+  //needs fixed
   public void elevatorOn(double elevatorSpeed, int desiredEncoderValue){
     if(encoder.get() <= desiredEncoderValue && desiredEncoderValue > 10000){
     elevatorMotor.set(elevatorSpeed);
