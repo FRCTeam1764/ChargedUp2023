@@ -9,10 +9,11 @@ import frc.robot.constants.Constants;
 import frc.robot.libraries.internal.LazyTalonFX;
 import edu.wpi.first.wpilibj.DigitalInput;
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
 public class PivotySubsystem extends SubsystemBase {
   /** Creates a new Elevator. */
-  LazyTalonFX pivotyMotor1;
+  TalonFX pivotyMotor1;
   LazyTalonFX pivotyMotor2;
   double pivotySpeed;
   DigitalInput breakBeamOne;
@@ -24,8 +25,8 @@ public class PivotySubsystem extends SubsystemBase {
   }
   public void pivotyOn(double pivotySpeed, int desiredEncoderValue){
     if(!breakBeamOne.get()){
-      pivotyMotor1.configIntegratedSensorOffset(0);
-      pivotyMotor2.configIntegratedSensorOffset(0);
+      pivotyMotor1.getSensorCollection().setIntegratedSensorPosition(0.0,0);
+      pivotyMotor2.getSensorCollection().setIntegratedSensorPosition(0.0,0);
 
     }
     pivotyMotor1.set(ControlMode.Position, desiredEncoderValue);

@@ -27,11 +27,16 @@ public class RobotContainer {
     /* Driver Buttons */
     private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kStart.value);
     private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
+    private final JoystickButton blinkinButton = new JoystickButton(driver, XboxController.Button.kY.value);
 
+    /* CoPilot Buttons */
+    private final JoystickButton highRung = new JoystickButton(secondaryController, XboxController.Button.kY.value);
+    private final JoystickButton midRung = new JoystickButton(secondaryController, XboxController.Button.kX.value);
+    private final JoystickButton lowRung = new JoystickButton(secondaryController, XboxController.Button.kA.value);
     /* Subsystems */
     private final Swerve s_Swerve = new Swerve();
     // private final XboxController secondaryController = new XboxController(0);
-    private final JoystickButton blinkinButton = new JoystickButton(driver, XboxController.Button.kY.value);
+
 
     private final Superstructure superstructure = new Superstructure();
 
@@ -80,13 +85,15 @@ public class RobotContainer {
     }
 //do new button bindings
     private void configureCoPilotButtonBindings() {
-        
+        highRung.onTrue(new ElevatorPivotyCommandGroup(elevator, .8, pivoty, .8, 1234, 3));
+        midRung.onTrue(new ElevatorPivotyCommandGroup(elevator, .8, pivoty, .8, 1000, 2));
+        lowRung.onTrue(new ElevatorPivotyCommandGroup(elevator, .8, pivoty, .8, 500, 1));
         secondaryController.getDPadButton(Direction.UP).onTrue(new ElevatorCommand(elevator,0.7));
         secondaryController.getDPadButton(Direction.DOWN).onTrue(new ElevatorCommand(elevator,-0.7));
-        secondaryController.getAButton().onTrue(new GrabberCommand(grabber, 0.7));
-        secondaryController.getBButton().onTrue(new GrabberCommand(grabber, -.07));
-        secondaryController.getXButton().onTrue(new GrabberCommandCone(grabberCone, 0.7));
-        secondaryController.getYButton().onTrue(new GrabberCommandCone(grabberCone, -.07));
+        // secondaryController.getAButton().onTrue(new GrabberCommand(grabber, 0.7));
+        // secondaryController.getBButton().onTrue(new GrabberCommand(grabber, -.07));
+        // secondaryController.getXButton().onTrue(new GrabberCommandCone(grabberCone, 0.7));
+        // secondaryController.getYButton().onTrue(new GrabberCommandCone(grabberCone, -.07));
         secondaryController.getDPadButton(Direction.LEFT).onTrue(new PivotyCommand(pivoty,0.7));
         secondaryController.getDPadButton(Direction.RIGHT).onTrue(new PivotyCommand(pivoty,-0.7));
     }
@@ -123,7 +130,7 @@ public class RobotContainer {
     //     return visionSubsystem;
     // }
 
-    public XboxController getsecondaryController() {
+    public Joystick getsecondaryController() {
         return secondaryController;
     }
 

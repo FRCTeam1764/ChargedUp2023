@@ -28,7 +28,7 @@ public class PivotyCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    pivoty.pivotyOn(pivotySpeed, 69420);
+    pivoty.pivotyOn(pivotySpeed, desiredEncoderValue);
   }
 
   // Called once the command ends or is interrupted.
