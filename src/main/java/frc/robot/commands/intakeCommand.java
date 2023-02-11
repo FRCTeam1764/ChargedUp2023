@@ -5,16 +5,19 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.BlinkinSubsystem;
+import frc.robot.subsystems.intakeSubsystem;
 
-public class BlinkinCommand extends CommandBase {
-  /** Creates a new BlinkinCommand. */
-BlinkinSubsystem Blinkin;
-double LEDColor;
-  public BlinkinCommand(double LEDColor, BlinkinSubsystem Blinkin) {
-  this.Blinkin = Blinkin;
-  addRequirements(Blinkin);
-  this.LEDColor = LEDColor;
+public class intakeCommand extends CommandBase {
+  /** Creates a new intakeCommand. */
+  intakeSubsystem intake;
+  double openPosition;
+  double closedPosition;
+
+  public intakeCommand(intakeSubsystem intake, double openPosition, double closedPosition) {
+    // Use addRequirements() here to declare subsystem dependencies.
+    this.openPosition = openPosition;
+    this.closedPosition = closedPosition;
+    this.intake = intake;
   }
 
   // Called when the command is initially scheduled.
@@ -24,14 +27,14 @@ double LEDColor;
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Blinkin.setLEDs(LEDColor);
-    System.out.println("It gets here");
-
+    intake.intakeOn(closedPosition);
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    intake.intakeOff(openPosition);
+  }
 
   // Returns true when the command should end.
   @Override

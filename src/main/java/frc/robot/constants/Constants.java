@@ -41,6 +41,16 @@ public final class Constants {
     public static final double BACK_LEFT_MODULE_STEER_ENCODER =   (18);
     public static final double BACK_RIGHT_MODULE_STEER_ENCODER =   (17);
 
+    public static final double BACK_INTAKE_MOTOR =  (21);
+    public static final double SIDE_INTAKE_MOTOR =  (22);
+    public static final double INTAKE_OPENER_MOTOR =  (23);
+
+    // public static final doublePIVOTY_THRUBORE_ENCODER =  (31);
+    public static final double PIVOTY_MOTOR =  (32);
+
+    // public static final doubleELEVEATOR_ENCODER =  (41);
+    public static final double ELEVATOR_MOTOR =  (42);
+
     // In degrees
     // increasing turns clockwise
     public static final double FRONT_LEFT_MODULE_STEER_OFFSET = Math.toRadians(-11.46);
@@ -53,7 +63,7 @@ public final class Constants {
     public static final int PRESSURE_SENSOR_PORT = 0;
 
     // HI :D
-    public static final int INTAKE_SOLENOID_FORWARD = 0;
-    public static final int INTAKE_SOLENOID_REVERSE = 1;
+    //public static final int INTAKE_SOLENOID_FORWARD = 0;
+    //public static final int INTAKE_SOLENOID_REVERSE = 1;
 
 }

@@ -4,28 +4,35 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.SparkMaxAbsoluteEncoder;
+import com.revrobotics.SparkMaxAlternateEncoder;
+
+import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.constants.Constants;
 
 public class intakeSubsystem extends SubsystemBase {
   /** Creates a new intakeSubsystem. */
+  SparkMaxAlternateEncoder intakeMotor;
+  double openPosition;
+  double closedPosition;
 
-   DoubleSolenoid intakeSolenoid;
+  
+  public intakeSubsystem(double openPosition, double closedPosition) {
+  //this.intakeMotor = new SparkMaxAlternateEncoder(42);
+  this.openPosition = openPosition;
+  //this.losedPosition = openPosition;
 
-  public intakeSubsystem() {
-
-    intakeSolenoid = new DoubleSolenoid(1, null, Constants.INTAKE_SOLENOID_FORWARD, Constants.INTAKE_SOLENOID_REVERSE);
   }
-  public void intakeOn(double speed){
-    intakeSolenoid.set(Value.kForward);
+  public void intakeOn(double openPosition){
+    intakeMotor.setPosition(openPosition);
 
   }
-  public void intakeOff(){
-    intakeSolenoid.set(Value.kReverse);
+  public void intakeOff(double closePosition){
+    intakeMotor.setPosition(closedPosition);
 
-    //I DID IT :DDDDDDDDDDDD wahoo!
+    //I DID IT :DDDDDDDDDDDDDDDDDD wahoo!
   }
 
   @Override
