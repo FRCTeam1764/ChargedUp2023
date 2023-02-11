@@ -1,14 +1,10 @@
 package frc.robot;
 
 
-import com.revrobotics.ColorMatch;
-import com.revrobotics.ColorMatchResult;
-import com.revrobotics.ColorSensorV3;
 
 
-import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.BlinkinCommand;
 import frc.robot.libraries.external.math.RigidTransform2;
@@ -23,13 +19,10 @@ public class Robot extends TimedRobot {
    private static Robot instance = null;
    private GrabberSubsystemCone grabberCone;
    private GrabberSubsystem grabber;
-   //changing I2c port to match connection of color sensor
-   private final I2C.Port i2cPort = I2C.Port.kOnboard;
-   private final ColorSensorV3 m_colorSensor = new ColorSensorV3(i2cPort);
-   private final ColorMatch m_colorMatcher = new ColorMatch();
   
-   private final Color kYellowTarget = new Color(0.255, 0.211, 0.033);
-   private final Color kPurpleTarget = new Color(0.096, 0.033, 0.255);
+   DigitalInput color = new DigitalInput(5); //5 is just a place holder
+   int cubeColor = 0;
+   int coneColor = 1;
    // (^ v ^) colors :D
 
 
@@ -59,26 +52,22 @@ public class Robot extends TimedRobot {
 
        updateManager.startLoop(5.0e-3);
        robotContainer.getVisionSubsystem().setLedMode(Limelight.LedMode.OFF);
-       m_colorMatcher.addColorMatch(kYellowTarget);
-       m_colorMatcher.addColorMatch(kPurpleTarget);
    }
 
 
    @Override
    public void robotPeriodic() {
        CommandScheduler.getInstance().run();
-       Color detectedColor = m_colorSensor.getColor();
+       color.get();
 
 
-       ColorMatchResult match = m_colorMatcher.matchClosestColor(detectedColor);
 
-
-       if(match.color == kYellowTarget){
+       if(color = cubeColor){
            grabberCone.grabberConeOn(kDefaultPeriod);
 
 
        }
-       else if(match.color == kPurpleTarget){
+       else if(!color.get()){
            grabber.grabberOn(kDefaultPeriod);
        }
       
