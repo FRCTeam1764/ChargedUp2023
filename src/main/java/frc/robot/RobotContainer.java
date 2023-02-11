@@ -16,7 +16,8 @@ import frc.robot.libraries.external.robot.input.DPadButton.Direction;
 import edu.wpi.first.wpilibj.XboxController;
 
 public class RobotContainer {
-    private final Joystick driver = new Joystick(0);
+    private final XboxController driver = new XboxController(0);
+    private final XboxController secondaryController = new XboxController(1);
 
     /* Drive Controls */
     private final int translationAxis = XboxController.Axis.kLeftY.value;
@@ -24,12 +25,12 @@ public class RobotContainer {
     private final int rotationAxis = XboxController.Axis.kRightX.value;
 
     /* Driver Buttons */
-    private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kY.value);
+    private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kStart.value);
     private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
 
     /* Subsystems */
     private final Swerve s_Swerve = new Swerve();
-    private final XboxController primaryController = new XboxController(0);
+    // private final XboxController secondaryController = new XboxController(0);
 
     private final Superstructure superstructure = new Superstructure();
 
@@ -43,8 +44,8 @@ public class RobotContainer {
     // private final AutonomousChooser autonomousChooser;
 
     public RobotContainer() {
-        // primaryController.getLeftXAxis().setInverted(true);
-        // primaryController.getRightXAxis().setInverted(true);
+        // secondaryController.getLeftXAxis().setInverted(true);
+        // secondaryController.getRightXAxis().setInverted(true);
 
         // CommandScheduler.getInstance().registerSubsystem(visionSubsystem);
         // CommandScheduler.getInstance().registerSubsystem(drivetrainSubsystem);
@@ -71,19 +72,19 @@ public class RobotContainer {
     }
 
     private void configurePilotButtonBindings() {
-        // primaryController.getBackButton().onTrue(new ResetGyroCommand(drivetrainSubsystem));
+        // secondaryController.getBackButton().onTrue(new ResetGyroCommand(drivetrainSubsystem));
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
     }
 
     private void configureCoPilotButtonBindings() {
-    //     primaryController.getDPadButton(Direction.UP).onTrue(new ElevatorCommand(elevator,0.7));
-    //     primaryController.getDPadButton(Direction.DOWN).onTrue(new ElevatorCommand(elevator,-0.7));
-    //     primaryController.getAButton().onTrue(new GrabberCommand(grabber, 0.7));
-    //     primaryController.getBButton().onTrue(new GrabberCommand(grabber, -.07));
-    //     primaryController.getXButton().onTrue(new GrabberCommandCone(grabberCone, 0.7));
-    //     primaryController.getYButton().onTrue(new GrabberCommandCone(grabberCone, -.07));
-    //     primaryController.getDPadButton(Direction.LEFT).onTrue(new PivotyCommand(pivoty,0.7));
-    //     primaryController.getDPadButton(Direction.RIGHT).onTrue(new PivotyCommand(pivoty,-0.7));
+        secondaryController.getDPadButton(Direction.UP).onTrue(new ElevatorCommand(elevator,0.7));
+        secondaryController.getDPadButton(Direction.DOWN).onTrue(new ElevatorCommand(elevator,-0.7));
+        secondaryController.getAButton().onTrue(new GrabberCommand(grabber, 0.7));
+        secondaryController.getBButton().onTrue(new GrabberCommand(grabber, -.07));
+        secondaryController.getXButton().onTrue(new GrabberCommandCone(grabberCone, 0.7));
+        secondaryController.getYButton().onTrue(new GrabberCommandCone(grabberCone, -.07));
+        secondaryController.getDPadButton(Direction.LEFT).onTrue(new PivotyCommand(pivoty,0.7));
+        secondaryController.getDPadButton(Direction.RIGHT).onTrue(new PivotyCommand(pivoty,-0.7));
     }
 
     // public Command getAutonomousCommand() {
@@ -95,15 +96,15 @@ public class RobotContainer {
     // }
 
     // private Axis getDriveForwardAxis() {
-    //     return primaryController.getLeftYAxis();
+    //     return secondaryController.getLeftYAxis();
     // }
 
     // private Axis getDriveStrafeAxis() {
-    //     return primaryController.getLeftXAxis();
+    //     return secondaryController.getLeftXAxis();
     // }
 
     // private Axis getDriveRotationAxis() {
-    //     return primaryController.getRightXAxis();
+    //     return secondaryController.getRightXAxis();
     // }
 
     // public DrivetrainSubsystem getDrivetrainSubsystem() {
@@ -118,8 +119,8 @@ public class RobotContainer {
     //     return visionSubsystem;
     // }
 
-    public XboxController getPrimaryController() {
-        return primaryController;
+    public XboxController getsecondaryController() {
+        return secondaryController;
     }
 
     // public AutonomousChooser getAutonomousChooser() {
