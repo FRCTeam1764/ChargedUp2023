@@ -21,6 +21,7 @@ public class Elevator extends SubsystemBase {
   DigitalInput minExtend;
   DigitalInput maxExtend;
   DigitalInput midExtend;
+  DigitalInput no;
 
   public Elevator(){
     elevatorMotor1 = new LazyTalonFX(0,Constants.CANIVORE_NAME);
@@ -41,7 +42,11 @@ public class Elevator extends SubsystemBase {
     else{
       elevatorMotor1.set(0);
     }
+    
+
   }
+
+
 
   public void elevatorOff(){
     elevatorMotor1.set(0);
@@ -67,7 +72,7 @@ public class Elevator extends SubsystemBase {
       return maxExtend;
     }
     else{
-      return null;
+      return no;
     }
   }
 }

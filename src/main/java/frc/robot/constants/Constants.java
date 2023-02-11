@@ -54,7 +54,7 @@ public final class Constants {
     public static final int MIN_EXTEND_BREAK_BEAM = 0;
     public static final int MAX_EXTEND_BREAK_BEAM = 2;
     public static final int MID_EXTEND_BREAK_BEAM = 4;
-    public static final double PIVOTY_BREAK_BEAM = 6;
+    public static final int PIVOTY_BREAK_BEAM = 6;
     public static final double COLOR_SENSOR = 8;
     // In degrees
     // increasing turns clockwise

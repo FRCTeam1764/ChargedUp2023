@@ -47,7 +47,7 @@ public class Robot extends TimedRobot {
         // robotContainer.getVisionSubsystem().setLedMode(Limelight.LedMode.OFF);
         ctreConfigs = new CTREConfigs();
         
-        CommandScheduler.getInstance().schedule(new BlinkinCommand(-.95, robotContainer.getBlinkinSubsystem()));
+        // CommandScheduler.getInstance().schedule(new BlinkinCommand(-.95, robotContainer.getBlinkinSubsystem()));
     }
 
     @Override
