@@ -11,27 +11,39 @@ import static frc.robot.constants.Constants.*;
 
 public class Elevator extends SubsystemBase {
   /** Creates a new Elevator. */
-  LazyTalonFX elevatorMotor;
+  LazyTalonFX elevatorMotor1;
+
+  LazyTalonFX elevatorMotor2;
   double elevatorSpeed;
   Encoder encoder;
 
   public Elevator(){
-    elevatorMotor = new LazyTalonFX(0,CANIVORE_NAME);
+    elevatorMotor1 = new LazyTalonFX(0,CANIVORE_NAME);
+    elevatorMotor2 = new LazyTalonFX(1);
+
     
   }
   //needs fixed
   public void elevatorOn(double elevatorSpeed, int desiredEncoderValue){
     if(encoder.get() <= desiredEncoderValue && desiredEncoderValue > 10000){
-    elevatorMotor.set(elevatorSpeed);
+    elevatorMotor1.set(elevatorSpeed);
+    elevatorMotor2.set(elevatorSpeed);
+
     }else if(encoder.get() >= desiredEncoderValue){
-    elevatorMotor.set(elevatorSpeed);
+    elevatorMotor1.set(elevatorSpeed);
+    elevatorMotor2.set(elevatorSpeed);
+
     }else {
-      elevatorMotor.set(0);
+      elevatorMotor1.set(0);
+      elevatorMotor2.set(0);
+
     }
   }
 
   public void elevatorOff(){
-    elevatorMotor.set(0);
+    elevatorMotor1.set(0);
+    elevatorMotor2.set(0);
+
   }
   
   @Override
