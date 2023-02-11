@@ -11,7 +11,7 @@ public class BlinkinSubsystem extends SubsystemBase {
   /** Creates a new BlinkinSubsystem. */
   Spark blinkin;
   // double LEDColor;
-
+  double LEDColor;
 
   public BlinkinSubsystem() {
     //:D wahoo!
@@ -20,12 +20,30 @@ public class BlinkinSubsystem extends SubsystemBase {
     
   }
   //zach is so very cool :D (better than aiden and sawyer) he's so cool :3
-  public void setLEDs(double LEDColor){
+  public void setLEDs(){
     System.out.println("set LEDs");
-    blinkin.set(LEDColor);
+    blinkin.set(getLEDColor());
   }
 //i did it :DDDDDDDDDDDDDDDDDDD
-
+  public void setLEDColor() {
+      if(LEDColor == .67){
+        LEDColor =.89;
+      }
+      if(LEDColor == .89){
+        LEDColor = .67;
+      }
+  }
+  public double getLEDColor(){
+    if(LEDColor==.89){
+      return .67;
+    }
+    if(LEDColor == .67){
+      return .89;
+    }
+    else{
+      return (Double) null;
+    }
+  }
 
   @Override
   public void periodic() {

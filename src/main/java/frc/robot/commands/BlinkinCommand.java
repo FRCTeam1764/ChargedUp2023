@@ -10,12 +10,10 @@ import frc.robot.subsystems.BlinkinSubsystem;
 public class BlinkinCommand extends CommandBase {
   /** Creates a new BlinkinCommand. */
 BlinkinSubsystem Blinkin;
-double LEDColor;
 //needs toggle and state
-  public BlinkinCommand(double LEDColor, BlinkinSubsystem Blinkin) {
+  public BlinkinCommand( BlinkinSubsystem Blinkin) {
   this.Blinkin = Blinkin;
   addRequirements(Blinkin);
-  this.LEDColor = LEDColor;
   }
 
   // Called when the command is initially scheduled.
@@ -25,14 +23,16 @@ double LEDColor;
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Blinkin.setLEDs(LEDColor);
+    Blinkin.setLEDs();
     System.out.println("It gets here");
 
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    Blinkin.setLEDColor();
+  }
 
   // Returns true when the command should end.
   @Override

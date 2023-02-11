@@ -12,11 +12,12 @@ public class ElevatorCommand extends CommandBase {
   //needs fixed
   Elevator elevator;
   double elevatorSpeed;
-  int desiredEncoderSpeed;
-  public ElevatorCommand(Elevator elevator, double elevatorSpeed) {
+  int heightLevel;
+  public ElevatorCommand(Elevator elevator, double elevatorSpeed, int heightLevel) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.elevator = elevator;
     this.elevatorSpeed = elevatorSpeed;
+    this.heightLevel = heightLevel;
   }
 
   // Called when the command is initially scheduled.
@@ -26,7 +27,7 @@ public class ElevatorCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    elevator.elevatorOn(elevatorSpeed, desiredEncoderSpeed);
+    elevator.elevatorOn(elevatorSpeed, heightLevel);
   }
 
   // Called once the command ends or is interrupted.

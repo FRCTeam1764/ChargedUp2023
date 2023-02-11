@@ -18,14 +18,16 @@ public class ElevatorPivotyCommandGroup extends ParallelCommandGroup {
     Elevator elevator,
     double elevatorSpeed,
     PivotySubsystem pivoty,
-    double pivotySpeed
+    double pivotySpeed,
+    int desiredEncoderValue,
+    int heightLevel
   ) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
 
     addCommands(
-      new PivotyCommand(pivoty, pivotySpeed),
-      new ElevatorCommand(elevator, elevatorSpeed)
+      new PivotyCommand(pivoty, pivotySpeed, desiredEncoderValue),
+      new ElevatorCommand(elevator, elevatorSpeed, heightLevel)
     );
   }
 }

@@ -5,21 +5,21 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.constants.Constants;
 import frc.robot.libraries.internal.LazyTalonFX;
-import edu.wpi.first.wpilibj.Encoder;
-import static frc.robot.constants.Constants.*;
+import edu.wpi.first.wpilibj.DigitalInput;
+import com.ctre.phoenix.motorcontrol.ControlMode;
 
 public class PivotySubsystem extends SubsystemBase {
   /** Creates a new Elevator. */
   LazyTalonFX pivotyMotor1;
   LazyTalonFX pivotyMotor2;
   double pivotySpeed;
-  Encoder thruboreEncoder;
-  //needs fixed
+  DigitalInput breakBeamOne;
   public PivotySubsystem(){
-    pivotyMotor1 = new LazyTalonFX(0);
-    pivotyMotor2 = new LazyTalonFX(2);
-    breakBeamOne = new DigitalInput(5);
+    pivotyMotor1 = new LazyTalonFX(0, Constants.CANIVORE_NAME);
+    pivotyMotor2 = new LazyTalonFX(2, Constants.CANIVORE_NAME);
+    breakBeamOne = new DigitalInput(Constants.PIVOTY_BREAK_BEAM);
   //  breakBeamTwo = new DigitalInput(6);
   }
   public void pivotyOn(double pivotySpeed, int desiredEncoderValue){
@@ -28,8 +28,8 @@ public class PivotySubsystem extends SubsystemBase {
       pivotyMotor2.configIntegratedSensorOffset(0);
 
     }
-    pivotyMotor1.set(pivotySpeed);
-    pivotyMotor2.set(pivotySpeed);
+    pivotyMotor1.set(ControlMode.Position, desiredEncoderValue);
+    pivotyMotor2.set(ControlMode.Position, desiredEncoderValue);
 
 
  

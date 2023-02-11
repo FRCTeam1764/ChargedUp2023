@@ -76,11 +76,11 @@ public class RobotContainer {
     private void configurePilotButtonBindings() {
         // secondaryController.getBackButton().onTrue(new ResetGyroCommand(drivetrainSubsystem));
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
+        blinkinButton.whileTrue(new BlinkinCommand( blinkin));
     }
 //do new button bindings
     private void configureCoPilotButtonBindings() {
-        blinkinButton.whileTrue(new BlinkinCommand(0.67, blinkin));
-        secondaryController.getXButton().whileTrue(new BlinkinCommand(0.89, blinkin));
+        
         secondaryController.getDPadButton(Direction.UP).onTrue(new ElevatorCommand(elevator,0.7));
         secondaryController.getDPadButton(Direction.DOWN).onTrue(new ElevatorCommand(elevator,-0.7));
         secondaryController.getAButton().onTrue(new GrabberCommand(grabber, 0.7));

@@ -15,7 +15,7 @@ public class PivotyCommand extends CommandBase {
   DigitalInput breakBeamOne;
   DigitalInput breakBeamTwo;
   //needs fixed
-  public PivotyCommand(PivotySubsystem pivoty, double pivotySpeed) {
+  public PivotyCommand(PivotySubsystem pivoty, double pivotySpeed, int desiredEncoderValue) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.pivoty = pivoty;
     this.pivotySpeed = pivotySpeed;
@@ -28,7 +28,7 @@ public class PivotyCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    pivoty.pivotyOn(pivotySpeed, 1);
+    pivoty.pivotyOn(pivotySpeed, 69420);
   }
 
   // Called once the command ends or is interrupted.
