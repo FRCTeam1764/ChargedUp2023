@@ -39,6 +39,10 @@ public class RobotContainer {
     private final JoystickButton elevatorRight = new JoystickButton(secondaryController, XboxController.Button.kStart.value);
 
 
+    /* CoPilot Buttons */
+    private final JoystickButton highRung = new JoystickButton(secondaryController, XboxController.Button.kY.value);
+    private final JoystickButton midRung = new JoystickButton(secondaryController, XboxController.Button.kX.value);
+    private final JoystickButton lowRung = new JoystickButton(secondaryController, XboxController.Button.kA.value);
     /* Subsystems */
     private final Swerve s_Swerve = new Swerve();
     // private final XboxController secondaryController = new XboxController(0);

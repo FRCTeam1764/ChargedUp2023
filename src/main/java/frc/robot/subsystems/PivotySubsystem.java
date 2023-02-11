@@ -15,7 +15,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
 public class PivotySubsystem extends SubsystemBase {
   /** Creates a new Elevator. */
-  LazyTalonFX pivotyMotor1;
+  TalonFX pivotyMotor1;
   LazyTalonFX pivotyMotor2;
   double pivotySpeed;
   DigitalInput breakBeamOne;
@@ -29,6 +29,7 @@ public class PivotySubsystem extends SubsystemBase {
     if(!breakBeamOne.get()){
       pivotyMotor1.getSensorCollection().setIntegratedSensorPosition(0.0,0);
       pivotyMotor2.getSensorCollection().setIntegratedSensorPosition(0.0,0);
+
     }
     pivotyMotor1.set(ControlMode.Position, desiredEncoderValue);
     pivotyMotor2.set(ControlMode.Position, desiredEncoderValue);
