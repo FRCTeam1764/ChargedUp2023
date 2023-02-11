@@ -1,6 +1,5 @@
 package frc.robot;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -13,6 +12,7 @@ import frc.robot.libraries.external.math.Rotation2;
 import frc.robot.libraries.external.robot.input.Axis;
 // import frc.robot.libraries.external.robot.input.XboxController;
 import frc.robot.libraries.external.robot.input.DPadButton.Direction;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 
 public class RobotContainer {
@@ -38,11 +38,6 @@ public class RobotContainer {
     private final JoystickButton elevatorLeft = new JoystickButton(secondaryController, XboxController.Button.kBack.value);
     private final JoystickButton elevatorRight = new JoystickButton(secondaryController, XboxController.Button.kStart.value);
 
-
-    /* CoPilot Buttons */
-    private final JoystickButton highRung = new JoystickButton(secondaryController, XboxController.Button.kY.value);
-    private final JoystickButton midRung = new JoystickButton(secondaryController, XboxController.Button.kX.value);
-    private final JoystickButton lowRung = new JoystickButton(secondaryController, XboxController.Button.kA.value);
     /* Subsystems */
     private final Swerve s_Swerve = new Swerve();
     // private final XboxController secondaryController = new XboxController(0);
@@ -84,9 +79,10 @@ public class RobotContainer {
         // autonomousChooser = new AutonomousChooser(trajectories);
     }
 
-    private void setTrajectories() {
-        trajectories = Trajectories.getTrajectories();
-    }
+   private void setTrajectories() {
+       trajectories = Trajectories.getTrajectories();
+   }
+
 
     private void configurePilotButtonBindings() {
         // secondaryController.getBackButton().onTrue(new ResetGyroCommand(drivetrainSubsystem));
@@ -138,9 +134,10 @@ public class RobotContainer {
     //     return drivetrainSubsystem;
     // }
 
-    public Superstructure getSuperstructure() {
-        return superstructure;
-    }
+   public Superstructure getSuperstructure() {
+       return superstructure;
+   }
+
 
     // public VisionSubsystem getVisionSubsystem() {
     //     return visionSubsystem;
@@ -154,10 +151,23 @@ public class RobotContainer {
     //     return autonomousChooser;
     // }
 
-    public Trajectory[] getTrajectories() {
-        return trajectories;
-    }
+   public Trajectory[] getTrajectories() {
+       return trajectories;
+   }
     public BlinkinSubsystem getBlinkinSubsystem(){
         return blinkin;
     }
+
+
+   public GrabberSubsystem getGrabberSubsystem() {
+       return grabber;
+   }
+
+
+   public GrabberSubsystemCone getGrabberConeSubsystem() {
+       return grabberCone;
+   }
+   public BlinkinSubsystem getBlinkinSubsystem() {
+    return blinkin;
+   }
 }
