@@ -12,6 +12,7 @@ import com.revrobotics.SparkMaxAlternateEncoder;
 import com.revrobotics.CANSparkMax.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -29,6 +30,7 @@ public class intakeSubsystem extends SubsystemBase {
   RelativeEncoder encoder;
   CANSparkMax sideRollers;
   CANSparkMax backRoller;
+  DigitalInput color;
   
   public intakeSubsystem(double openPosition, double closedPosition) {
   // this.intakeMotor = new SparkMaxAlternateEncoder(sparkMax, 42);
@@ -36,10 +38,14 @@ public class intakeSubsystem extends SubsystemBase {
     CANSparkMax sideRollers = new CANSparkMax(1,MotorType.kBrushless);
     CANSparkMax backRollers = new CANSparkMax(1, MotorType.kBrushless);
     
+    DigitalInput color = new DigitalInput(5); //5 is just a place holder
+
+    // We got color!!! :D
+    
   }
   public void intakeClose(){
     sideRollers.set(0.5);
-    if (Robot.color  == "yellow") {
+    if (color.get()) {
       backRoller.set(0.5);
     } else {
       backRoller.set(0);

@@ -21,12 +21,8 @@ import frc.robot.subsystems.GrabberSubsystemCone;
 
 public class Robot extends TimedRobot {
    private static Robot instance = null;
-   private GrabberSubsystemCone grabberCone;
-   private GrabberSubsystem grabber;
+   
   
-   DigitalInput color = new DigitalInput(5); //5 is just a place holder
-   int cubeColor = 0;
-   int coneColor = 1;
    // (^ v ^) colors :D
 
     public static CTREConfigs ctreConfigs;
@@ -67,26 +63,15 @@ public class Robot extends TimedRobot {
    @Override
    public void robotPeriodic() {
        CommandScheduler.getInstance().run();
-       color.get();
-
-
-
-       if(color = cubeColor){
-           grabberCone.grabberConeOn(kDefaultPeriod);
-
-
-       }
-       else if(!color.get()){
-           grabber.grabberOn(kDefaultPeriod);
-       }
+    
       
    }
 
 
    @Override
    public void autonomousInit() {
-       robotContainer.getDrivetrainSubsystem().resetPose(RigidTransform2.ZERO);
-       robotContainer.getDrivetrainSubsystem().resetGyroAngle(Rotation2.ZERO);
+    //    robotContainer.getDrivetrainSubsystem().resetPose(RigidTransform2.ZERO);
+    //    robotContainer.getDrivetrainSubsystem().resetGyroAngle(Rotation2.ZERO);
 
 
        robotContainer.getAutonomousCommand().schedule();
