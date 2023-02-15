@@ -22,6 +22,7 @@ public class PivotyCommand extends CommandBase {
     this.pivoty = pivoty;
     this.pivotySpeed = pivotySpeed;
     this.desiredEncoderValue = desiredEncoderValue;
+    addRequirements(pivoty);
   }
 
   // Called when the command is initially scheduled.

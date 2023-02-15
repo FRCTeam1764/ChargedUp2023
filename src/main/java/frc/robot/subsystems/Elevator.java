@@ -36,8 +36,10 @@ boolean BreakBeamOffOrOn = false;
 
     
   }
+
+
+  //Elevator goes to the breakbeam specified via "heightlevel", speed can be negative or positive
   public void elevatorOn(double elevatorSpeed, int heightLevel){
-//toggles between going foward and backward depending on where we need to go 
     if (heightLevel < previousHeightLevel) { 
       BreakBeamOffOrOn = false;
       Reverse = -1.0;
@@ -68,11 +70,7 @@ boolean BreakBeamOffOrOn = false;
 
   }
   
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
 
-  }
   public boolean IsWantedHeight(int heightLevel) {
     if (previousHeightLevel == heightLevel){
       return true;
@@ -95,4 +93,11 @@ boolean BreakBeamOffOrOn = false;
     }
   }
   //assigning height levels numbers, numbers cooralate to min, mid, and max.
+
+  @Override
+  public void periodic() {
+    // This method will be called once per scheduler run
+
+  }
+
 }

@@ -4,21 +4,13 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenixpro.controls.VelocityVoltage;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
-import com.revrobotics.SparkMaxAbsoluteEncoder;
-import com.revrobotics.SparkMaxAlternateEncoder;
-import com.revrobotics.CANSparkMax.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Robot;
 import frc.robot.constants.Constants;
-import frc.robot.libraries.internal.LazyTalonFX;
 
 public class intakeSubsystem extends SubsystemBase {
   /** Creates a new intakeSubsystem. */
@@ -44,6 +36,8 @@ public class intakeSubsystem extends SubsystemBase {
     // We got color!!! :D
     
   }
+  //intake - has built in color sensor, intakes ball/cone depending on it
+  //has 2 different "open" methods
   public void intakeClose(){
     sideRollers.set(0.5);
     if (color.get()) {

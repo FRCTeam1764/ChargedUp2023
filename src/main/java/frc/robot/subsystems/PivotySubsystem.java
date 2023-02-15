@@ -20,12 +20,16 @@ public class PivotySubsystem extends SubsystemBase {
   LazyTalonFX pivotyMotor2;
   double pivotySpeed;
   DigitalInput breakBeamOne;
+
   public PivotySubsystem(){
     pivotyMotor1 = new LazyTalonFX(0, Constants.CANIVORE_NAME);
     pivotyMotor2 = new LazyTalonFX(2, Constants.CANIVORE_NAME);
     breakBeamOne = new DigitalInput(Constants.PIVOTY_BREAK_BEAM);
   //  breakBeamTwo = new DigitalInput(6);
   }
+
+
+  //pivoty - takes in a desired encoder value translated to a "angle" for the motor, iwth a speed
   public void pivotyOn(double pivotySpeed, int desiredEncoderValue){
     if(!breakBeamOne.get()){
       pivotyMotor1.getSensorCollection().setIntegratedSensorPosition(0.0,0);

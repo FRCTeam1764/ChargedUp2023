@@ -97,14 +97,14 @@ public class RobotContainer {
         highRung.onTrue(new ElevatorPivotyCommandGroup(elevator, .8, pivoty, .8, 1234, 3));
         midRung.onTrue(new ElevatorPivotyCommandGroup(elevator, .8, pivoty, .8, 1000, 2));
         lowRung.onTrue(new ElevatorPivotyCommandGroup(elevator, .8, pivoty, .8, 500, 1));
-        secondaryController.getDPadButton(Direction.UP).onTrue(new ElevatorCommand(elevator,0.7));
-        secondaryController.getDPadButton(Direction.DOWN).onTrue(new ElevatorCommand(elevator,-0.7));
+       // secondaryController.getDPadButton(Direction.UP).onTrue(new ElevatorCommand(elevator,0.7)); maybe find dpadbuttons
+       // secondaryController.getDPadButton(Direction.DOWN).onTrue(new ElevatorCommand(elevator,-0.7));
         // secondaryController.getAButton().onTrue(new GrabberCommand(grabber, 0.7));
         // secondaryController.getBButton().onTrue(new GrabberCommand(grabber, -.07));
         // secondaryController.getXButton().onTrue(new GrabberCommandCone(grabberCone, 0.7));
         // secondaryController.getYButton().onTrue(new GrabberCommandCone(grabberCone, -.07));
-        secondaryController.getDPadButton(Direction.LEFT).onTrue(new PivotyCommand(pivoty,0.7));
-        secondaryController.getDPadButton(Direction.RIGHT).onTrue(new PivotyCommand(pivoty,-0.7));
+        //secondaryController.getDPadButton(Direction.LEFT).onTrue(new PivotyCommand(pivoty,0.7));maybe find dpadbuttons
+        //secondaryController.getDPadButton(Direction.RIGHT).onTrue(new PivotyCommand(pivoty,-0.7));
         elevatorUp.whileTrue(new ElevatorCommand(elevator, .8 , 3));
         elevatorDown.whileTrue(new ElevatorCommand(elevator, 0.8, 1));
         elevatorLeft.whileTrue(new PivotyCommand(pivoty, 0.8, 69420));
