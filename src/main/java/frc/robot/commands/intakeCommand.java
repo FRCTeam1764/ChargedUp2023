@@ -10,12 +10,12 @@ import frc.robot.subsystems.intakeSubsystem;
 public class intakeCommand extends CommandBase {
   /** Creates a new intakeCommand. */
   intakeSubsystem intake;
-  double openPosition;
-  double closedPosition;
-  public intakeCommand(intakeSubsystem intake, double openPosition, double closedPosition) {
+  double openSpeed;
+  double closedSpeed;
+  public intakeCommand(intakeSubsystem intake, double openSpeed, double closedSpeed) {
     // Use addRequirements() here to declare subsystem dependencies.
-    this.openPosition = openPosition;
-    this.closedPosition = closedPosition;
+    this.openSpeed = openSpeed;
+    this.closedSpeed = closedSpeed;
     this.intake = intake;
   }
 
@@ -26,13 +26,13 @@ public class intakeCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intake.intakeClose();
+    intake.intakeClose(closedSpeed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    intake.intakeOpen();
+    intake.intakeOpen(openSpeed);
   }
 
   // Returns true when the command should end.

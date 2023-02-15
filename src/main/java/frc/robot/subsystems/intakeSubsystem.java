@@ -38,8 +38,8 @@ public class intakeSubsystem extends SubsystemBase {
   }
   //intake - has built in color sensor, intakes ball/cone depending on it
   //has 2 different "open" methods
-  public void intakeClose(){
-    sideRollers.set(0.5);
+  public void intakeClose(double intakeSpeed){
+    sideRollers.set(intakeSpeed);
     if (color.get()) {
       backRollers.set(0.5);
     } else {
@@ -56,15 +56,18 @@ public class intakeSubsystem extends SubsystemBase {
     timer += 1;   
   }
   
-  public void intakeOpen(){
+  public void intakeOpen(double intakeSpeed){
     timer = 0;
-    backRollers.set(0);
-    sideRollers.set(0);
+
     while(encoder.getPosition()<69){
       intakeMotor.set(-0.2);
+      backRollers.set(0);
+      sideRollers.set(intakeSpeed);
     }
+    sideRollers.set(0);
   }
   //may need to swap this to work off of while true, also create command
+/*
   public void intakeShoot(){
     intakeMotor.set(0.1);
     sideRollers.set(-1);
@@ -78,7 +81,7 @@ public class intakeSubsystem extends SubsystemBase {
       timerTwo += 1;
     }
   }
-
+*/
 
   
 

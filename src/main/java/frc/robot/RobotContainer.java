@@ -10,6 +10,7 @@ import frc.robot.subsystems.*;
 import frc.robot.libraries.external.control.Trajectory;
 import frc.robot.libraries.external.math.Rotation2;
 import frc.robot.libraries.external.robot.input.Axis;
+import frc.robot.libraries.external.robot.input.JoystickAxis;
 // import frc.robot.libraries.external.robot.input.XboxController;
 import frc.robot.libraries.external.robot.input.DPadButton.Direction;
 
@@ -39,7 +40,8 @@ public class RobotContainer {
     private final JoystickButton elevatorDown = new JoystickButton(secondaryController, XboxController.Button.kLeftBumper.value);
     private final JoystickButton elevatorLeft = new JoystickButton(secondaryController, XboxController.Button.kBack.value);
     private final JoystickButton elevatorRight = new JoystickButton(secondaryController, XboxController.Button.kStart.value);
-
+    private final JoystickAxis intakeIn = new JoystickAxis(secondaryController, XboxController.Axis.kRightTrigger.value);
+    private final JoystickAxis intakeOff = new JoystickAxis(secondaryController, XboxController.Axis.kLeftTrigger.value);
     /* Subsystems */
     private final Swerve s_Swerve = new Swerve();
     // private final XboxController secondaryController = new XboxController(0);
@@ -105,12 +107,13 @@ public class RobotContainer {
         // secondaryController.getYButton().onTrue(new GrabberCommandCone(grabberCone, -.07));
         //secondaryController.getDPadButton(Direction.LEFT).onTrue(new PivotyCommand(pivoty,0.7));maybe find dpadbuttons
         //secondaryController.getDPadButton(Direction.RIGHT).onTrue(new PivotyCommand(pivoty,-0.7));
+
         elevatorUp.whileTrue(new ElevatorCommand(elevator, .8 , 3));
         elevatorDown.whileTrue(new ElevatorCommand(elevator, 0.8, 1));
         elevatorLeft.whileTrue(new PivotyCommand(pivoty, 0.8, 69420));
         elevatorRight.whileTrue(new PivotyCommand(pivoty, -.8, -69420));
         
-        
+        intakeIn
     }
 
      public Command getAutonomousCommand() {
