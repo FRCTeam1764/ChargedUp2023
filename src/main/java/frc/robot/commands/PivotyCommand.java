@@ -14,11 +14,14 @@ public class PivotyCommand extends CommandBase {
   double pivotySpeed;
   DigitalInput breakBeamOne;
   DigitalInput breakBeamTwo;
+  int desiredEncoderValue;
+
   //needs fixed
   public PivotyCommand(PivotySubsystem pivoty, double pivotySpeed, int desiredEncoderValue) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.pivoty = pivoty;
     this.pivotySpeed = pivotySpeed;
+    this.desiredEncoderValue = desiredEncoderValue;
   }
 
   // Called when the command is initially scheduled.

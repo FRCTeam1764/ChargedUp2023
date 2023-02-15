@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.TalonFXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
 public class PivotySubsystem extends SubsystemBase {
@@ -51,7 +52,7 @@ public class PivotySubsystem extends SubsystemBase {
   }
 
   public void pivotyOff(){
-    pivotyMotor1.set(0);
+    pivotyMotor1.set(TalonFXControlMode.PercentOutput,0);
     pivotyMotor2.set(0);
 
   }

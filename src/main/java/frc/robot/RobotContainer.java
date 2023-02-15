@@ -12,6 +12,8 @@ import frc.robot.libraries.external.math.Rotation2;
 import frc.robot.libraries.external.robot.input.Axis;
 // import frc.robot.libraries.external.robot.input.XboxController;
 import frc.robot.libraries.external.robot.input.DPadButton.Direction;
+
+import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 
@@ -48,8 +50,9 @@ public class RobotContainer {
     // private final DrivetrainSubsystem drivetrainSubsystem = new DrivetrainSubsystem();
     // private final VisionSubsystem visionSubsystem = new VisionSubsystem(drivetrainSubsystem);
     private final Elevator elevator = new Elevator();
-    private final GrabberSubsystem grabber = new GrabberSubsystem();
-    private final GrabberSubsystemCone grabberCone = new GrabberSubsystemCone();
+    public final intakeSubsystem intake = new intakeSubsystem();
+  //  private final GrabberSubsystem grabber = new GrabberSubsystem();
+   // private final GrabberSubsystemCone grabberCone = new GrabberSubsystemCone();
     private final PivotySubsystem pivoty = new PivotySubsystem();
     private final BlinkinSubsystem blinkin = new BlinkinSubsystem();
     private Trajectory[] trajectories;
@@ -102,21 +105,21 @@ public class RobotContainer {
         // secondaryController.getYButton().onTrue(new GrabberCommandCone(grabberCone, -.07));
         secondaryController.getDPadButton(Direction.LEFT).onTrue(new PivotyCommand(pivoty,0.7));
         secondaryController.getDPadButton(Direction.RIGHT).onTrue(new PivotyCommand(pivoty,-0.7));
-        elevatorUp.whileTrue(new ElevatorCommand(elevator, .8 , 4));
-        elevatorDown.whileTrue(new ElevatorCommand(elevator, -0.8, 1));
+        elevatorUp.whileTrue(new ElevatorCommand(elevator, .8 , 3));
+        elevatorDown.whileTrue(new ElevatorCommand(elevator, 0.8, 1));
         elevatorLeft.whileTrue(new PivotyCommand(pivoty, 0.8, 69420));
         elevatorRight.whileTrue(new PivotyCommand(pivoty, -.8, -69420));
         
         
     }
 
-    // public Command getAutonomousCommand() {
+     public Command getAutonomousCommand() {
     //     return autonomousChooser.getCommand(this);
     // }
     // // public Command getAutonomousCommand() {
-    //     // An ExampleCommand will run in autonomous
-    //     return new exampleAuto(s_Swerve);
-    // }
+         // An ExampleCommand will run in autonomous
+         return new exampleAuto(s_Swerve);
+     }
 
     // private Axis getDriveForwardAxis() {
     //     return secondaryController.getLeftYAxis();
@@ -130,9 +133,9 @@ public class RobotContainer {
     //     return secondaryController.getRightXAxis();
     // }
 
-    // public DrivetrainSubsystem getDrivetrainSubsystem() {
-    //     return drivetrainSubsystem;
-    // }
+     public Swerve getDrivetrainSubsystem() {
+         return s_Swerve;
+     }
 
    public Superstructure getSuperstructure() {
        return superstructure;
@@ -154,19 +157,11 @@ public class RobotContainer {
    public Trajectory[] getTrajectories() {
        return trajectories;
    }
-    public BlinkinSubsystem getBlinkinSubsystem(){
-        return blinkin;
-    }
+    
 
-
-   public GrabberSubsystem getGrabberSubsystem() {
-       return grabber;
-   }
-
-
-   public GrabberSubsystemCone getGrabberConeSubsystem() {
-       return grabberCone;
-   }
+public intakeSubsystem getIntakeSubsystem() {
+    return intake;
+}
    public BlinkinSubsystem getBlinkinSubsystem() {
     return blinkin;
    }

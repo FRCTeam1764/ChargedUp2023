@@ -22,7 +22,9 @@ public class Elevator extends SubsystemBase {
   DigitalInput maxExtend;
   DigitalInput midExtend;
   DigitalInput no;
-
+  int previousHeightLevel;
+  double Reverse = 1.0;
+boolean BreakBeamOffOrOn = false;
   public Elevator(){
     elevatorMotor1 = new LazyTalonFX(0,Constants.CANIVORE_NAME);
     elevatorMotor2 = new LazyTalonFX(1, Constants.CANIVORE_NAME);
@@ -34,18 +36,30 @@ public class Elevator extends SubsystemBase {
 
     
   }
-  //needs fixed
   public void elevatorOn(double elevatorSpeed, int heightLevel){
-    if(getBreakBeam(heightLevel).get()){
-      elevatorMotor1.set(elevatorSpeed);
+//toggles between going foward and backward depending on where we need to go 
+    if (heightLevel < previousHeightLevel) { 
+      BreakBeamOffOrOn = false;
+      Reverse = -1.0;
+
+    }else {
+      BreakBeamOffOrOn = true;
+      Reverse = 1.0;
     }
-    else{
+
+
+    if(getBreakBeam(heightLevel).get() == BreakBeamOffOrOn){  // checks if desired breakbeam isn't broken\is broken
+
+      elevatorMotor1.set(elevatorSpeed * Reverse);
+    
+    } else {           // if the breakbeam is broken it stops the motors and sets the desired height level as the current height level
       elevatorMotor1.set(0);
+      previousHeightLevel = heightLevel;
     }
     
 
   }
-
+ 
 
 
   public void elevatorOff(){
@@ -59,7 +73,12 @@ public class Elevator extends SubsystemBase {
     // This method will be called once per scheduler run
 
   }
-  
+  public boolean IsWantedHeight(int heightLevel) {
+    if (previousHeightLevel == heightLevel){
+      return true;
+    }
+    return false;
+  }
 
   public DigitalInput getBreakBeam(int heightLevel){
     if(heightLevel==1){
@@ -75,4 +94,5 @@ public class Elevator extends SubsystemBase {
       return no;
     }
   }
+  //assigning height levels numbers, numbers cooralate to min, mid, and max.
 }
