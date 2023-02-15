@@ -11,28 +11,30 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.constants.Constants;
+import frc.robot.state.IntakeState;
 
 public class intakeSubsystem extends SubsystemBase {
   /** Creates a new intakeSubsystem. */
 
   // SparkMaxAlternateEncoder intakeMotor;
   double intakePower;
-  CANSparkMax intakeMotor;
-  int timer;
-  RelativeEncoder encoder;
+  public int timer;
+
   CANSparkMax sideRollers;
   CANSparkMax backRollers;
   DigitalInput color;
   int timerTwo;
+  IntakeState intakeState;
+
   
-  public intakeSubsystem() {
+  public intakeSubsystem(IntakeState intakeState) {
   // this.intakeMotor = new SparkMaxAlternateEncoder(sparkMax, 42);
-    intakeMotor = new CANSparkMax(Constants.INTAKE_OPENER_MOTOR, MotorType.kBrushless);
+
      sideRollers = new CANSparkMax(1,MotorType.kBrushless);
      backRollers = new CANSparkMax(1, MotorType.kBrushless);
     
      color = new DigitalInput(5); //5 is just a place holder
-
+     this.intakeState = intakeState;
     // We got color!!! :D
     
   }
@@ -46,42 +48,45 @@ public class intakeSubsystem extends SubsystemBase {
       backRollers.set(0);
     }
 
-    intakeMotor.set(.2);
+    intakeState.setIntakeClose(true);
     if (timer > 30) {
-      encoder.setPosition(0);
+
       backRollers.set(0);
       sideRollers.set(0);
+      
     }
     if (timer < 30);
     timer += 1;   
   }
   
   public void intakeOpen(double intakeSpeed){
-    timer = 0;
-
-    while(encoder.getPosition()<69){
-      intakeMotor.set(-0.2);
+      timer = 0;
+      if(timerTwo<20){
+        sideRollers.set(intakeSpeed);
+        timerTwo+=1;
+      }
+      else{
+      intakeState.setIntakeClose(false);
       backRollers.set(0);
-      sideRollers.set(intakeSpeed);
-    }
-    sideRollers.set(0);
+      sideRollers.set(0);
+      }
   }
   //may need to swap this to work off of while true, also create command
-/*
-  public void intakeShoot(){
-    intakeMotor.set(0.1);
-    sideRollers.set(-1);
-    backRollers.set(0);
-  if (timerTwo > 20) {
-    intakeMotor.set(0);
-    sideRollers.set(0);
-    intakeOpen();
-    }
-    if (timerTwo < 20){
-      timerTwo += 1;
-    }
-  }
-*/
+
+  // public void intakeShoot(){
+  //   // intakeMotor.set(0.1);
+  //   sideRollers.set(-1);
+  //   // backRollers.set(0);
+  // if (timerTwo > 20) {
+  //   intakeMotor.set(0);
+  //   sideRollers.set(0);
+  //   intakeOpen();
+  //   }
+  //   if (timerTwo < 20){
+  //     timerTwo += 1;
+  //   }
+  // }
+
 
   
 
@@ -89,5 +94,11 @@ public class intakeSubsystem extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
       
+  }
+  public int getTimer(){
+    return timer;
+  }
+  public int getTimer2(){
+    return timerTwo;
   }
 }

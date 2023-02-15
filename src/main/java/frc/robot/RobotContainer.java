@@ -13,7 +13,7 @@ import frc.robot.libraries.external.robot.input.Axis;
 import frc.robot.libraries.external.robot.input.JoystickAxis;
 // import frc.robot.libraries.external.robot.input.XboxController;
 import frc.robot.libraries.external.robot.input.DPadButton.Direction;
-
+import frc.robot.state.RobotState;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
@@ -52,12 +52,14 @@ public class RobotContainer {
     // private final DrivetrainSubsystem drivetrainSubsystem = new DrivetrainSubsystem();
     // private final VisionSubsystem visionSubsystem = new VisionSubsystem(drivetrainSubsystem);
     private final Elevator elevator = new Elevator();
-    public final intakeSubsystem intake = new intakeSubsystem();
+   
   //  private final GrabberSubsystem grabber = new GrabberSubsystem();
    // private final GrabberSubsystemCone grabberCone = new GrabberSubsystemCone();
     private final PivotySubsystem pivoty = new PivotySubsystem();
     private final BlinkinSubsystem blinkin = new BlinkinSubsystem();
     private Trajectory[] trajectories;
+    public RobotState robotState = new RobotState();
+    public final intakeSubsystem intake = new intakeSubsystem(robotState.intakeState);
     // private final AutonomousChooser autonomousChooser;
 
     public RobotContainer() {
@@ -96,9 +98,9 @@ public class RobotContainer {
     }
 //do new button bindings
     private void configureCoPilotButtonBindings() {
-        highRung.onTrue(new ElevatorPivotyCommandGroup(elevator, .8, pivoty, .8, 1234, 3));
-        midRung.onTrue(new ElevatorPivotyCommandGroup(elevator, .8, pivoty, .8, 1000, 2));
-        lowRung.onTrue(new ElevatorPivotyCommandGroup(elevator, .8, pivoty, .8, 500, 1));
+        highRung.onTrue(new ElevatorPivotyCommandGroup(elevator, .8, pivoty, .8, 3));
+        midRung.onTrue(new ElevatorPivotyCommandGroup(elevator, .8, pivoty, .8, 2));
+        lowRung.onTrue(new ElevatorPivotyCommandGroup(elevator, .8, pivoty, .8, 1));
        // secondaryController.getDPadButton(Direction.UP).onTrue(new ElevatorCommand(elevator,0.7)); maybe find dpadbuttons
        // secondaryController.getDPadButton(Direction.DOWN).onTrue(new ElevatorCommand(elevator,-0.7));
         // secondaryController.getAButton().onTrue(new GrabberCommand(grabber, 0.7));
@@ -113,7 +115,7 @@ public class RobotContainer {
         elevatorLeft.whileTrue(new PivotyCommand(pivoty, 0.8, 69420));
         elevatorRight.whileTrue(new PivotyCommand(pivoty, -.8, -69420));
         
-        intakeIn
+        //intakeIn
     }
 
      public Command getAutonomousCommand() {

@@ -3,6 +3,9 @@ package frc.robot;
 
 
 
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -11,10 +14,12 @@ import frc.robot.libraries.NewSwerve.CTREConfigs;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.BlinkinCommand;
+import frc.robot.commands.intakeCommand;
 import frc.robot.libraries.external.math.RigidTransform2;
 import frc.robot.libraries.external.math.Rotation2;
 import frc.robot.libraries.external.robot.UpdateManager;
 import frc.robot.libraries.external.robot.drivers.Limelight;
+import frc.robot.constants.Constants;
 
 
 public class Robot extends TimedRobot {
@@ -25,14 +30,16 @@ public class Robot extends TimedRobot {
 
     public static CTREConfigs ctreConfigs;
 
-    private Command m_autonomousCommand;
 
+    private Command m_autonomousCommand;
+    CANSparkMax intakeMotor;
     public RobotContainer robotContainer = new RobotContainer();
     private UpdateManager updateManager = new UpdateManager(
             // robotContainer.getDrivetrainSubsystem()
     );
 
    public Robot() {
+        intakeMotor = new CANSparkMax(Constants.INTAKE_OPENER_MOTOR, MotorType.kBrushless);
        instance = this;
    }
 
@@ -60,9 +67,19 @@ public class Robot extends TimedRobot {
 
    @Override
    public void robotPeriodic() {
-       CommandScheduler.getInstance().run();
-    
-      
+        CommandScheduler.getInstance().run();
+        if(robotContainer.robotState.intakeState.getIntakeClose()){
+            intakeMotor.set(.2);
+            intakeMotor.getEncoder().setPosition(0);
+        }
+        else if(intakeMotor.getEncoder().getPosition()>70){
+            intakeMotor.set(-0.2);
+        }
+        else{
+            intakeMotor.set(0.0);
+        }
+
+         
    }
 
 
