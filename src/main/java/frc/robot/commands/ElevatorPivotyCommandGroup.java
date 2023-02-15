@@ -4,7 +4,10 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import frc.robot.Robot;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.PivotySubsystem;
 
@@ -19,15 +22,31 @@ public class ElevatorPivotyCommandGroup extends ParallelCommandGroup {
     double elevatorSpeed,
     PivotySubsystem pivoty,
     double pivotySpeed,
-    int desiredEncoderValue,
     int heightLevel
   ) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
 
     addCommands(
-      new PivotyCommand(pivoty, pivotySpeed, desiredEncoderValue),
+      new PivotyCommand(pivoty, pivotySpeed, getEncoderValue(heightLevel)),
       new ElevatorCommand(elevator, elevatorSpeed, heightLevel)
     );
+  }
+  private int getEncoderValue(int heightLevel){
+    if(NetworkTableInstance.getDefault().getTable("limelight").getEntry("tid").getInteger(0) == 8){
+      return 5;
+    }
+    else if(heightLevel==3){
+      return 349;
+    }
+    else if(heightLevel==2){
+      return 15;
+    }
+    else if(heightLevel==1){
+      return 20;
+    }
+    else{
+      return 22;
+    }
   }
 }

@@ -15,7 +15,6 @@ public class PivotyCommand extends CommandBase {
   DigitalInput breakBeamOne;
   DigitalInput breakBeamTwo;
   int desiredEncoderValue;
-
   //needs fixed
   public PivotyCommand(PivotySubsystem pivoty, double pivotySpeed, int desiredEncoderValue) {
     // Use addRequirements() here to declare subsystem dependencies.

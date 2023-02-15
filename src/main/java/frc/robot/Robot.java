@@ -27,7 +27,7 @@ public class Robot extends TimedRobot {
 
     private Command m_autonomousCommand;
 
-    private RobotContainer robotContainer = new RobotContainer();
+    public RobotContainer robotContainer = new RobotContainer();
     private UpdateManager updateManager = new UpdateManager(
             // robotContainer.getDrivetrainSubsystem()
     );
