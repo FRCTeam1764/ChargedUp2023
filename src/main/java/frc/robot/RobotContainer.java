@@ -97,10 +97,10 @@ public class RobotContainer {
         blinkinButton.whileTrue(new BlinkinCommand( blinkin));
     }
 //do new button bindings
-    private void configureCoPilotButtonBindings() {
-        highRung.onTrue(new ElevatorPivotyCommandGroup(elevator, .8, pivoty, .8, 3));
-        midRung.onTrue(new ElevatorPivotyCommandGroup(elevator, .8, pivoty, .8, 2));
-        lowRung.onTrue(new ElevatorPivotyCommandGroup(elevator, .8, pivoty, .8, 1));
+   private void configureCoPilotButtonBindings() {
+       // highRung.onTrue(new ElevatorPivotyCommandGroup(elevator, .8, pivoty, .8, 3));
+        //midRung.onTrue(new ElevatorPivotyCommandGroup(elevator, .8, pivoty, .8, 2));
+        //lowRung.onTrue(new ElevatorPivotyCommandGroup(elevator, .8, pivoty, .8, 1));
        // secondaryController.getDPadButton(Direction.UP).onTrue(new ElevatorCommand(elevator,0.7)); maybe find dpadbuttons
        // secondaryController.getDPadButton(Direction.DOWN).onTrue(new ElevatorCommand(elevator,-0.7));
         // secondaryController.getAButton().onTrue(new GrabberCommand(grabber, 0.7));
@@ -109,11 +109,14 @@ public class RobotContainer {
         // secondaryController.getYButton().onTrue(new GrabberCommandCone(grabberCone, -.07));
         //secondaryController.getDPadButton(Direction.LEFT).onTrue(new PivotyCommand(pivoty,0.7));maybe find dpadbuttons
         //secondaryController.getDPadButton(Direction.RIGHT).onTrue(new PivotyCommand(pivoty,-0.7));
+        lowRung.onTrue(new ScoringCommand(elevator, 0.8, pivoty, 0.8, 1, intake, 0.8, false));
+        midRung.onTrue(new ScoringCommand(elevator, 0.8, pivoty, 0.8, 2, intake, 0.8, false));
+        highRung.onTrue(new ScoringCommand(elevator, 0.8, pivoty, 0.8, 3, intake, 0.8, false));
 
         elevatorUp.whileTrue(new ElevatorCommand(elevator, .8 , 3));
-        elevatorDown.whileTrue(new ElevatorCommand(elevator, 0.8, 1));
-        elevatorLeft.whileTrue(new PivotyCommand(pivoty, 0.8, 69420));
-        elevatorRight.whileTrue(new PivotyCommand(pivoty, -.8, -69420));
+        //elevatorDown.whileTrue(new ElevatorCommand(elevator, 0.8, 1));
+        //elevatorLeft.whileTrue(new PivotyCommand(pivoty, 0.8, 69420));
+        //elevatorRight.whileTrue(new PivotyCommand(pivoty, -.8, -69420));
         
         //intakeIn
     }

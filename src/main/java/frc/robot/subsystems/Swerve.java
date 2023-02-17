@@ -7,6 +7,7 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 
 import com.ctre.phoenix.sensors.Pigeon2;
 // import com.swervedrivespecialties.swervelib.SwerveModule;
+import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -25,11 +26,11 @@ import frc.robot.libraries.external.robot.drivers.NavX.Axis;
 public class Swerve extends SubsystemBase {
     public SwerveDriveOdometry swerveOdometry;
     public SwerveModule[] mSwerveMods;
-    public NavX gyro;
+    public AHRS gyro;
 
     public Swerve() {
         //gyro = new NavX(SwerveConstants.Swerve.pigeonID);
-        gyro = new NavX(SPI.Port.kMXP); //TODO: find out wich port it is 
+        gyro = new AHRS(SPI.Port.kMXP); //TODO: find out wich port it is 
       //  gyro.calibrate();
         zeroGyro();
 
@@ -104,11 +105,11 @@ public class Swerve extends SubsystemBase {
     }
 
     public void zeroGyro(){
-        gyro.calibrate();
+        gyro.zeroYaw();
     }
 
     public Rotation2d getYaw() {
-        return (SwerveConstants.Swerve.invertGyro) ? Rotation2d.fromDegrees(360 - gyro.getAxis(Axis.YAW)) : Rotation2d.fromDegrees(gyro.getAxis(Axis.YAW));
+        return (SwerveConstants.Swerve.invertGyro) ? Rotation2d.fromDegrees(360 - gyro.getYaw()) : Rotation2d.fromDegrees(gyro.getYaw());
     }
 
     public void resetModulesToAbsolute(){
