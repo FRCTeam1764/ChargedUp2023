@@ -37,7 +37,7 @@ public class RobotContainer {
     private final JoystickButton midRung = new JoystickButton(secondaryController, XboxController.Button.kX.value);
     private final JoystickButton lowRung = new JoystickButton(secondaryController, XboxController.Button.kA.value);
     private final JoystickButton elevatorUp = new JoystickButton(secondaryController, XboxController.Button.kRightBumper.value);
-    private final JoystickButton elevatorDown = new JoystickButton(secondaryController, XboxController.Button.kLeftBumper.value);
+    private final JoystickButton lowerAndGrab = new JoystickButton(secondaryController, XboxController.Button.kLeftBumper.value);
     private final JoystickButton elevatorLeft = new JoystickButton(secondaryController, XboxController.Button.kBack.value);
     private final JoystickButton elevatorRight = new JoystickButton(secondaryController, XboxController.Button.kStart.value);
     private final JoystickAxis intakeIn = new JoystickAxis(secondaryController, XboxController.Axis.kRightTrigger.value);
@@ -109,10 +109,10 @@ public class RobotContainer {
         // secondaryController.getYButton().onTrue(new GrabberCommandCone(grabberCone, -.07));
         //secondaryController.getDPadButton(Direction.LEFT).onTrue(new PivotyCommand(pivoty,0.7));maybe find dpadbuttons
         //secondaryController.getDPadButton(Direction.RIGHT).onTrue(new PivotyCommand(pivoty,-0.7));
-        lowRung.onTrue(new ScoringCommand(elevator, 0.8, pivoty, 0.8, 1, intake, 0.8, false));
-        midRung.onTrue(new ScoringCommand(elevator, 0.8, pivoty, 0.8, 2, intake, 0.8, false));
-        highRung.onTrue(new ScoringCommand(elevator, 0.8, pivoty, 0.8, 3, intake, 0.8, false));
-
+        lowRung.onTrue(new ScoringCommand(elevator, 0.8, pivoty, 0.8, 1, intake, 0.2, false));
+        midRung.onTrue(new ScoringCommand(elevator, 0.8, pivoty, 0.8, 2, intake, 0.2, false));
+        highRung.onTrue(new ScoringCommand(elevator, 0.8, pivoty, 0.8, 3, intake, 0.2, false));
+        lowerAndGrab.onTrue(new ScoringCommand(elevator, 0.8, pivoty, 0.8, 1, intake, 0.2, true ));
         elevatorUp.whileTrue(new ElevatorCommand(elevator, .8 , 3));
         //elevatorDown.whileTrue(new ElevatorCommand(elevator, 0.8, 1));
         //elevatorLeft.whileTrue(new PivotyCommand(pivoty, 0.8, 69420));

@@ -24,6 +24,5 @@ public class ScoringCommand extends SequentialCommandGroup {
       new intakeCommand(intake, intakeSpeed, intakeClose, heightLevel)
     );
   
-  
    }
 }
