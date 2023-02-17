@@ -18,6 +18,7 @@ public class intakeCommand extends CommandBase {
     this.intakeSpeed = intakeSpeed;
     this.intake = intake;
     this.intakeClose = intakeClose;
+    this.heightLevel = heightLevel;
   }
 
   // Called when the command is initially scheduled.

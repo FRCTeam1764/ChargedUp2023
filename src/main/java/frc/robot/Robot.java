@@ -6,19 +6,19 @@ package frc.robot;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import edu.wpi.first.wpilibj.DigitalInput;
+// import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj2.command.Command;
+//import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.libraries.NewSwerve.CTREConfigs;
-import edu.wpi.first.wpilibj.util.Color;
-import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.commands.BlinkinCommand;
-import frc.robot.commands.intakeCommand;
-import frc.robot.libraries.external.math.RigidTransform2;
-import frc.robot.libraries.external.math.Rotation2;
+// import edu.wpi.first.wpilibj.util.Color;
+// import edu.wpi.first.wpilibj2.command.CommandScheduler;
+// import frc.robot.commands.BlinkinCommand;
+// import frc.robot.commands.intakeCommand;
+// import frc.robot.libraries.external.math.RigidTransform2;
+// import frc.robot.libraries.external.math.Rotation2;
 import frc.robot.libraries.external.robot.UpdateManager;
-import frc.robot.libraries.external.robot.drivers.Limelight;
+// import frc.robot.libraries.external.robot.drivers.Limelight;
 import frc.robot.constants.Constants;
 
 
@@ -31,7 +31,7 @@ public class Robot extends TimedRobot {
     public static CTREConfigs ctreConfigs;
 
 
-    private Command m_autonomousCommand;
+    //private Command m_autonomousCommand;
     CANSparkMax intakeMotor;
     public RobotContainer robotContainer = new RobotContainer();
     private UpdateManager updateManager = new UpdateManager(

@@ -5,7 +5,7 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.RelativeEncoder;
+//import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -30,16 +30,15 @@ public class intakeSubsystem extends SubsystemBase {
   public intakeSubsystem(IntakeState intakeState) {
   // this.intakeMotor = new SparkMaxAlternateEncoder(sparkMax, 42);
 
-     sideRollers = new CANSparkMax(1,MotorType.kBrushless);
-     backRollers = new CANSparkMax(1, MotorType.kBrushless);
+     sideRollers = new CANSparkMax(Constants.SIDE_INTAKE_MOTOR,MotorType.kBrushless);
+     backRollers = new CANSparkMax(Constants.BACK_INTAKE_MOTOR, MotorType.kBrushless);
     
-     color = new DigitalInput(5); //5 is just a place holder
+     color = new DigitalInput(Constants.COLOR_SENSOR); //5 is just a place holder
      this.intakeState = intakeState;
     // We got color!!! :D
     
   }
   //intake - has built in color sensor, intakes ball/cone depending on it
-  //has 2 different "open" methods
   public void intakeClose(double intakeSpeed){
     sideRollers.set(intakeSpeed);
     if (color.get()) {

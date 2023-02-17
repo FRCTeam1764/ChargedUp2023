@@ -1,20 +1,20 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.CommandScheduler;
+// import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 // import frc.robot.libraries.external.util.AutonomousChooser;
 import frc.robot.libraries.external.control.Trajectory;
-import frc.robot.libraries.external.math.Rotation2;
-import frc.robot.libraries.external.robot.input.Axis;
-import frc.robot.libraries.external.robot.input.JoystickAxis;
+// import frc.robot.libraries.external.math.Rotation2;
+// import frc.robot.libraries.external.robot.input.Axis;
+// import frc.robot.libraries.external.robot.input.JoystickAxis;
 // import frc.robot.libraries.external.robot.input.XboxController;
-import frc.robot.libraries.external.robot.input.DPadButton.Direction;
+// import frc.robot.libraries.external.robot.input.DPadButton.Direction;
 import frc.robot.state.RobotState;
-import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
+// import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 
@@ -36,30 +36,22 @@ public class RobotContainer {
     private final JoystickButton highRung = new JoystickButton(secondaryController, XboxController.Button.kY.value);
     private final JoystickButton midRung = new JoystickButton(secondaryController, XboxController.Button.kX.value);
     private final JoystickButton lowRung = new JoystickButton(secondaryController, XboxController.Button.kA.value);
-    private final JoystickButton elevatorUp = new JoystickButton(secondaryController, XboxController.Button.kRightBumper.value);
+    private final JoystickButton openIntake = new JoystickButton(secondaryController, XboxController.Button.kRightBumper.value);
     private final JoystickButton lowerAndGrab = new JoystickButton(secondaryController, XboxController.Button.kLeftBumper.value);
-    private final JoystickButton elevatorLeft = new JoystickButton(secondaryController, XboxController.Button.kBack.value);
-    private final JoystickButton elevatorRight = new JoystickButton(secondaryController, XboxController.Button.kStart.value);
-    private final JoystickAxis intakeIn = new JoystickAxis(secondaryController, XboxController.Axis.kRightTrigger.value);
-    private final JoystickAxis intakeOff = new JoystickAxis(secondaryController, XboxController.Axis.kLeftTrigger.value);
+
     /* Subsystems */
+    public RobotState robotState = new RobotState();
     private final Swerve s_Swerve = new Swerve();
-    // private final XboxController secondaryController = new XboxController(0);
-
-
     private final Superstructure superstructure = new Superstructure();
-
-    // private final DrivetrainSubsystem drivetrainSubsystem = new DrivetrainSubsystem();
-    // private final VisionSubsystem visionSubsystem = new VisionSubsystem(drivetrainSubsystem);
     private final Elevator elevator = new Elevator();
-   
-  //  private final GrabberSubsystem grabber = new GrabberSubsystem();
-   // private final GrabberSubsystemCone grabberCone = new GrabberSubsystemCone();
     private final PivotySubsystem pivoty = new PivotySubsystem();
     private final BlinkinSubsystem blinkin = new BlinkinSubsystem();
-    private Trajectory[] trajectories;
-    public RobotState robotState = new RobotState();
     public final intakeSubsystem intake = new intakeSubsystem(robotState.intakeState);
+    // private final DrivetrainSubsystem drivetrainSubsystem = new DrivetrainSubsystem();
+    // private final VisionSubsystem visionSubsystem = new VisionSubsystem(drivetrainSubsystem);
+
+    private Trajectory[] trajectories;
+
     // private final AutonomousChooser autonomousChooser;
 
     public RobotContainer() {
@@ -94,31 +86,25 @@ public class RobotContainer {
     private void configurePilotButtonBindings() {
         // secondaryController.getBackButton().onTrue(new ResetGyroCommand(drivetrainSubsystem));
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
-        blinkinButton.whileTrue(new BlinkinCommand( blinkin));
+        blinkinButton.whileTrue(new BlinkinCommand(blinkin));
     }
 //do new button bindings
    private void configureCoPilotButtonBindings() {
-       // highRung.onTrue(new ElevatorPivotyCommandGroup(elevator, .8, pivoty, .8, 3));
-        //midRung.onTrue(new ElevatorPivotyCommandGroup(elevator, .8, pivoty, .8, 2));
-        //lowRung.onTrue(new ElevatorPivotyCommandGroup(elevator, .8, pivoty, .8, 1));
-       // secondaryController.getDPadButton(Direction.UP).onTrue(new ElevatorCommand(elevator,0.7)); maybe find dpadbuttons
-       // secondaryController.getDPadButton(Direction.DOWN).onTrue(new ElevatorCommand(elevator,-0.7));
-        // secondaryController.getAButton().onTrue(new GrabberCommand(grabber, 0.7));
-        // secondaryController.getBButton().onTrue(new GrabberCommand(grabber, -.07));
-        // secondaryController.getXButton().onTrue(new GrabberCommandCone(grabberCone, 0.7));
-        // secondaryController.getYButton().onTrue(new GrabberCommandCone(grabberCone, -.07));
-        //secondaryController.getDPadButton(Direction.LEFT).onTrue(new PivotyCommand(pivoty,0.7));maybe find dpadbuttons
-        //secondaryController.getDPadButton(Direction.RIGHT).onTrue(new PivotyCommand(pivoty,-0.7));
+
         lowRung.onTrue(new ScoringCommand(elevator, 0.8, pivoty, 0.8, 1, intake, 0.2, false));
         midRung.onTrue(new ScoringCommand(elevator, 0.8, pivoty, 0.8, 2, intake, 0.2, false));
         highRung.onTrue(new ScoringCommand(elevator, 0.8, pivoty, 0.8, 3, intake, 0.2, false));
         lowerAndGrab.onTrue(new ScoringCommand(elevator, 0.8, pivoty, 0.8, 1, intake, 0.2, true ));
-        elevatorUp.whileTrue(new ElevatorCommand(elevator, .8 , 3));
+        openIntake.onTrue(new intakeCommand(intake, 0.2, false, 1));
+       // elevatorUp.whileTrue(new ElevatorCommand(elevator, .8 , 3));
         //elevatorDown.whileTrue(new ElevatorCommand(elevator, 0.8, 1));
         //elevatorLeft.whileTrue(new PivotyCommand(pivoty, 0.8, 69420));
         //elevatorRight.whileTrue(new PivotyCommand(pivoty, -.8, -69420));
-        
-        //intakeIn
+        // secondaryController.getDPadButton(Direction.UP).onTrue(new ElevatorCommand(elevator,0.7)); maybe find dpadbuttons
+       // secondaryController.getDPadButton(Direction.DOWN).onTrue(new ElevatorCommand(elevator,-0.7));
+        //secondaryController.getDPadButton(Direction.LEFT).onTrue(new PivotyCommand(pivoty,0.7));maybe find dpadbuttons
+        //secondaryController.getDPadButton(Direction.RIGHT).onTrue(new PivotyCommand(pivoty,-0.7));
+
     }
 
      public Command getAutonomousCommand() {
@@ -129,6 +115,40 @@ public class RobotContainer {
          return new exampleAuto(s_Swerve);
      }
 
+
+     public Swerve getDrivetrainSubsystem() {
+         return s_Swerve;
+     }
+     public intakeSubsystem getIntakeSubsystem() {
+        return intake;
+    }
+    public BlinkinSubsystem getBlinkinSubsystem() {
+         return blinkin;
+    }
+
+   public Superstructure getSuperstructure() {
+       return superstructure;
+   }
+
+
+
+    public Joystick getsecondaryController() {
+        return secondaryController;
+    }
+
+   public Trajectory[] getTrajectories() {
+       return trajectories;
+   }
+    
+
+    // public AutonomousChooser getAutonomousChooser() {
+    //     return autonomousChooser;
+    // }
+
+
+    // public VisionSubsystem getVisionSubsystem() {
+    //     return visionSubsystem;
+    // }
     // private Axis getDriveForwardAxis() {
     //     return secondaryController.getLeftYAxis();
     // }
@@ -140,37 +160,4 @@ public class RobotContainer {
     // private Axis getDriveRotationAxis() {
     //     return secondaryController.getRightXAxis();
     // }
-
-     public Swerve getDrivetrainSubsystem() {
-         return s_Swerve;
-     }
-
-   public Superstructure getSuperstructure() {
-       return superstructure;
-   }
-
-
-    // public VisionSubsystem getVisionSubsystem() {
-    //     return visionSubsystem;
-    // }
-
-    public Joystick getsecondaryController() {
-        return secondaryController;
-    }
-
-    // public AutonomousChooser getAutonomousChooser() {
-    //     return autonomousChooser;
-    // }
-
-   public Trajectory[] getTrajectories() {
-       return trajectories;
-   }
-    
-
-public intakeSubsystem getIntakeSubsystem() {
-    return intake;
-}
-   public BlinkinSubsystem getBlinkinSubsystem() {
-    return blinkin;
-   }
 }

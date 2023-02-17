@@ -7,7 +7,7 @@ import com.ctre.phoenix.sensors.CANCoderConfiguration;
 import com.ctre.phoenix.sensors.SensorInitializationStrategy;
 import com.ctre.phoenix.sensors.SensorTimeBase;
 
-import frc.robot.constants.Constants;
+//import frc.robot.constants.Constants;
 import frc.robot.constants.SwerveConstants;
 
 public final class CTREConfigs {
