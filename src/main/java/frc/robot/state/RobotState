@@ -6,10 +6,8 @@ package frc.robot.state;
 
 /** Add your docs here. */
 public class RobotState {
-    public LimelightState limelightState;
-    public IntakeState IntakeState;
-    public RobotState() {
-        this.limelightState = new LimelightState();
-        this.IntakeState = new IntakeState();
+    public limelightState limelightState;
+    public RobotState(){
+        intakeState = new IntakeState();
     }
 }

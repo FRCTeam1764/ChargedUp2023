@@ -68,7 +68,7 @@ public class Robot extends TimedRobot {
    @Override
    public void robotPeriodic() {
         CommandScheduler.getInstance().run();
-        if(robotContainer.robotState.intakeState.getIntakeClose()){
+        if(robotContainer.robotState.IntakeState.getIntakeClose()){
             intakeMotor.set(.2);
             intakeMotor.getEncoder().setPosition(0);
         }

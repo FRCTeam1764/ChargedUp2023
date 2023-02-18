@@ -8,13 +8,11 @@ import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 // import frc.robot.libraries.external.util.AutonomousChooser;
 import frc.robot.libraries.external.control.Trajectory;
-// import frc.robot.libraries.external.math.Rotation2;
-// import frc.robot.libraries.external.robot.input.Axis;
-// import frc.robot.libraries.external.robot.input.JoystickAxis;
+import frc.robot.libraries.external.math.Rotation2;
+import frc.robot.libraries.external.robot.input.Axis;
 // import frc.robot.libraries.external.robot.input.XboxController;
-// import frc.robot.libraries.external.robot.input.DPadButton.Direction;
+import frc.robot.libraries.external.robot.input.DPadButton.Direction;
 import frc.robot.state.RobotState;
-// import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 
@@ -31,6 +29,8 @@ public class RobotContainer {
     private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kStart.value);
     private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
     private final JoystickButton blinkinButton = new JoystickButton(driver, XboxController.Button.kY.value);
+    private final JoystickButton limelight1 = new JoystickButton(driver, XboxController.Button.kA.value);
+    private final JoystickButton limelight2 = new JoystickButton(driver, XboxController.Button.kB.value);
 
     /* CoPilot Buttons */
     private final JoystickButton highRung = new JoystickButton(secondaryController, XboxController.Button.kY.value);
@@ -46,12 +46,11 @@ public class RobotContainer {
     private final Elevator elevator = new Elevator();
     private final PivotySubsystem pivoty = new PivotySubsystem();
     private final BlinkinSubsystem blinkin = new BlinkinSubsystem();
-    public final intakeSubsystem intake = new intakeSubsystem(robotState.intakeState);
+    public final intakeSubsystem intake = new intakeSubsystem(robotState.IntakeState);
     // private final DrivetrainSubsystem drivetrainSubsystem = new DrivetrainSubsystem();
     // private final VisionSubsystem visionSubsystem = new VisionSubsystem(drivetrainSubsystem);
 
     private Trajectory[] trajectories;
-
     // private final AutonomousChooser autonomousChooser;
 
     public RobotContainer() {
@@ -86,7 +85,7 @@ public class RobotContainer {
     private void configurePilotButtonBindings() {
         // secondaryController.getBackButton().onTrue(new ResetGyroCommand(drivetrainSubsystem));
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
-        blinkinButton.whileTrue(new BlinkinCommand(blinkin));
+        blinkinButton.whileTrue(new BlinkinCommand( blinkin));
     }
 //do new button bindings
    private void configureCoPilotButtonBindings() {
@@ -160,4 +159,23 @@ public class RobotContainer {
     // private Axis getDriveRotationAxis() {
     //     return secondaryController.getRightXAxis();
     // }
+
+    // public DrivetrainSubsystem getDrivetrainSubsystem() {
+    //     return drivetrainSubsystem;
+    // }
+
+
+    // public VisionSubsystem getVisionSubsystem() {
+    //     return visionSubsystem;
+    // }
+
+
+    // public AutonomousChooser getAutonomousChooser() {
+    //     return autonomousChooser;
+    // }
+
+
+
+
+
 }
