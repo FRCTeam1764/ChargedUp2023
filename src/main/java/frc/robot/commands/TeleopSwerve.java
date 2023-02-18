@@ -23,10 +23,13 @@ public class TeleopSwerve extends CommandBase {
     private LimelightState limelightState;
     private LimelightSubsystem limelightSubsystem;
     private double strafeVal;
+    double offsetToleranceProprtion;
+
     //needs limelight stuff
     public TeleopSwerve(Swerve s_Swerve, DoubleSupplier translationSup, DoubleSupplier strafeSup, DoubleSupplier rotationSup, BooleanSupplier robotCentricSup) {
         this.s_Swerve = s_Swerve;
         addRequirements(s_Swerve);
+        offsetToleranceProprtion = 0.1;
 
         this.translationSup = translationSup;
         this.strafeSup = strafeSup;
@@ -34,26 +37,25 @@ public class TeleopSwerve extends CommandBase {
         this.robotCentricSup = robotCentricSup;
     }
 
-    @Override
+    public double moveLeftOrRight() {
+        if (limelightState.getLimelightState() == true && limelightSubsystem.isThereTarget ==1) {
+            strafeVal = MathUtil.applyDeadband(limelightSubsystem.whereToMove(), SwerveConstants.stickDeadband);
+        } else {
+            strafeVal = MathUtil.applyDeadband(strafeSup.getAsDouble(), SwerveConstants.stickDeadband);
+        }
+        return strafeVal;
+    }
+
+    
     public void execute() {
         /* Get Values, Deadband*/
         double translationVal = MathUtil.applyDeadband(translationSup.getAsDouble(), SwerveConstants.stickDeadband);
         double rotationVal = MathUtil.applyDeadband(rotationSup.getAsDouble(), SwerveConstants.stickDeadband);
-        if (limelightState.getLimelightState() == true && limelightSubsystem.isThereTarget == 1) {
-            if (limelightSubsystem.nextAction == "go left") {
-                strafeVal = MathUtil.applyDeadband(-0.5, SwerveConstants.stickDeadband);
-            } else if (limelightSubsystem.nextAction == "go right") {
-                strafeVal = MathUtil.applyDeadband(0.5, SwerveConstants.stickDeadband);
-            } else {
-                strafeVal = MathUtil.applyDeadband(0, SwerveConstants.stickDeadband);
-            }
-        } else {
-            strafeVal = MathUtil.applyDeadband(strafeSup.getAsDouble(), SwerveConstants.stickDeadband);
-        }
+        
 
         /* Drive */
         s_Swerve.drive(
-            new Translation2d(translationVal, strafeVal).times(SwerveConstants.Swerve.maxSpeed), 
+            new Translation2d(translationVal, moveLeftOrRight()).times(SwerveConstants.Swerve.maxSpeed), 
             rotationVal * SwerveConstants.Swerve.maxAngularVelocity, 
             !robotCentricSup.getAsBoolean(), 
             true

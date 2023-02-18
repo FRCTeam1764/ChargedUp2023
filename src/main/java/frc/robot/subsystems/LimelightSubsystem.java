@@ -14,14 +14,12 @@ public class LimelightSubsystem extends SubsystemBase {
   private static NetworkTable table;
   public double xOffset;
   public double isThereTarget;
-  public String nextAction;
-  private double xRightTolerance;
-  private double xLeftTolerance;
+  private double move;
   
   public LimelightSubsystem(NetworkTable table) {
     table = NetworkTableInstance.getDefault().getTable("limelight");
-    xRightTolerance = 5; // not sure what this needs to be
-    xLeftTolerance = -5; // not sure what this needs to be either
+    xOffset = table.getEntry("tx").getDouble(0);
+    
   }
 
   public void setPipeline(int pipeline) {
@@ -29,21 +27,15 @@ public class LimelightSubsystem extends SubsystemBase {
     pipelineEntry.setNumber(pipeline);
   }
 
-  public void updateXOffset() {
-    xOffset = table.getEntry("tx").getDouble(0);
-  }
 
   public void updateIsThereTarget() {
     isThereTarget = table.getEntry("tv").getDouble(0); 
   }
 
-  public void whatToDo() {
-    if (xOffset < xRightTolerance) {
-      nextAction = "go left";
-    } else if (xOffset > xLeftTolerance) {
-      nextAction = "go right";
-    }
-  }
+  public double whereToMove() {
+    move = table.getEntry("tx").getDouble(0) * -0.1;
+    return move;
+}
 
   @Override
   public void periodic() {

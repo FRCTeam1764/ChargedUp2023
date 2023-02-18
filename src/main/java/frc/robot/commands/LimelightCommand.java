@@ -36,8 +36,7 @@ public class LimelightCommand extends CommandBase {
   public void execute() {
     limelight.setPipeline(pipeline);
     limelight.updateIsThereTarget();
-    limelight.updateXOffset();
-    limelight.whatToDo();
+    // limelight.updateXOffset();
   }
 
   // Called once the command ends or is interrupted.
