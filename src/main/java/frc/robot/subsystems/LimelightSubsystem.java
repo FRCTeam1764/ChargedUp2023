@@ -12,32 +12,38 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class LimelightSubsystem extends SubsystemBase {
   /** Creates a new LimelightSubsystem. */
   private static NetworkTable table;
-  private double xOffset;
-  private double isThereTarget;
+  public double xOffset;
+  public double isThereTarget;
+  public String nextAction;
+  private double xRightTolerance;
+  private double xLeftTolerance;
   
   public LimelightSubsystem(NetworkTable table) {
     table = NetworkTableInstance.getDefault().getTable("limelight");
-    isThereTarget = table.getEntry("tv").getDouble(0);
-    xOffset = table.getEntry("tx").getDouble(0);
-    
+    xRightTolerance = 5; // not sure what this needs to be
+    xLeftTolerance = -5; // not sure what this needs to be either
   }
 
   public void setPipeline(int pipeline) {
 		NetworkTableEntry pipelineEntry = table.getEntry("pipeline");
-    	pipelineEntry.setNumber(pipeline);
+    pipelineEntry.setNumber(pipeline);
   }
 
-  public double getXOffset() {
-    return xOffset;
+  public void updateXOffset() {
+    xOffset = table.getEntry("tx").getDouble(0);
   }
 
-  public double getIsThereTarget() {
-    return isThereTarget;
+  public void updateIsThereTarget() {
+    isThereTarget = table.getEntry("tv").getDouble(0); 
   }
 
-
-
-
+  public void whatToDo() {
+    if (xOffset < xRightTolerance) {
+      nextAction = "go left";
+    } else if (xOffset > xLeftTolerance) {
+      nextAction = "go right";
+    }
+  }
 
   @Override
   public void periodic() {

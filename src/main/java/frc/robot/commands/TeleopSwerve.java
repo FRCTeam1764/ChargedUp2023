@@ -1,6 +1,7 @@
 package frc.robot.commands;
 
 import frc.robot.constants.SwerveConstants;
+import frc.robot.state.LimelightState;
 import frc.robot.subsystems.Swerve;
 
 import java.util.function.BooleanSupplier;
@@ -8,7 +9,9 @@ import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.LimelightSubsystem;
 
 
 public class TeleopSwerve extends CommandBase {    
@@ -17,6 +20,9 @@ public class TeleopSwerve extends CommandBase {
     private DoubleSupplier strafeSup;
     private DoubleSupplier rotationSup;
     private BooleanSupplier robotCentricSup;
+    private LimelightState limelightState;
+    private LimelightSubsystem limelightSubsystem;
+    private double strafeVal;
     //needs limelight stuff
     public TeleopSwerve(Swerve s_Swerve, DoubleSupplier translationSup, DoubleSupplier strafeSup, DoubleSupplier rotationSup, BooleanSupplier robotCentricSup) {
         this.s_Swerve = s_Swerve;
@@ -32,8 +38,18 @@ public class TeleopSwerve extends CommandBase {
     public void execute() {
         /* Get Values, Deadband*/
         double translationVal = MathUtil.applyDeadband(translationSup.getAsDouble(), SwerveConstants.stickDeadband);
-        double strafeVal = MathUtil.applyDeadband(strafeSup.getAsDouble(), SwerveConstants.stickDeadband);
         double rotationVal = MathUtil.applyDeadband(rotationSup.getAsDouble(), SwerveConstants.stickDeadband);
+        if (limelightState.getLimelightState() == true && limelightSubsystem.isThereTarget == 1) {
+            if (limelightSubsystem.nextAction == "go left") {
+                strafeVal = MathUtil.applyDeadband(-0.5, SwerveConstants.stickDeadband);
+            } else if (limelightSubsystem.nextAction == "go right") {
+                strafeVal = MathUtil.applyDeadband(0.5, SwerveConstants.stickDeadband);
+            } else {
+                strafeVal = MathUtil.applyDeadband(0, SwerveConstants.stickDeadband);
+            }
+        } else {
+            strafeVal = MathUtil.applyDeadband(strafeSup.getAsDouble(), SwerveConstants.stickDeadband);
+        }
 
         /* Drive */
         s_Swerve.drive(

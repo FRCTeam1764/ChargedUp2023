@@ -8,35 +8,36 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.state.LimelightState;
 import frc.robot.subsystems.LimelightSubsystem;
 
 public class LimelightCommand extends CommandBase {
-  LimelightSubsystem limelight;
+  LimelightState limelightState;
+  private LimelightSubsystem limelight;
   private int pipeline;
-  private double xOffset;
-  private double xUpperTolerance;
-  private double xLowerTolerance;
+  public boolean limelightOn;
   
   
-
   /** Creates a new LimelightCommand. */
   public LimelightCommand(LimelightSubsystem limelight, int pipeline) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.limelight = limelight;
     this.pipeline = pipeline;
-    double xOffset = 
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-
+    limelightState.limelightOn();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     limelight.setPipeline(pipeline);
+    limelight.updateIsThereTarget();
+    limelight.updateXOffset();
+    limelight.whatToDo();
   }
 
   // Called once the command ends or is interrupted.
@@ -48,6 +49,7 @@ public class LimelightCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    limelightState.limelightOff();
     return false;
   }
 }
