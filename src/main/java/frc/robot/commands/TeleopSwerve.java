@@ -9,7 +9,6 @@ import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.LimelightSubsystem;
 
@@ -37,6 +36,10 @@ public class TeleopSwerve extends CommandBase {
         this.robotCentricSup = robotCentricSup;
     }
 
+    /*
+     * checks if limelight is on + target is in sight
+     * moves to target
+     */
     public double moveLeftOrRight() {
         if (limelightState.getLimelightState() == true && limelightSubsystem.isThereTarget ==1) {
             strafeVal = MathUtil.applyDeadband(limelightSubsystem.whereToMove(), SwerveConstants.stickDeadband);

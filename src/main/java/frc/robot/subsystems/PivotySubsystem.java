@@ -29,7 +29,7 @@ public class PivotySubsystem extends SubsystemBase {
   }
 
 
-  //pivoty - takes in a desired encoder value translated to a "angle" for the motor, iwth a speed
+  //pivoty - takes in a desired encoder value translated to a "angle" for the motor, with a speed
   public void pivotyOn(double pivotySpeed, int desiredEncoderValue){
     if(!breakBeamOne.get()){
       pivotyMotor1.getSensorCollection().setIntegratedSensorPosition(0.0,0);

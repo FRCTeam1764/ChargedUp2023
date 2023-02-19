@@ -33,7 +33,7 @@ public class intakeSubsystem extends SubsystemBase {
      sideRollers = new CANSparkMax(Constants.SIDE_INTAKE_MOTOR,MotorType.kBrushless);
      backRollers = new CANSparkMax(Constants.BACK_INTAKE_MOTOR, MotorType.kBrushless);
     
-     color = new DigitalInput(Constants.COLOR_SENSOR); //5 is just a place holder
+     color = new DigitalInput(Constants.COLOR_SENSOR);
      this.intakeState = intakeState;
     // We got color!!! :D
     
@@ -70,21 +70,7 @@ public class intakeSubsystem extends SubsystemBase {
       sideRollers.set(0);
       }
   }
-  //may need to swap this to work off of while true, also create command
 
-  // public void intakeShoot(){
-  //   // intakeMotor.set(0.1);
-  //   sideRollers.set(-1);
-  //   // backRollers.set(0);
-  // if (timerTwo > 20) {
-  //   intakeMotor.set(0);
-  //   sideRollers.set(0);
-  //   intakeOpen();
-  //   }
-  //   if (timerTwo < 20){
-  //     timerTwo += 1;
-  //   }
-  // }
 
 
   

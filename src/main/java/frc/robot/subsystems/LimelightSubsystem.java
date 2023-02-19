@@ -16,6 +16,7 @@ public class LimelightSubsystem extends SubsystemBase {
   public double isThereTarget;
   private double move;
   
+  // finds the distance from the crosshair to target on the x axis
   public LimelightSubsystem(NetworkTable table) {
     table = NetworkTableInstance.getDefault().getTable("limelight");
     xOffset = table.getEntry("tx").getDouble(0);
@@ -27,16 +28,16 @@ public class LimelightSubsystem extends SubsystemBase {
     pipelineEntry.setNumber(pipeline);
   }
 
-
+  // checks if there is a target in sights 
   public void updateIsThereTarget() {
     isThereTarget = table.getEntry("tv").getDouble(0); 
   }
 
+  // turns the x offset into how much to move the robot
   public double whereToMove() {
     move = table.getEntry("tx").getDouble(0) * -0.1;
     return move;
 }
-
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

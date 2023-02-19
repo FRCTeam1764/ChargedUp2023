@@ -1,17 +1,11 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.Command;
-// import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
-// import frc.robot.libraries.external.util.AutonomousChooser;
 import frc.robot.libraries.external.control.Trajectory;
-import frc.robot.libraries.external.math.Rotation2;
-import frc.robot.libraries.external.robot.input.Axis;
-// import frc.robot.libraries.external.robot.input.XboxController;
-import frc.robot.libraries.external.robot.input.DPadButton.Direction;
 import frc.robot.state.RobotState;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
@@ -29,8 +23,8 @@ public class RobotContainer {
     private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kStart.value);
     private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
     private final JoystickButton blinkinButton = new JoystickButton(driver, XboxController.Button.kY.value);
-    private final JoystickButton limelight1 = new JoystickButton(driver, XboxController.Button.kA.value);
-    private final JoystickButton limelight2 = new JoystickButton(driver, XboxController.Button.kB.value);
+    //private final JoystickButton limelight1 = new JoystickButton(driver, XboxController.Button.kA.value);
+    //private final JoystickButton limelight2 = new JoystickButton(driver, XboxController.Button.kB.value);
 
     /* CoPilot Buttons */
     private final JoystickButton highRung = new JoystickButton(secondaryController, XboxController.Button.kY.value);
@@ -57,8 +51,6 @@ public class RobotContainer {
         // secondaryController.getLeftXAxis().setInverted(true);
         // secondaryController.getRightXAxis().setInverted(true);
 
-        // CommandScheduler.getInstance().registerSubsystem(visionSubsystem);
-        // CommandScheduler.getInstance().registerSubsystem(drivetrainSubsystem);
 
         // CommandScheduler.getInstance().setDefaultCommand(drivetrainSubsystem, new DriveCommand(drivetrainSubsystem, getDriveForwardAxis(), getDriveStrafeAxis(), getDriveRotationAxis()));
         
