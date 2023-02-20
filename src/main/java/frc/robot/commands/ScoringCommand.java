@@ -4,8 +4,10 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.PivotySubsystem;
 import frc.robot.subsystems.intakeSubsystem;
 
@@ -15,12 +17,13 @@ import frc.robot.subsystems.intakeSubsystem;
 public class ScoringCommand extends SequentialCommandGroup {
   /** Creates a new ScoringCommand. */
   public ScoringCommand(Elevator elevator, double elevatorSpeed, PivotySubsystem pivoty, double pivotySpeed, int heightLevel,
-  intakeSubsystem intake, double intakeSpeed, boolean intakeClose) {
+  intakeSubsystem intake, double intakeSpeed, boolean intakeClose, LimelightSubsystem limelight, DigitalInput color) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new ElevatorPivotyCommandGroup(elevator, elevatorSpeed, pivoty, pivotySpeed, heightLevel),
-      new intakeCommand(intake, intakeSpeed, intakeClose, heightLevel)
+      // new intakeCommand(intake, intakeSpeed, intakeClose, heightLevel),
+      new IntakeLimelightCommandGroup(limelight, heightLevel, color, intake, intakeSpeed, intakeClose, heightLevel)
     );
   
    }
