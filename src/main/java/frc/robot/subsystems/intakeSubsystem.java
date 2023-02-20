@@ -42,7 +42,7 @@ public class intakeSubsystem extends SubsystemBase {
   public void intakeClose(double intakeSpeed){
     sideRollers.set(intakeSpeed);
     if (color.get()) {
-      backRollers.set(0.5);
+      backRollers.set(0.5); //use backrollers when cone
     } else {
       backRollers.set(0);
     }
