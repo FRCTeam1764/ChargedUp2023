@@ -33,7 +33,7 @@ public class RobotContainer {
     private final JoystickButton lowRung = new JoystickButton(secondaryController, XboxController.Button.kA.value);
     private final JoystickButton openIntake = new JoystickButton(secondaryController, XboxController.Button.kRightBumper.value);
     private final JoystickButton lowerAndGrab = new JoystickButton(secondaryController, XboxController.Button.kLeftBumper.value);
-
+    private final JoystickButton toggleDriveTrainAutoBalance =  new JoystickButton(secondaryController, XboxController.Button.kStart.value);
     /* Subsystems */
     public RobotState robotState = new RobotState();
     private final Swerve s_Swerve = new Swerve();
@@ -62,7 +62,8 @@ public class RobotContainer {
                 () -> -driver.getRawAxis(translationAxis), 
                 () -> -driver.getRawAxis(strafeAxis), 
                 () -> -driver.getRawAxis(rotationAxis), 
-                () -> robotCentric.getAsBoolean()
+                () -> robotCentric.getAsBoolean(),
+                robotState
             )
         );
         setTrajectories();
@@ -89,6 +90,7 @@ public class RobotContainer {
         highRung.onTrue(new ScoringCommand(elevator, 0.8, pivoty, 0.8, 3, intake, 0.2, false, limelight));
         lowerAndGrab.onTrue(new ScoringCommand(elevator, 0.8, pivoty, 0.8, 1, intake, 0.2, true, limelight));
         openIntake.onTrue(new intakeCommand(intake, 0.2, false, 1));
+        toggleDriveTrainAutoBalance.onTrue(new toggleSwerveState(robotState)); // set it up for a toggleontrue later
        // elevatorUp.whileTrue(new ElevatorCommand(elevator, .8 , 3));
         //elevatorDown.whileTrue(new ElevatorCommand(elevator, 0.8, 1));
         //elevatorLeft.whileTrue(new PivotyCommand(pivoty, 0.8, 69420));
