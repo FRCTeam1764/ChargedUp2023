@@ -86,5 +86,9 @@ public class intakeSubsystem extends SubsystemBase {
   public int getTimer2(){
     return timerTwo;
   }
+
+  public boolean getColor(){
+    return color.get();
+  }
    
 }

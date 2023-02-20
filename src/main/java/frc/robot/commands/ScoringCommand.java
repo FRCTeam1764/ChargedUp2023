@@ -17,13 +17,13 @@ import frc.robot.subsystems.intakeSubsystem;
 public class ScoringCommand extends SequentialCommandGroup {
   /** Creates a new ScoringCommand. */
   public ScoringCommand(Elevator elevator, double elevatorSpeed, PivotySubsystem pivoty, double pivotySpeed, int heightLevel,
-  intakeSubsystem intake, double intakeSpeed, boolean intakeClose, LimelightSubsystem limelight, DigitalInput color) {
+  intakeSubsystem intake, double intakeSpeed, boolean intakeClose, LimelightSubsystem limelight) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new ElevatorPivotyCommandGroup(elevator, elevatorSpeed, pivoty, pivotySpeed, heightLevel),
       // new intakeCommand(intake, intakeSpeed, intakeClose, heightLevel),
-      new IntakeLimelightCommandGroup(limelight, heightLevel, color, intake, intakeSpeed, intakeClose, heightLevel)
+      new IntakeLimelightCommandGroup(limelight, heightLevel, intake, intakeSpeed, intakeClose, heightLevel)
     );
   
    }

@@ -7,6 +7,7 @@ import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 import frc.robot.libraries.external.control.Trajectory;
 import frc.robot.state.RobotState;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 
@@ -41,6 +42,7 @@ public class RobotContainer {
     private final PivotySubsystem pivoty = new PivotySubsystem();
     private final BlinkinSubsystem blinkin = new BlinkinSubsystem();
     public final intakeSubsystem intake = new intakeSubsystem(robotState.IntakeState);
+    private final LimelightSubsystem limelight = new LimelightSubsystem(NetworkTableInstance.getDefault().getTable("limelight"));
     // private final DrivetrainSubsystem drivetrainSubsystem = new DrivetrainSubsystem();
     // private final VisionSubsystem visionSubsystem = new VisionSubsystem(drivetrainSubsystem);
 
@@ -82,10 +84,10 @@ public class RobotContainer {
 //do new button bindings
    private void configureCoPilotButtonBindings() {
 
-        lowRung.onTrue(new ScoringCommand(elevator, 0.8, pivoty, 0.8, 1, intake, 0.2, false));
-        midRung.onTrue(new ScoringCommand(elevator, 0.8, pivoty, 0.8, 2, intake, 0.2, false));
-        highRung.onTrue(new ScoringCommand(elevator, 0.8, pivoty, 0.8, 3, intake, 0.2, false));
-        lowerAndGrab.onTrue(new ScoringCommand(elevator, 0.8, pivoty, 0.8, 1, intake, 0.2, true ));
+        lowRung.onTrue(new ScoringCommand(elevator, 0.8, pivoty, 0.8, 1, intake, 0.2, false, limelight));
+        midRung.onTrue(new ScoringCommand(elevator, 0.8, pivoty, 0.8, 2, intake, 0.2, false, limelight));
+        highRung.onTrue(new ScoringCommand(elevator, 0.8, pivoty, 0.8, 3, intake, 0.2, false, limelight));
+        lowerAndGrab.onTrue(new ScoringCommand(elevator, 0.8, pivoty, 0.8, 1, intake, 0.2, true, limelight));
         openIntake.onTrue(new intakeCommand(intake, 0.2, false, 1));
        // elevatorUp.whileTrue(new ElevatorCommand(elevator, .8 , 3));
         //elevatorDown.whileTrue(new ElevatorCommand(elevator, 0.8, 1));

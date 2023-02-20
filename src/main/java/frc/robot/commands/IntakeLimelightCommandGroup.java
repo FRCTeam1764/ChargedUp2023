@@ -17,7 +17,6 @@ public class IntakeLimelightCommandGroup extends ParallelCommandGroup {
   public IntakeLimelightCommandGroup(
     LimelightSubsystem limelight,
     int pipeline,
-    DigitalInput color,
     intakeSubsystem intake,
     double intakeSpeed,
     boolean intakeClose,
@@ -27,15 +26,15 @@ public class IntakeLimelightCommandGroup extends ParallelCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new LimelightCommand(limelight, pipelineChange(intakeClose, color)),
+      new LimelightCommand(limelight, pipelineChange(intakeClose, intake)),
       new intakeCommand(intake, intakeSpeed, intakeClose, heightLevel)
     );
   }
-  private int pipelineChange(boolean intakeClose, DigitalInput color){
+  private int pipelineChange(boolean intakeClose, intakeSubsystem intake){
     if(!intakeClose){
       return 2;
     }
-    else if(color.get()){
+    else if(intake.getColor()){
       return 1;
     }
     return 0;
