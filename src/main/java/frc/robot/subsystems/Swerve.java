@@ -114,6 +114,10 @@ public class Swerve extends SubsystemBase {
         }
     }
 
+    public AHRS getNavx(){
+        return gyro;
+    }
+
     @Override
     public void periodic(){
         swerveOdometry.update(getYaw(), getModulePositions());  
@@ -124,4 +128,6 @@ public class Swerve extends SubsystemBase {
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Velocity", mod.getState().speedMetersPerSecond);    
         }
     }
+
+
 }

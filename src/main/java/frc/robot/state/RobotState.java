@@ -8,8 +8,10 @@ package frc.robot.state;
 public class RobotState {
     public LimelightState limelightState;
     public IntakeState IntakeState;
+    public SwerveState swerveState;
     public RobotState() {
         this.limelightState = new LimelightState();
         this.IntakeState = new IntakeState();
+        this.swerveState = new SwerveState();
     }
 }
