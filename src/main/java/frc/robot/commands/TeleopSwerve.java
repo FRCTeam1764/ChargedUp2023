@@ -59,7 +59,10 @@ public class TeleopSwerve extends CommandBase {
         }
         return strafeVal;
     }
-
+/*
+ * returns transitional and rotational values based on gyro rotation to balance
+ * preferibly robot should be straight
+ */
     public double[] autoBalance(DoubleSupplier yaxis,DoubleSupplier xaxis,AHRS ahrs){
 
         boolean autoBalanceXMode = true;

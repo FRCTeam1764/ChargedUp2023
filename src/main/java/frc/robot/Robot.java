@@ -68,6 +68,7 @@ public class Robot extends TimedRobot {
    @Override
    public void robotPeriodic() {
         CommandScheduler.getInstance().run();
+        //handles intake motor clamping down
         if(robotContainer.robotState.IntakeState.getIntakeClose()){
             intakeMotor.set(.2);
             intakeMotor.getEncoder().setPosition(0);
@@ -78,7 +79,7 @@ public class Robot extends TimedRobot {
         else{
             intakeMotor.set(0.0);
         }
-
+/* */
          
    }
 
