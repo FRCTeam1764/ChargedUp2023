@@ -26,7 +26,7 @@ public class Swerve extends SubsystemBase {
 
     public Swerve() {
         //gyro = new NavX(SwerveConstants.Swerve.pigeonID);
-        gyro = new AHRS(SPI.Port.kMXP); //TODO: find out wich port it is 
+        this.gyro = new AHRS(SPI.Port.kMXP); //TODO: find out wich port it is 
       //  gyro.calibrate();
         zeroGyro();
 
