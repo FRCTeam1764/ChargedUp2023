@@ -47,7 +47,7 @@ public class TeleopSwerve extends CommandBase {
         if(robotState.swerveState.getStartButton()){
             robotState.swerveState.swerveAutoBalance();
         }
-        System.out.println(translationVal);
+        // System.out.println(translationVal);
         /* Drive */
         s_Swerve.drive(
             new Translation2d(translationVal, strafeVal).times(SwerveConstants.Swerve.maxSpeed), 
@@ -69,13 +69,13 @@ public class TeleopSwerve extends CommandBase {
     double error;
     double autoLevelPwr;
     public double getAutoLevel(){
-        error = s_Swerve.getNavx().getPitch();
+        error = -s_Swerve.getNavx().getRoll();
         if(Math.abs(error)<1){
             robotState.swerveState.noSwerveAutoBalance();;
         }
-
-        autoLevelPwr = -Math.min(error*.15, 1);
-        //System.out.println(error+" " +autoLevelPwr);
+        System.out.println("error" + error);
+        autoLevelPwr = -Math.min(error*.02, 1);
+        //System.out.println(error+ " " +autoLevelPwr);
         return autoLevelPwr;
     }
 
