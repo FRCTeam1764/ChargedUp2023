@@ -1,5 +1,6 @@
 package frc.robot;
 
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -27,13 +28,15 @@ public class RobotContainer {
     /* Driver Buttons */
     private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kY.value);
     private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
-
+    private final JoystickButton limelight0 = new JoystickButton(driver, XboxController.Button.kA.value);
+    private final JoystickButton limelight1 = new JoystickButton(driver, XboxController.Button.kB.value);
+    private final JoystickButton limelight2 = new JoystickButton(driver, XboxController.Button.kX.value);
 
     /* Subsystems */
     private final Swerve s_Swerve = new Swerve();
     private final XboxController primaryController = new XboxController(0);
     RobotState robotState;
-
+    private final LimelightSubsystem limelight = new LimelightSubsystem(NetworkTableInstance.getDefault().getTable("limelight"));
     private final Superstructure superstructure = new Superstructure();
 
     // private final DrivetrainSubsystem drivetrainSubsystem = new DrivetrainSubsystem();
@@ -77,6 +80,9 @@ public class RobotContainer {
     private void configurePilotButtonBindings() {
         // primaryController.getBackButton().onTrue(new ResetGyroCommand(drivetrainSubsystem));
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
+        limelight0.onTrue(new LimelightCommand(limelight, 0));
+        limelight1.onTrue(new LimelightCommand(limelight, 1));
+        limelight2.onTrue(new LimelightCommand(limelight, 2));
     }
 
     private void configureCoPilotButtonBindings() {
