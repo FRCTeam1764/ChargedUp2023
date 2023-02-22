@@ -15,7 +15,6 @@
 //     // Use addRequirements() here to declare subsystem dependencies.
 //     this.robotState = robotState;
 
-//   //yes zach you told me not to do this but its the simplist way - Aidan
 
 //   }
 
