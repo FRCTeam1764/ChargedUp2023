@@ -34,6 +34,9 @@ public class intakeCommand extends CommandBase {
     else if(heightLevel==3){
       intake.intakeOpen(-intakeSpeed);
     }
+    else if (!intake.getColor1() && !intake.getColor2()) {
+      intake.intakeOpen(intakeSpeed);
+    }
     else{
       intake.intakeOpen(0);
     }

@@ -26,7 +26,8 @@ public final class Constants {
     public static final int PIVOTY_BREAK_BEAM =      6;
 
 
-    public static final int COLOR_SENSOR =           8;
+    public static final int COLOR_SENSOR_1 =         8;
+    public static final int COLOR_SENSOR_2 =         9; // i dunno the port 
     public static final int BLINKIN_SPARK =          1;
     public static final int PRESSURE_SENSOR_PORT =   0;
 

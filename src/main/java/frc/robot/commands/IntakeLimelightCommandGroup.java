@@ -34,7 +34,7 @@ public class IntakeLimelightCommandGroup extends ParallelCommandGroup {
     if(!intakeClose){
       return 2;
     }
-    else if(intake.getColor()){
+    else if(intake.getColor1() && intake.getColor2()){
       return 1;
     }
     return 0;

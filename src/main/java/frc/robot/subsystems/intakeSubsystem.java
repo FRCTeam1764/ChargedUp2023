@@ -22,7 +22,8 @@ public class intakeSubsystem extends SubsystemBase {
 
   CANSparkMax sideRollers;
   CANSparkMax backRollers;
-  DigitalInput color;
+  DigitalInput color1;
+  DigitalInput color2;
   int timerTwo;
   IntakeState intakeState;
 
@@ -33,7 +34,8 @@ public class intakeSubsystem extends SubsystemBase {
      sideRollers = new CANSparkMax(Constants.SIDE_INTAKE_MOTOR,MotorType.kBrushless);
      backRollers = new CANSparkMax(Constants.BACK_INTAKE_MOTOR, MotorType.kBrushless);
     
-     color = new DigitalInput(Constants.COLOR_SENSOR);
+     color1 = new DigitalInput(Constants.COLOR_SENSOR_1);
+     color2 = new DigitalInput(Constants.COLOR_SENSOR_2);
      this.intakeState = intakeState;
     // We got color!!! :D
     
@@ -41,12 +43,13 @@ public class intakeSubsystem extends SubsystemBase {
   //intake - has built in color sensor, intakes ball/cone depending on it
   public void intakeClose(double intakeSpeed){
     sideRollers.set(intakeSpeed);
-    if (color.get()) {
-      backRollers.set(0.5); //use backrollers when cone
+    if (color1.get() && color2.get()) {
+      backRollers.set( 0.5); //use backrollers when cone
     } else {
       backRollers.set(0);
     }
 
+    if ((color1.get() && color2.get()) || (!color1.get() && color2.get()))
     intakeState.setIntakeClose(true);
     if (timer > 30) {
 
@@ -72,9 +75,6 @@ public class intakeSubsystem extends SubsystemBase {
   }
 
 
-
-  
-
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
@@ -87,8 +87,12 @@ public class intakeSubsystem extends SubsystemBase {
     return timerTwo;
   }
 
-  public boolean getColor(){
-    return color.get();
+  public boolean getColor1(){
+    return color1.get();
+  }
+
+  public boolean getColor2(){
+    return color2.get();
   }
    
 }
