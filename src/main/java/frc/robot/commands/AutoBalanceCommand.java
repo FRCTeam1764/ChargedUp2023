@@ -25,7 +25,7 @@ public RobotState robotState;
     this.s_Swerve = s_Swerve;
     this.robotState = robotState;
     this.robotCentric = robotCentric;
-    robotState.swerveState.swerveAutoBalance();
+
 
     addRequirements(s_Swerve);
   }
@@ -39,7 +39,7 @@ public double getAutoLevel(){
     if(Math.abs(error)<1){
         robotState.swerveState.noSwerveAutoBalance();;
     }
-    autoLevelPwr = -Math.min(error*.02, 1);
+    autoLevelPwr = -Math.min(error*.01, 1);
     return autoLevelPwr;
 }
 
@@ -48,14 +48,16 @@ public double getAutoLevel(){
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    robotState.swerveState.swerveAutoBalance();
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
-    if (robotState.swerveState.getSwerveState() == true){
-s_Swerve.drive(new Translation2d( MathUtil.applyDeadband(getAutoLevel(),SwerveConstants.stickDeadband),0).times(SwerveConstants.Swerve.maxSpeed),
+// System.out.println("it be working");
+    if (robotState.swerveState.getSwerveState()){
+s_Swerve.drive(new Translation2d( -getAutoLevel(),0).times(SwerveConstants.Swerve.maxSpeed),
   0, 
   !robotCentric,
   true
@@ -71,6 +73,6 @@ s_Swerve.drive(new Translation2d( MathUtil.applyDeadband(getAutoLevel(),SwerveCo
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return !robotState.swerveState.getSwerveState();
   }
 }
