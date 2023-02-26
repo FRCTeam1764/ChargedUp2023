@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
-// import frc.robot.libraries.external.util.AutonomousChooser;
+import frc.robot.libraries.external.util.AutonomousChooser;
 import frc.robot.libraries.external.control.Trajectory;
 import frc.robot.libraries.external.math.Rotation2;
 import frc.robot.libraries.external.robot.input.Axis;
@@ -35,6 +35,7 @@ public class RobotContainer {
     private final JoystickButton limelight0 = new JoystickButton(driver, XboxController.Button.kA.value);
     private final JoystickButton limelight1 = new JoystickButton(driver, XboxController.Button.kB.value);
     private final JoystickButton limelight2 = new JoystickButton(driver, XboxController.Button.kX.value);
+    private final JoystickButton autoBalance = new JoystickButton(driver, XboxController.Button.kBack.value);
 
     /* Subsystems */
     private final Swerve s_Swerve = new Swerve();
@@ -50,7 +51,7 @@ public class RobotContainer {
     // private final GrabberSubsystemCone grabberCone = new GrabberSubsystemCone();
     // private final PivotySubsystem pivoty = new PivotySubsystem();
     private Trajectory[] trajectories;
-    // private final AutonomousChooser autonomousChooser;
+    private final AutonomousChooser autonomousChooser;
 
     public RobotContainer() {
         // primaryController.getLeftXAxis().setInverted(true);
@@ -74,7 +75,7 @@ public class RobotContainer {
         setTrajectories();
         configurePilotButtonBindings();
         configureCoPilotButtonBindings();
-        // autonomousChooser = new AutonomousChooser(trajectories);
+        autonomousChooser = new AutonomousChooser(trajectories);
     }
 
     private void setTrajectories() {
@@ -87,6 +88,7 @@ public class RobotContainer {
         limelight0.onTrue(new LimelightCommand(limelight, 0));
         limelight1.onTrue(new LimelightCommand(limelight, 1));
         limelight2.onTrue(new LimelightCommand(limelight, 2));
+        autoBalance.toggleOnTrue(new AutoBalanceCommand(s_Swerve, robotState, false));
     }
 
     private void configureCoPilotButtonBindings() {
@@ -109,6 +111,11 @@ public class RobotContainer {
         PathPlannerTrajectory examplePath = PathPlanner.loadPath("ThreePieceLeft", new PathConstraints(4, 3));
         return new FollowPath(s_Swerve, examplePath);
     }
+    // public Command getAutonomousCommand() {
+    //     // An ExampleCommand will run in autonomous
+    //     return new AutoBalance(s_Swerve,robotState);
+
+    // }
 
 
     // private Axis getDriveForwardAxis() {

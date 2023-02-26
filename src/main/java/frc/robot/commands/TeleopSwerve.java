@@ -69,15 +69,15 @@ public class TeleopSwerve extends CommandBase {
     double error;
     double autoLevelPwr;
     public double getAutoLevel(){
-        error = -s_Swerve.getNavx().getRoll();
-        if(Math.abs(error)<1){
-            robotState.swerveState.noSwerveAutoBalance();;
-        }
-        System.out.println("error" + error);
-        autoLevelPwr = -Math.min(error*.02, 1);
-        //System.out.println(error+ " " +autoLevelPwr);
-        return autoLevelPwr;
-    }
+       error = -s_Swerve.getNavx().getRoll();
+       if(Math.abs(error)<1){
+           robotState.swerveState.noSwerveAutoBalance();;
+       }
+       System.out.println("error" + error);
+       autoLevelPwr = -Math.min(error*.02, 1);
+        System.out.println(error+ " " +autoLevelPwr);
+       return autoLevelPwr;
+   }
 
     
     // @Override

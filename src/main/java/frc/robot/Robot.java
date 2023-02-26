@@ -32,14 +32,14 @@ public class Robot extends TimedRobot {
 
 
     //private Command m_autonomousCommand;
-    CANSparkMax intakeMotor;
+    //CANSparkMax intakeMotor;
     public RobotContainer robotContainer = new RobotContainer();
     private UpdateManager updateManager = new UpdateManager(
             // robotContainer.getDrivetrainSubsystem()
     );
 
    public Robot() {
-        intakeMotor = new CANSparkMax(Constants.INTAKE_OPENER_MOTOR, MotorType.kBrushless);
+        //intakeMotor = new CANSparkMax(Constants.INTAKE_OPENER_MOTOR, MotorType.kBrushless);
        instance = this;
    }
 
@@ -69,16 +69,16 @@ public class Robot extends TimedRobot {
    public void robotPeriodic() {
         CommandScheduler.getInstance().run();
         //handles intake motor clamping down
-        if(robotContainer.robotState.IntakeState.getIntakeClose()){
-            intakeMotor.set(.2);
-            intakeMotor.getEncoder().setPosition(0);
-        }
-        else if(intakeMotor.getEncoder().getPosition()>70){
-            intakeMotor.set(-0.2);
-        }
-        else{
-            intakeMotor.set(0.0);
-        }
+        // if(robotContainer.robotState.IntakeState.getIntakeClose()){
+        //     intakeMotor.set(.2);
+        //     intakeMotor.getEncoder().setPosition(0);
+        // }
+        // else if(intakeMotor.getEncoder().getPosition()>70){
+        //     intakeMotor.set(-0.2);
+        // }
+        // else{
+        //     intakeMotor.set(0.0);
+        // }
 /* */
          
    }
@@ -101,5 +101,6 @@ public class Robot extends TimedRobot {
 
    @Override
    public void teleopInit() {
+    CommandScheduler.getInstance().cancelAll();
    }
 }
