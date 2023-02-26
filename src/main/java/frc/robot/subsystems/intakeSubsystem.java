@@ -41,7 +41,7 @@
 //   //intake - has built in color sensor, intakes ball/cone depending on it
 //   public void intakeClose(double intakeSpeed){
 //     sideRollers.set(intakeSpeed);
-//     if (color.get()) { // color.get() returns true when it recognizes a cone
+//     if (color.get()) {
 //       backRollers.set(0.5); //use backrollers when cone
 //     } else {
 //       backRollers.set(0);
@@ -60,17 +60,14 @@
   
 //   public void intakeOpen(double intakeSpeed){
 //       timer = 0;
-      
 //       if(timerTwo<20){
-        
 //         sideRollers.set(intakeSpeed);
 //         timerTwo+=1;
 //       }
 //       else{
-      
-//         intakeState.setIntakeClose(false);
-//         backRollers.set(0);
-//         sideRollers.set(0);
+//       intakeState.setIntakeClose(false);
+//       backRollers.set(0);
+//       sideRollers.set(0);
 //       }
 //   }
 

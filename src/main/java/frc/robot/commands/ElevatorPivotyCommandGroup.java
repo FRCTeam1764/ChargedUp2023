@@ -48,3 +48,4 @@
 //     }
 //   }
 // }
+//Takes elevator height and returns encoder value

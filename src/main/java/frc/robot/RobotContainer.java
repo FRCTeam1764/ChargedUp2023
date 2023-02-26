@@ -1,5 +1,9 @@
 package frc.robot;
 
+import com.pathplanner.lib.PathConstraints;
+import com.pathplanner.lib.PathPlanner;
+import com.pathplanner.lib.PathPlannerTrajectory;
+
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -102,7 +106,8 @@ public class RobotContainer {
     // }
     public Command getAutonomousCommand() {
         // An ExampleCommand will run in autonomous
-        return new exampleAuto(s_Swerve);
+        PathPlannerTrajectory examplePath = PathPlanner.loadPath("ThreePieceLeft", new PathConstraints(4, 3));
+        return new FollowPath(s_Swerve, examplePath);
     }
 
 
