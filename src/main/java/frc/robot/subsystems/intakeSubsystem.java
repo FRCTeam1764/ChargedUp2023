@@ -33,42 +33,53 @@ public class intakeSubsystem extends SubsystemBase {
      sideRollers = new CANSparkMax(Constants.SIDE_INTAKE_MOTOR,MotorType.kBrushless);
      backRollers = new CANSparkMax(Constants.BACK_INTAKE_MOTOR, MotorType.kBrushless);
     
-     color = new DigitalInput(Constants.COLOR_SENSOR);
+     color = new DigitalInput(Constants.COLOR_SENSOR);//there are two color sensors, only reading 1 rn
      this.intakeState = intakeState;
     // We got color!!! :D
     
   }
   //intake - has built in color sensor, intakes ball/cone depending on it
   public void intakeClose(double intakeSpeed){
-    sideRollers.set(intakeSpeed);
-    if (color.get()) {
-      backRollers.set(0.5); //use backrollers when cone
-    } else {
-      backRollers.set(0);
-    }
 
-    intakeState.setIntakeClose(true);
-    if (timer > 30) {
+    // sideRollers.set(intakeSpeed);
+    // if (color.get()) {
+    //   backRollers.set(0.5); //use backrollers when cone
+    // } else {
+    //   backRollers.set(0);
+    // }
 
-      backRollers.set(0);
-      sideRollers.set(0);
+    // intakeState.setIntakeClose(true);
+    // if (timer > 30) {
+
+    //   backRollers.set(0);
+    //   sideRollers.set(0);
       
-    }
-    if (timer < 30);
-    timer += 1;   
+    // }
+    // if (timer < 30);
+    // timer += 1;   
+
+    backRollers.set(0.2);
+    sideRollers.set(0.2);
+
+    System.out.println(color.get());
+
+intakeState.setIntakeClose(true);
+   if (timer > 30) {
+       backRollers.set(0);
+       sideRollers.set(0);
+   }
+
+timer += 1;  
+
+
   }
   
   public void intakeOpen(double intakeSpeed){
-      timer = 0;
-      if(timerTwo<20){
-        sideRollers.set(intakeSpeed);
-        timerTwo+=1;
-      }
-      else{
+
       intakeState.setIntakeClose(false);
       backRollers.set(0);
       sideRollers.set(0);
-      }
+
   }
 
 

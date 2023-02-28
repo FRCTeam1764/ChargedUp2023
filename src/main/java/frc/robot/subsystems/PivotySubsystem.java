@@ -18,6 +18,7 @@ public class PivotySubsystem extends SubsystemBase {
   TalonFX pivotyMotor1;
   LazyTalonFX pivotyMotor2;
   double pivotySpeed;
+
   DigitalInput breakBeamOne;
   public PivotySubsystem(){
     pivotyMotor1 = new LazyTalonFX(0, Constants.CANIVORE_NAME);
@@ -26,11 +27,13 @@ public class PivotySubsystem extends SubsystemBase {
   //  breakBeamTwo = new DigitalInput(6);
   }
   public void pivotyOn(double pivotySpeed, int desiredEncoderValue){
-    if(!breakBeamOne.get()){
-      pivotyMotor1.getSensorCollection().setIntegratedSensorPosition(0.0,0);
-      pivotyMotor2.getSensorCollection().setIntegratedSensorPosition(0.0,0);
+    // if(!breakBeamOne.get()){
+    //   pivotyMotor1.getSensorCollection().setIntegratedSensorPosition(0.0,0);
+    //   pivotyMotor2.getSensorCollection().setIntegratedSensorPosition(0.0,0);
 
-    }
+    // }
+
+    
     pivotyMotor1.set(ControlMode.Position, desiredEncoderValue);
     pivotyMotor2.set(ControlMode.Position, desiredEncoderValue);
 

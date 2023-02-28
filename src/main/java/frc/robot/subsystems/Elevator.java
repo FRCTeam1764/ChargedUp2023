@@ -39,34 +39,17 @@ boolean BreakBeamOffOrOn = false;
 
   //Elevator goes to the breakbeam specified via "heightlevel", speed can be negative or positive
   public void elevatorOn(double elevatorSpeed, int heightLevel){
-    if (heightLevel < previousHeightLevel) { 
-      BreakBeamOffOrOn = false;
-      Reverse = -1.0;
-
-    }else {
-      BreakBeamOffOrOn = true;
-      Reverse = 1.0;
-    }
-
-
-    if(getBreakBeam(heightLevel).get() == BreakBeamOffOrOn){  // checks if desired breakbeam isn't broken\is broken
-
-      elevatorMotor1.set(elevatorSpeed * Reverse);
-    
-    } else {           // if the breakbeam is broken it stops the motors and sets the desired height level as the current height level
-      elevatorMotor1.set(0);
-      previousHeightLevel = heightLevel;
-    }
-    
-
-  }
+    elevatorMotor1.set(elevatorSpeed);
+    elevatorMotor2.set(elevatorSpeed);
  
-
+  }
 
   public void elevatorOff(){
     elevatorMotor1.set(0);
     elevatorMotor2.set(0);
-
+    System.out.println("min -"+minExtend.get()); 
+    System.out.println("mid -"+midExtend.get()); 
+    System.out.println("max -"+maxExtend.get()); 
   }
   
 
