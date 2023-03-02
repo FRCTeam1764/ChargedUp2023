@@ -16,9 +16,11 @@ public final class Constants {
     public static final int SIDE_INTAKE_MOTOR =     22;
     public static final int INTAKE_OPENER_MOTOR =   23;
 
-    public static final int PIVOTY_MOTOR =          32;
+    public static final int PIVOTY_MOTOR =          36;
+    public static final int PIVOTY_MOTOR_2 =        20;
 
-    public static final int ELEVATOR_MOTOR =        42;
+    public static final int ELEVATOR_MOTOR =        32;
+    public static final int ELAVATOR_MOTOR_2 =      33;
 
     public static final int MIN_EXTEND_BREAK_BEAM =  0;
     public static final int MAX_EXTEND_BREAK_BEAM =  2;
@@ -27,6 +29,7 @@ public final class Constants {
 
 
     public static final int COLOR_SENSOR =           8;
+    public static final int COLOR_SENSOR2 =           8;
     public static final int BLINKIN_SPARK =          1;
     public static final int PRESSURE_SENSOR_PORT =   0;
 

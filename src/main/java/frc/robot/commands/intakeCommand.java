@@ -13,12 +13,10 @@ public class intakeCommand extends CommandBase {
   double intakeSpeed;
   boolean intakeClose;
   int heightLevel;
-  public intakeCommand(intakeSubsystem intake, double intakeSpeed, boolean intakeClose, int heightLevel) {
+  public intakeCommand(intakeSubsystem intake, double intakeSpeed) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.intakeSpeed = intakeSpeed;
     this.intake = intake;
-    this.intakeClose = intakeClose;
-    this.heightLevel = heightLevel;
   }
 
   // Called when the command is initially scheduled.
@@ -28,30 +26,19 @@ public class intakeCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(intakeClose){
-      intake.intakeClose(intakeSpeed);
-    }
-    else if(heightLevel==3){
-      intake.intakeOpen(-intakeSpeed);
-    }
-    else{
-      intake.intakeOpen(0);
-    }
+    intake.intakeClose(intakeSpeed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    intake.intakeOpen();
     // intake.intakeOpen(openSpeed);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if(intake.getTimer()>30 || intake.getTimer2()>20){
-      return true;
-    }
     return false;
   }
-  
 }

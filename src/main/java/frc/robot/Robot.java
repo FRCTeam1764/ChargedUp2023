@@ -8,6 +8,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 // import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.XboxController;
 //import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.libraries.NewSwerve.CTREConfigs;
@@ -69,11 +70,11 @@ public class Robot extends TimedRobot {
    public void robotPeriodic() {
         CommandScheduler.getInstance().run();
         //handles intake motor clamping down
-        if(robotContainer.robotState.IntakeState.getIntakeClose()){
+        if(robotContainer.getsecondaryController().getRawButton(XboxController.Button.kB.value)){
             intakeMotor.set(.2);
-            intakeMotor.getEncoder().setPosition(0);
         }
-        else if(intakeMotor.getEncoder().getPosition()>70){
+        
+        else if(robotContainer.getsecondaryController().getRawButton(XboxController.Button.kY.value)){
             intakeMotor.set(-0.2);
         }
         else{

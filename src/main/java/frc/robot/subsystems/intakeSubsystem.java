@@ -58,25 +58,26 @@ public class intakeSubsystem extends SubsystemBase {
     // if (timer < 30);
     // timer += 1;   
 
-    backRollers.set(0.2);
-    sideRollers.set(0.2);
+    backRollers.set(intakeSpeed);
+    sideRollers.set(intakeSpeed);
 
     System.out.println(color.get());
 
-intakeState.setIntakeClose(true);
-   if (timer > 30) {
-       backRollers.set(0);
-       sideRollers.set(0);
-   }
+    }
+// intakeState.setIntakeClose(true);
+//    if (timer > 30) {
+//        backRollers.set(0);
+//        sideRollers.set(0);
+//    }
 
-timer += 1;  
+// timer += 1;  
 
 
-  }
+//   }
   
-  public void intakeOpen(double intakeSpeed){
+  public void intakeOpen(){
 
-      intakeState.setIntakeClose(false);
+      // intakeState.setIntakeClose(false);
       backRollers.set(0);
       sideRollers.set(0);
 

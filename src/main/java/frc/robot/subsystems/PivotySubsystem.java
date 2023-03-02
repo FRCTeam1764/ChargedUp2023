@@ -11,11 +11,12 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
 public class PivotySubsystem extends SubsystemBase {
   /** Creates a new Elevator. */
-  TalonFX pivotyMotor1;
+  LazyTalonFX pivotyMotor1;
   LazyTalonFX pivotyMotor2;
   double pivotySpeed;
 
@@ -25,17 +26,21 @@ public class PivotySubsystem extends SubsystemBase {
     pivotyMotor2 = new LazyTalonFX(2, Constants.CANIVORE_NAME);
     breakBeamOne = new DigitalInput(Constants.PIVOTY_BREAK_BEAM);
   //  breakBeamTwo = new DigitalInput(6);
-  }
-  public void pivotyOn(double pivotySpeed, int desiredEncoderValue){
-    // if(!breakBeamOne.get()){
-    //   pivotyMotor1.getSensorCollection().setIntegratedSensorPosition(0.0,0);
-    //   pivotyMotor2.getSensorCollection().setIntegratedSensorPosition(0.0,0);
 
-    // }
+  }
+  public void pivotyOn(double pivotySpeed){
+    if(!breakBeamOne.get()){
+      pivotyMotor1.getSensorCollection().setIntegratedSensorPosition(0.0,0);
+      pivotyMotor2.getSensorCollection().setIntegratedSensorPosition(0.0,0);
+      System.out.println("it gets here");
+    }
+  
 
     
-    pivotyMotor1.set(ControlMode.Position, desiredEncoderValue);
-    pivotyMotor2.set(ControlMode.Position, desiredEncoderValue);
+    // pivotyMotor1.set(ControlMode.Position, desiredEncoderValue);
+    // pivotyMotor2.set(ControlMode.Position, desiredEncoderValue);
+    pivotyMotor1.set(ControlMode.PercentOutput, .8);
+    pivotyMotor2.set(ControlMode.PercentOutput, .8);
 
     SmartDashboard.putNumber("pivoty encoder",pivotyMotor1.getSelectedSensorPosition());
 
@@ -52,7 +57,10 @@ public class PivotySubsystem extends SubsystemBase {
     }
     */
   }
-
+  public void pivotyBreakMode(){
+    pivotyMotor1.setNeutralMode(NeutralMode.Brake);
+    pivotyMotor2.setNeutralMode(NeutralMode.Brake);
+  }
   public void pivotyOff(){
     pivotyMotor1.set(ControlMode.PercentOutput, 0);
     pivotyMotor2.set(0);
