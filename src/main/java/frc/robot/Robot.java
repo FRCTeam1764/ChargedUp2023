@@ -41,6 +41,7 @@ public class Robot extends TimedRobot {
    public Robot() {
         //intakeMotor = new CANSparkMax(Constants.INTAKE_OPENER_MOTOR, MotorType.kBrushless);
        instance = this;
+
    }
 
 
@@ -55,7 +56,8 @@ public class Robot extends TimedRobot {
        //grabber = new robotContainer.getGrabberSubsystem();
 
         //CommandScheduler.getInstance().schedule(new BlinkinCommand(-.95, robotContainer.getBlinkinSubsystem()));
-
+        robotContainer.getSwerve().getNavx().calibrate();
+        robotContainer.getSwerve().getNavx().zeroYaw();
 
        updateManager.startLoop(5.0e-3);
        // robotContainer.getVisionSubsystem().setLedMode(Limelight.LedMode.OFF);

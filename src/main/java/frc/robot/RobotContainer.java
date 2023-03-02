@@ -1,9 +1,5 @@
 package frc.robot;
 
-import com.pathplanner.lib.PathConstraints;
-import com.pathplanner.lib.PathPlanner;
-import com.pathplanner.lib.PathPlannerTrajectory;
-
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -20,6 +16,9 @@ import frc.robot.libraries.external.robot.input.Axis;
 import frc.robot.libraries.external.robot.input.DPadButton.Direction;
 import frc.robot.state.RobotState;
 import edu.wpi.first.wpilibj.XboxController;
+import com.pathplanner.lib.PathPlannerTrajectory;
+import com.pathplanner.lib.PathPlanner;
+import com.pathplanner.lib.PathConstraints;
 
 public class RobotContainer {
     private final Joystick driver = new Joystick(0);
@@ -141,7 +140,9 @@ public class RobotContainer {
     // public VisionSubsystem getVisionSubsystem() {
     //     return visionSubsystem;
     // }
-
+    public Swerve getSwerve(){
+        return s_Swerve;
+    }
     public XboxController getPrimaryController() {
         return primaryController;
     }
