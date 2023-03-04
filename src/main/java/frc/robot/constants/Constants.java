@@ -1,5 +1,7 @@
 package frc.robot.constants;
 
+import frc.robot.common.CanPort;
+
 // import com.swervedrivespecialties.swervelib.CanPort;
 
 /**
@@ -11,16 +13,18 @@ package frc.robot.constants;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+    
+    public static final String CANIVORE_NAME = "1764 canivore";
 
-    public static final int BACK_INTAKE_MOTOR =     21;
-    public static final int SIDE_INTAKE_MOTOR =     22;
-    public static final int INTAKE_OPENER_MOTOR =   23;
+    public static final CanPort BACK_INTAKE_MOTOR =     new CanPort(21);
+    public static final CanPort SIDE_INTAKE_MOTOR =     new CanPort(22);
+    public static final CanPort INTAKE_OPENER_MOTOR =   new CanPort(23);
 
-    public static final int PIVOTY_MOTOR =          36;
-    public static final int PIVOTY_MOTOR_2 =        20;
+    public static final CanPort PIVOTY_MOTOR =          new CanPort(36, CANIVORE_NAME);
+    public static final CanPort PIVOTY_MOTOR_2 =        new CanPort(20, CANIVORE_NAME);
 
-    public static final int ELEVATOR_MOTOR =        32;
-    public static final int ELAVATOR_MOTOR_2 =      33;
+    public static final CanPort ELEVATOR_MOTOR =        new CanPort(32, CANIVORE_NAME);
+    public static final CanPort ELAVATOR_MOTOR_2 =      new CanPort(33, CANIVORE_NAME);;
 
     public static final int MIN_EXTEND_BREAK_BEAM =  0;
     public static final int MAX_EXTEND_BREAK_BEAM =  2;
@@ -35,7 +39,6 @@ public final class Constants {
 
 
 
-    public static final String CANIVORE_NAME = "1764 canivore";
     
    
 

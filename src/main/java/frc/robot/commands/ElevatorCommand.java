@@ -12,7 +12,7 @@ public class ElevatorCommand extends CommandBase {
   //needs fixed
   Elevator elevator;
   double elevatorSpeed;
-  int heightLevel;
+
   public ElevatorCommand(Elevator elevator, double elevatorSpeed) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.elevator = elevator;
@@ -42,10 +42,6 @@ public class ElevatorCommand extends CommandBase {
   public boolean isFinished() {
 
     //needs encoder stuff
-    if (elevator.IsWantedHeight(heightLevel)==true) {
-    return true; 
-  }
     return false;
-  
-  }
+}
 }

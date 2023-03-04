@@ -40,7 +40,7 @@ public class Robot extends TimedRobot {
     );
 
    public Robot() {
-        intakeMotor = new CANSparkMax(Constants.INTAKE_OPENER_MOTOR, MotorType.kBrushless);
+        intakeMotor = new CANSparkMax(Constants.INTAKE_OPENER_MOTOR.id, MotorType.kBrushless);
        instance = this;
    }
 

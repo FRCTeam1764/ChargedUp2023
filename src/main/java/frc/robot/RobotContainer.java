@@ -93,12 +93,12 @@ public class RobotContainer {
 
        // highRung.onTrue(new ScoringCommand(elevator, 0.8, pivoty, 0.8, 3, intake, 0.2, false, limelight));
        // lowerAndGrab.onTrue(new ScoringCommand(elevator, 0.8, pivoty, 0.8, 1, intake, 0.2, true, limelight));
-        openIntake.whileTrue(new intakeCommand(intake, .8));
-        closeIntake.whileTrue(new intakeCommand(intake, -0.8));
+        openIntake.whileTrue(new intakeCommand(intake, 1));
+        closeIntake.whileTrue(new intakeCommand(intake, -1));
         PivotyDown.onTrue(new PivotyCommand(pivoty, 0.6)); // GAGE YOU MIGHT NEED TO TUNE SPEEDS
         PivotyUp.onTrue(new PivotyCommand(pivoty, -0.6));
 
-        toggleDriveTrainAutoBalance.onTrue(new toggleSwerveState(robotState)); // set it up for a toggleontrue later
+        // toggleDriveTrainAutoBalance.onTrue(new toggleSwerveState(robotState)); // set it up for a toggleontrue later
        // elevatorUp.whileTrue(new ElevatorCommand(elevator, .8 , 3));
         //elevatorDown.whileTrue(new ElevatorCommand(elevator, 0.8, 1));
         //elevatorLeft.whileTrue(new PivotyCommand(pivoty, 0.8, 69420));
