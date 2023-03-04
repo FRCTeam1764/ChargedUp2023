@@ -56,7 +56,7 @@ public class Robot extends TimedRobot {
        //grabber = new robotContainer.getGrabberSubsystem();
 
         //CommandScheduler.getInstance().schedule(new BlinkinCommand(-.95, robotContainer.getBlinkinSubsystem()));
-
+        robotContainer.getDrivetrainSubsystem().getNavx().calibrate();;
 
        updateManager.startLoop(5.0e-3);
        // robotContainer.getVisionSubsystem().setLedMode(Limelight.LedMode.OFF);

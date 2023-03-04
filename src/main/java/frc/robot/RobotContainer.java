@@ -38,7 +38,7 @@ public class RobotContainer {
     private final JoystickButton closeIntake = new JoystickButton(secondaryController, XboxController.Button.kLeftBumper.value);
     private final JoystickButton toggleDriveTrainAutoBalance =  new JoystickButton(secondaryController, XboxController.Button.kStart.value);
     /* Subsystems */
-    public RobotState robotState = new RobotState();
+    public RobotState robotState = new RobotState(driver);
     private final Swerve s_Swerve = new Swerve();
     private final Superstructure superstructure = new Superstructure();
     private final Elevator elevator = new Elevator();
@@ -84,12 +84,13 @@ public class RobotContainer {
         // secondaryController.getBackButton().onTrue(new ResetGyroCommand(drivetrainSubsystem));
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
         blinkinButton.whileTrue(new BlinkinCommand( blinkin));
+        
+        elevatorButtonDown.whileTrue(new ElevatorCommand(elevator, 0.6));
+        elevatorButtonUp.whileTrue(new ElevatorCommand(elevator, -0.6));
     }
 //do new button bindings
    private void configureCoPilotButtonBindings() {
 
-        elevatorButtonDown.whileTrue(new ElevatorCommand(elevator, 0.6));
-        elevatorButtonUp.whileTrue(new ElevatorCommand(elevator, -0.6));
        // highRung.onTrue(new ScoringCommand(elevator, 0.8, pivoty, 0.8, 3, intake, 0.2, false, limelight));
        // lowerAndGrab.onTrue(new ScoringCommand(elevator, 0.8, pivoty, 0.8, 1, intake, 0.2, true, limelight));
         openIntake.whileTrue(new intakeCommand(intake, .8));

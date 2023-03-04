@@ -4,14 +4,16 @@
 
 package frc.robot.state;
 
+import edu.wpi.first.wpilibj.Joystick;
+
 /** Add your docs here. */
 public class RobotState {
     public LimelightState limelightState;
     public IntakeState IntakeState;
     public SwerveState swerveState;
-    public RobotState() {
+    public RobotState(Joystick driver) {
         this.limelightState = new LimelightState();
         this.IntakeState = new IntakeState();
-        this.swerveState = new SwerveState();
+        this.swerveState = new SwerveState(driver);
     }
 }
