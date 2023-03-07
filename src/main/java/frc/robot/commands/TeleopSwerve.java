@@ -1,26 +1,21 @@
 package frc.robot.commands;
 
 import frc.robot.constants.SwerveConstants;
-import frc.robot.state.LimelightState;
 import frc.robot.state.RobotState;
 import frc.robot.subsystems.Swerve;
 
 import java.util.function.BooleanSupplier;
 import java.util.function.DoubleSupplier;
 
-
 import com.kauailabs.navx.frc.AHRS;
 
-import edu.wpi.first.hal.ThreadsJNI;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.LimelightSubsystem;
 
 
-public class TeleopSwerve extends CommandBase {    
-    static final double kOffBalanceAngleThresholdDegrees = 10;
-    static final double kOonBalanceAngleThresholdDegrees  = 5;
+public class TeleopSwerve extends CommandBase {  
+
     double offsetToleranceProprtion;
 
     private Swerve s_Swerve;    
@@ -28,16 +23,11 @@ public class TeleopSwerve extends CommandBase {
     private DoubleSupplier strafeSup;
     private DoubleSupplier rotationSup;
     private BooleanSupplier robotCentricSup;
-    private LimelightState limelightState;
-    private LimelightSubsystem limelightSubsystem;
     private RobotState robotState;
-    private double strafeVal;
 
-
-    public TeleopSwerve(Swerve s_Swerve, DoubleSupplier translationSup, DoubleSupplier strafeSup, DoubleSupplier rotationSup, BooleanSupplier robotCentricSup,RobotState robotState) {
+    public TeleopSwerve(Swerve s_Swerve, DoubleSupplier translationSup, DoubleSupplier strafeSup, DoubleSupplier rotationSup, BooleanSupplier robotCentricSup, RobotState robotState) {
         this.s_Swerve = s_Swerve;
         addRequirements(s_Swerve);
-        offsetToleranceProprtion = 0.1;
 
         this.translationSup = translationSup;
         this.strafeSup = strafeSup;
@@ -115,24 +105,43 @@ public class TeleopSwerve extends CommandBase {
     
     public void execute() {
         /* Get Values, Deadband*/
-        double translationVal = MathUtil.applyDeadband(translationSup.getAsDouble(), SwerveConstants.stickDeadband);
+        double translationVal = MathUtil.applyDeadband(getTranslation(), SwerveConstants.stickDeadband);
         double rotationVal = MathUtil.applyDeadband(rotationSup.getAsDouble(), SwerveConstants.stickDeadband);
+        double strafeVal = MathUtil.applyDeadband(strafeSup.getAsDouble()*.75, SwerveConstants.stickDeadband);
        
        //auto balance if autobalance has been toggled
-        if(robotState.swerveState.getSwerveState() == true){
-            double[] transrot=  autoBalance(strafeSup, rotationSup, s_Swerve.getNavx());
-
-             translationVal = MathUtil.applyDeadband(transrot[0], SwerveConstants.stickDeadband);
-            rotationVal = MathUtil.applyDeadband(transrot[1], SwerveConstants.stickDeadband);
+        if(robotState.swerveState.getStartButton()){
+            robotState.swerveState.swerveAutoBalance();
         }
-
-        
+        // System.out.println(translationVal);
         /* Drive */
         s_Swerve.drive(
-            new Translation2d(translationVal, moveLeftOrRight()).times(SwerveConstants.Swerve.maxSpeed), 
+            new Translation2d(translationVal, strafeVal).times(SwerveConstants.Swerve.maxSpeed), 
             rotationVal * SwerveConstants.Swerve.maxAngularVelocity, 
             !robotCentricSup.getAsBoolean(), 
             true
         );
     }
+    double transValue;
+    public double getTranslation(){
+        if(robotState.swerveState.getSwerveState()){
+            transValue = getAutoLevel();
+        }
+        else{
+            transValue = translationSup.getAsDouble();
+        }
+        return transValue;
+    }
+    double error;
+    double autoLevelPwr;
+    public double getAutoLevel(){
+       error = -s_Swerve.getNavx().getRoll();
+       if(Math.abs(error)<1){
+           robotState.swerveState.noSwerveAutoBalance();;
+       }
+       System.out.println("error" + error);
+       autoLevelPwr = -Math.min(error*.02, 1);
+        System.out.println(error+ " " +autoLevelPwr);
+       return autoLevelPwr;
+   }
 }
