@@ -6,13 +6,14 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.constants.Constants;
 import frc.robot.subsystems.PivotySubsystem;
 
 public class PivotyCommand extends CommandBase {
   /** Creates a new PivotyCommand. */
   PivotySubsystem pivoty;
   double pivotySpeed;
-  DigitalInput breakBeamOne;
+  // public DigitalInput breakBeamOne;
   DigitalInput breakBeamTwo;
   int desiredEncoderValue;
   //needs fixed
@@ -20,6 +21,7 @@ public class PivotyCommand extends CommandBase {
     // Use addRequirements() here to declare subsystem dependencies.
     this.pivoty = pivoty;
     this.pivotySpeed = pivotySpeed;
+    // breakBeamOne = new DigitalInput(Constants.PIVOTY_BREAK_BEAM);
 
     addRequirements(pivoty);
   }

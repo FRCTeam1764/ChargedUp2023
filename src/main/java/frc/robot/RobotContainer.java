@@ -49,7 +49,7 @@ public class RobotContainer {
     // private final DrivetrainSubsystem drivetrainSubsystem = new DrivetrainSubsystem();
     // private final VisionSubsystem visionSubsystem = new VisionSubsystem(drivetrainSubsystem);
 
-    private Trajectory[] trajectories;
+    // private Trajectory[] trajectories;
     // private final AutonomousChooser autonomousChooser;
 
     public RobotContainer() {
@@ -69,15 +69,15 @@ public class RobotContainer {
                 robotState
             )
         );
-        setTrajectories();
+       // setTrajectories();
         configurePilotButtonBindings();
         configureCoPilotButtonBindings();
         // autonomousChooser = new AutonomousChooser(trajectories);
     }
 
-   private void setTrajectories() {
-       trajectories = Trajectories.getTrajectories();
-   }
+//    private void setTrajectories() {
+//        trajectories = Trajectories.getTrajectories();
+//    }
 
 
     private void configurePilotButtonBindings() {
@@ -118,6 +118,9 @@ public class RobotContainer {
          return new exampleAuto(s_Swerve);
      }
 
+     public Elevator getElevatorSubsystem(){
+        return elevator;
+     }
 
      public Swerve getDrivetrainSubsystem() {
          return s_Swerve;
@@ -142,9 +145,9 @@ public class RobotContainer {
         return secondaryController;
     }
 
-   public Trajectory[] getTrajectories() {
-       return trajectories;
-   }
+//    public Trajectory[] getTrajectories() {
+//        return trajectories;
+//    }
     
 
     // public AutonomousChooser getAutonomousChooser() {

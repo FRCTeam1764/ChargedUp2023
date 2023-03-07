@@ -17,9 +17,9 @@ public class Elevator extends SubsystemBase {
   LazyTalonFX elevatorMotor2;
   double elevatorSpeed;
   Encoder encoder;
-  DigitalInput minExtend;
-  DigitalInput maxExtend;
-  DigitalInput midExtend;
+  public DigitalInput minExtend;
+  public DigitalInput maxExtend;
+  public DigitalInput midExtend;
   DigitalInput no;
   int previousHeightLevel;
   double Reverse = 1.0;
@@ -27,7 +27,6 @@ boolean BreakBeamOffOrOn = false;
   public Elevator(){
     elevatorMotor1 = new LazyTalonFX(Constants.ELEVATOR_MOTOR.id,Constants.ELEVATOR_MOTOR.busName);
     elevatorMotor2 = new LazyTalonFX(Constants.ELAVATOR_MOTOR_2.id, Constants.ELAVATOR_MOTOR_2.busName);
-    elevatorMotor2.setInverted(true);
     elevatorMotor2.follow(elevatorMotor1);
     minExtend = new DigitalInput(Constants.MIN_EXTEND_BREAK_BEAM);
     maxExtend = new DigitalInput(Constants.MAX_EXTEND_BREAK_BEAM);
