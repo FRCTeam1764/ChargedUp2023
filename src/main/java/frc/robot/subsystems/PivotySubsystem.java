@@ -11,42 +11,28 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.StatorCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
 public class PivotySubsystem extends SubsystemBase {
   /** Creates a new Elevator. */
-  LazyTalonFX pivotyMotor1;
+  TalonFX pivotyMotor1;
   LazyTalonFX pivotyMotor2;
   double pivotySpeed;
-
-  public DigitalInput breakBeamOne;
-  
+  DigitalInput breakBeamOne;
   public PivotySubsystem(){
-    pivotyMotor1 = new LazyTalonFX(Constants.PIVOTY_MOTOR.id, Constants.PIVOTY_MOTOR.busName);
-    pivotyMotor2 = new LazyTalonFX(Constants.PIVOTY_MOTOR_2.id, Constants.PIVOTY_MOTOR_2.busName);
-    pivotyMotor1.configOpenloopRamp(.5);
-    pivotyMotor2.configOpenloopRamp(.5);
-    
+    pivotyMotor1 = new LazyTalonFX(0, Constants.CANIVORE_NAME);
+    pivotyMotor2 = new LazyTalonFX(2, Constants.CANIVORE_NAME);
     breakBeamOne = new DigitalInput(Constants.PIVOTY_BREAK_BEAM);
   //  breakBeamTwo = new DigitalInput(6);
-
   }
-  public void pivotyOn(double pivotySpeed){
+  public void pivotyOn(double pivotySpeed, int desiredEncoderValue){
     if(!breakBeamOne.get()){
       pivotyMotor1.getSensorCollection().setIntegratedSensorPosition(0.0,0);
       pivotyMotor2.getSensorCollection().setIntegratedSensorPosition(0.0,0);
-      System.out.println("it gets here");
-    }
-    pivotyMotor1.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(false, 5, 0, 0));
-    pivotyMotor2.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(false, 5, 0, 0));
 
-    
-    // pivotyMotor1.set(ControlMode.Position, desiredEncoderValue);
-    // pivotyMotor2.set(ControlMode.Position, desiredEncoderValue);
-    pivotyMotor1.set(ControlMode.PercentOutput, pivotySpeed);
-    pivotyMotor2.set(ControlMode.PercentOutput, pivotySpeed);
+    }
+    pivotyMotor1.set(ControlMode.Position, desiredEncoderValue);
+    pivotyMotor2.set(ControlMode.Position, desiredEncoderValue);
 
     SmartDashboard.putNumber("pivoty encoder",pivotyMotor1.getSelectedSensorPosition());
 
@@ -67,8 +53,6 @@ public class PivotySubsystem extends SubsystemBase {
   public void pivotyOff(){
     pivotyMotor1.set(ControlMode.PercentOutput, 0);
     pivotyMotor2.set(0);
-    pivotyMotor1.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, 10, 0, 0));
-    pivotyMotor2.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, 10, 0, 0));
 
   }
   

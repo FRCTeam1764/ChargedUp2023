@@ -23,7 +23,6 @@ public class Swerve extends SubsystemBase {
     public SwerveDriveOdometry swerveOdometry;
     public SwerveModule[] mSwerveMods;
     public AHRS gyro;
-    
 
     public Swerve() {
         //gyro = new NavX(SwerveConstants.Swerve.pigeonID);

@@ -46,7 +46,7 @@ public class RobotContainer {
     // private final DrivetrainSubsystem drivetrainSubsystem = new DrivetrainSubsystem();
     // private final VisionSubsystem visionSubsystem = new VisionSubsystem(drivetrainSubsystem);
 
-    // private Trajectory[] trajectories;
+    private Trajectory[] trajectories;
     // private final AutonomousChooser autonomousChooser;
 
     public RobotContainer() {
@@ -110,18 +110,12 @@ public class RobotContainer {
          return new exampleAuto(s_Swerve);
      }
 
-     public Elevator getElevatorSubsystem(){
-        return elevator;
-     }
 
      public Swerve getDrivetrainSubsystem() {
          return s_Swerve;
      }
      public intakeSubsystem getIntakeSubsystem() {
         return intake;
-    }
-    public PivotySubsystem getPivotySubsystem() {
-        return pivoty;
     }
     public BlinkinSubsystem getBlinkinSubsystem() {
          return blinkin;
@@ -137,9 +131,9 @@ public class RobotContainer {
         return secondaryController;
     }
 
-//    public Trajectory[] getTrajectories() {
-//        return trajectories;
-//    }
+   public Trajectory[] getTrajectories() {
+       return trajectories;
+   }
     
 
     // public AutonomousChooser getAutonomousChooser() {

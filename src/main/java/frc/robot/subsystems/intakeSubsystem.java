@@ -31,8 +31,8 @@ public class intakeSubsystem extends SubsystemBase {
   public intakeSubsystem(IntakeState intakeState) {
   // this.intakeMotor = new SparkMaxAlternateEncoder(sparkMax, 42);
 
-     sideRollers = new CANSparkMax(Constants.SIDE_INTAKE_MOTOR.id,MotorType.kBrushless);
-     backRollers = new CANSparkMax(Constants.BACK_INTAKE_MOTOR.id, MotorType.kBrushless);
+     sideRollers = new CANSparkMax(Constants.SIDE_INTAKE_MOTOR,MotorType.kBrushless);
+     backRollers = new CANSparkMax(Constants.BACK_INTAKE_MOTOR, MotorType.kBrushless);
     
      color1 = new DigitalInput(Constants.COLOR_SENSOR_1);
      color2 = new DigitalInput(Constants.COLOR_SENSOR_2);
