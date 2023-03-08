@@ -4,16 +4,28 @@
 
 package frc.robot.state;
 
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+
 /** Add your docs here. */
 public class SwerveState {
-    boolean SwerveAutoBalance;
-    public SwerveState(){
-        SwerveAutoBalance = false;
+    boolean swerveAutoBalance;
+    private final JoystickButton toggleDriveTrainAutoBalance;
+    public SwerveState(Joystick driver){
+        swerveAutoBalance = false;
+        toggleDriveTrainAutoBalance =  new JoystickButton(driver, XboxController.Button.kStart.value);
     }
-    public void ToggleServeAutoBalance(){
-        this.SwerveAutoBalance = !SwerveAutoBalance;
+    public void swerveAutoBalance(){
+        swerveAutoBalance = true;
+    }
+    public void noSwerveAutoBalance(){
+        swerveAutoBalance = false;
     }
     public boolean getSwerveState(){
-        return SwerveAutoBalance;
+        return swerveAutoBalance;
+    }
+    public boolean getStartButton(){
+        return toggleDriveTrainAutoBalance.getAsBoolean();
     }
 }

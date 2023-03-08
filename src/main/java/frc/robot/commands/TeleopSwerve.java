@@ -59,74 +59,20 @@ public class TeleopSwerve extends CommandBase {
         }
         return strafeVal;
     }
-/*
- * returns transitional and rotational values based on gyro rotation to balance
- * preferibly robot should be straight
- */
-    public double[] autoBalance(DoubleSupplier yaxis,DoubleSupplier xaxis,AHRS ahrs){
 
-        boolean autoBalanceXMode = true;
-        boolean autoBalanceYMode = true;
-
-        Double xAxisRate            = xaxis.getAsDouble();
-        Double yAxisRate            = yaxis.getAsDouble();
-        double pitchAngleDegrees    = ahrs.getPitch();
-        double rollAngleDegrees     = ahrs.getRoll();
-        
-        if ( !autoBalanceXMode && 
-             (Math.abs(pitchAngleDegrees) >= 
-              Math.abs(kOffBalanceAngleThresholdDegrees))) {
-            autoBalanceXMode = true;
-        }
-        else if ( autoBalanceXMode && 
-                  (Math.abs(pitchAngleDegrees) <= 
-                   Math.abs(kOonBalanceAngleThresholdDegrees))) {
-            autoBalanceXMode = false;
-        }
-        if ( !autoBalanceYMode && 
-             (Math.abs(pitchAngleDegrees) >= 
-              Math.abs(kOffBalanceAngleThresholdDegrees))) {
-            autoBalanceYMode = true;
-        }
-        else if ( autoBalanceYMode && 
-                  (Math.abs(pitchAngleDegrees) <= 
-                   Math.abs(kOonBalanceAngleThresholdDegrees))) {
-            autoBalanceYMode = false;
-        }
-        
-        // Control drive system automatically, 
-        // driving in reverse direction of pitch/roll angle,
-        // with a magnitude based upon the angle
-        
-        if ( autoBalanceXMode ) {
-            double pitchAngleRadians = pitchAngleDegrees * (Math.PI / 180.0);
-            xAxisRate = Math.sin(pitchAngleRadians) * -1;
-        }
-        if ( autoBalanceYMode ) {
-            double rollAngleRadians = rollAngleDegrees * (Math.PI / 180.0);
-            yAxisRate = Math.sin(rollAngleRadians) * -1;
-        }
-
-        double[] aidenSucks = {xAxisRate,yAxisRate};
-        return aidenSucks; // curse you sawyer
-      //  myRobot.mecanumDrive_Cartesian(xAxisRate, yAxisRate, stick.getTwist(),0);
-    }
 
     
     public void execute() {
         /* Get Values, Deadband*/
-        double translationVal = MathUtil.applyDeadband(translationSup.getAsDouble(), SwerveConstants.stickDeadband);
+        double translationVal = MathUtil.applyDeadband(getTranslation(), SwerveConstants.stickDeadband);
         double rotationVal = MathUtil.applyDeadband(rotationSup.getAsDouble(), SwerveConstants.stickDeadband);
+        // double strafeVal = MathUtil.applyDeadband(strafeSup.getAsDouble()*.75, SwerveConstants.stickDeadband);
        
        //auto balance if autobalance has been toggled
-        if(robotState.swerveState.getSwerveState() == true){
-            double[] transrot=  autoBalance(strafeSup, rotationSup, s_Swerve.getNavx());
-
-             translationVal = MathUtil.applyDeadband(transrot[0], SwerveConstants.stickDeadband);
-            rotationVal = MathUtil.applyDeadband(transrot[1], SwerveConstants.stickDeadband);
+        if(robotState.swerveState.getStartButton()){
+            robotState.swerveState.swerveAutoBalance();
         }
-
-        
+        // System.out.println(translationVal);
         /* Drive */
         s_Swerve.drive(
             new Translation2d(translationVal, moveLeftOrRight()).times(SwerveConstants.Swerve.maxSpeed), 
@@ -135,4 +81,26 @@ public class TeleopSwerve extends CommandBase {
             true
         );
     }
+    double transValue;
+    public double getTranslation(){
+        if(robotState.swerveState.getSwerveState()){
+            transValue = getAutoLevel();
+        }
+        else{
+            transValue = translationSup.getAsDouble();
+        }
+        return transValue;
+    }
+    double error;
+    double autoLevelPwr;
+    public double getAutoLevel(){
+       error = -s_Swerve.getNavx().getRoll();
+       if(Math.abs(error)<1){
+           robotState.swerveState.noSwerveAutoBalance();;
+       }
+       System.out.println("error" + error);
+       autoLevelPwr = -Math.min(error*.02, 1);
+        System.out.println(error+ " " +autoLevelPwr);
+       return autoLevelPwr;
+   }
 }

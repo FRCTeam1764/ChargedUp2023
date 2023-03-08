@@ -36,9 +36,8 @@ public class RobotContainer {
     private final JoystickButton lowRung = new JoystickButton(secondaryController, XboxController.Button.kA.value);
     private final JoystickButton openIntake = new JoystickButton(secondaryController, XboxController.Button.kRightBumper.value);
     private final JoystickButton lowerAndGrab = new JoystickButton(secondaryController, XboxController.Button.kLeftBumper.value);
-    private final JoystickButton toggleDriveTrainAutoBalance =  new JoystickButton(secondaryController, XboxController.Button.kStart.value);
     /* Subsystems */
-    public RobotState robotState = new RobotState();
+    public RobotState robotState = new RobotState(driver);
     private final Swerve s_Swerve = new Swerve();
     private final Superstructure superstructure = new Superstructure();
     private final Elevator elevator = new Elevator();
