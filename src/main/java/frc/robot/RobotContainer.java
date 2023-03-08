@@ -125,6 +125,13 @@ public class RobotContainer {
        return superstructure;
    }
 
+   public Elevator getElevatorSubsystem(){
+    return elevator;
+   }
+
+   public PivotySubsystem getPivotySubsystem(){
+    return pivoty;
+   }
 
 
     public Joystick getsecondaryController() {

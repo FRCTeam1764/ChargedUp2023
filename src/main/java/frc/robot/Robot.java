@@ -8,6 +8,8 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 // import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.libraries.NewSwerve.CTREConfigs;
@@ -39,7 +41,7 @@ public class Robot extends TimedRobot {
     );
 
    public Robot() {
-        intakeMotor = new CANSparkMax(Constants.INTAKE_OPENER_MOTOR, MotorType.kBrushless);
+        intakeMotor = new CANSparkMax(Constants.INTAKE_OPENER_MOTOR.id, MotorType.kBrushless);
        instance = this;
    }
 
@@ -55,7 +57,7 @@ public class Robot extends TimedRobot {
        //grabber = new robotContainer.getGrabberSubsystem();
 
         //CommandScheduler.getInstance().schedule(new BlinkinCommand(-.95, robotContainer.getBlinkinSubsystem()));
-
+        robotContainer.getDrivetrainSubsystem().getNavx().calibrate();;
 
        updateManager.startLoop(5.0e-3);
        // robotContainer.getVisionSubsystem().setLedMode(Limelight.LedMode.OFF);
@@ -79,6 +81,11 @@ public class Robot extends TimedRobot {
         else{
             intakeMotor.set(0.0);
         }
+        SmartDashboard.putBoolean("mid", robotContainer.getElevatorSubsystem().midExtend.get() );
+        SmartDashboard.putBoolean("max", robotContainer.getElevatorSubsystem().maxExtend.get() );
+        SmartDashboard.putBoolean("min", robotContainer.getElevatorSubsystem().minExtend.get() );
+        SmartDashboard.putBoolean("pivoty", robotContainer.getPivotySubsystem().breakBeamOne.get() );
+
 /* */
          
    }

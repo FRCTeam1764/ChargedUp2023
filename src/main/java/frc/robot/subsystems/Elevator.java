@@ -17,9 +17,9 @@ public class Elevator extends SubsystemBase {
   LazyTalonFX elevatorMotor2;
   double elevatorSpeed;
   Encoder encoder;
-  DigitalInput minExtend;
-  DigitalInput maxExtend;
-  DigitalInput midExtend;
+  public DigitalInput minExtend;
+  public DigitalInput maxExtend;
+  public DigitalInput midExtend;
   DigitalInput no;
   int previousHeightLevel;
   double Reverse = 1.0;

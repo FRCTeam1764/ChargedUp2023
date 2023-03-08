@@ -18,7 +18,7 @@ public class PivotySubsystem extends SubsystemBase {
   TalonFX pivotyMotor1;
   LazyTalonFX pivotyMotor2;
   double pivotySpeed;
-  DigitalInput breakBeamOne;
+  public DigitalInput breakBeamOne;
   public PivotySubsystem(){
     pivotyMotor1 = new LazyTalonFX(0, Constants.CANIVORE_NAME);
     pivotyMotor2 = new LazyTalonFX(2, Constants.CANIVORE_NAME);
