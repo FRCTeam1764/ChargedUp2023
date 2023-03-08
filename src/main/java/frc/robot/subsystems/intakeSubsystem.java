@@ -31,8 +31,8 @@ public class intakeSubsystem extends SubsystemBase {
   public intakeSubsystem(IntakeState intakeState) {
   // this.intakeMotor = new SparkMaxAlternateEncoder(sparkMax, 42);
 
-     sideRollers = new CANSparkMax(Constants.SIDE_INTAKE_MOTOR,MotorType.kBrushless);
-     backRollers = new CANSparkMax(Constants.BACK_INTAKE_MOTOR, MotorType.kBrushless);
+     sideRollers = new CANSparkMax(Constants.SIDE_INTAKE_MOTOR.id,MotorType.kBrushless);
+     backRollers = new CANSparkMax(Constants.BACK_INTAKE_MOTOR.id, MotorType.kBrushless);
     
      color1 = new DigitalInput(Constants.COLOR_SENSOR_1);
      color2 = new DigitalInput(Constants.COLOR_SENSOR_2);
@@ -43,17 +43,19 @@ public class intakeSubsystem extends SubsystemBase {
   //intake - has built in color sensor, intakes ball/cone depending on it
   public void intakeClose(double intakeSpeed){
     sideRollers.set(intakeSpeed);
+    System.out.println(color1.get());
+    System.out.println(color2.get());
     if (color1.get() && color2.get()) {
       backRollers.set( 0.5); //use backrollers when cone
     } else {
       backRollers.set(0);
 
-    System.out.println(color.get());
+
 
     }
-
-    if ((color1.get() && color2.get()) || (!color1.get() && color2.get()))
+    if (color2.get()){
     intakeState.setIntakeClose(true);
+    }
     if (timer > 30) {
 
       backRollers.set(0);

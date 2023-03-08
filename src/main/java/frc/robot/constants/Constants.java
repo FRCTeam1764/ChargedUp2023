@@ -21,11 +21,12 @@ public final class Constants {
     public static final int MID_EXTEND_BREAK_BEAM =  2;
     public static final int PIVOTY_BREAK_BEAM =      1;
 
-
-    public static final int COLOR_SENSOR =           8;
-    public static final int COLOR_SENSOR2 =           8;
     public static final int BLINKIN_SPARK =          1;
     public static final int PRESSURE_SENSOR_PORT =   0;
+
+    public static final int COLOR_SENSOR_2 = 5;
+
+    public static final int COLOR_SENSOR_1 = 7;
 
 
 

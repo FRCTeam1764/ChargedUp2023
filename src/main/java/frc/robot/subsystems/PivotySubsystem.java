@@ -15,7 +15,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
 public class PivotySubsystem extends SubsystemBase {
   /** Creates a new Elevator. */
-  TalonFX pivotyMotor1;
+  LazyTalonFX pivotyMotor1;
   LazyTalonFX pivotyMotor2;
   double pivotySpeed;
   public DigitalInput breakBeamOne;
@@ -26,15 +26,11 @@ public class PivotySubsystem extends SubsystemBase {
   //  breakBeamTwo = new DigitalInput(6);
   }
   public void pivotyOn(double pivotySpeed, int desiredEncoderValue){
-    if(!breakBeamOne.get()){
-      pivotyMotor1.getSensorCollection().setIntegratedSensorPosition(0.0,0);
-      pivotyMotor2.getSensorCollection().setIntegratedSensorPosition(0.0,0);
 
-    }
     pivotyMotor1.set(ControlMode.Position, desiredEncoderValue);
     pivotyMotor2.set(ControlMode.Position, desiredEncoderValue);
 
-    SmartDashboard.putNumber("pivoty encoder",pivotyMotor1.getSelectedSensorPosition());
+    
 
 
  
@@ -52,8 +48,15 @@ public class PivotySubsystem extends SubsystemBase {
 
   public void pivotyOff(){
     pivotyMotor1.set(ControlMode.PercentOutput, 0);
-    pivotyMotor2.set(0);
+    pivotyMotor2.set(ControlMode.PercentOutput, 0);
 
+  }
+  public double getEncoderValue(){
+    return pivotyMotor1.getSelectedSensorPosition();
+  }
+  public void zeroEncoder(){
+    pivotyMotor1.getSensorCollection().setIntegratedSensorPosition(0.0,0);
+    pivotyMotor2.getSensorCollection().setIntegratedSensorPosition(0.0,0);
   }
   
   @Override

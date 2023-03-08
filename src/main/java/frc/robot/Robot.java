@@ -57,7 +57,8 @@ public class Robot extends TimedRobot {
        //grabber = new robotContainer.getGrabberSubsystem();
 
         //CommandScheduler.getInstance().schedule(new BlinkinCommand(-.95, robotContainer.getBlinkinSubsystem()));
-        robotContainer.getDrivetrainSubsystem().getNavx().calibrate();;
+        robotContainer.getDrivetrainSubsystem().getNavx().calibrate();
+        robotContainer.getDrivetrainSubsystem().zeroGyro();
 
        updateManager.startLoop(5.0e-3);
        // robotContainer.getVisionSubsystem().setLedMode(Limelight.LedMode.OFF);
@@ -71,6 +72,9 @@ public class Robot extends TimedRobot {
    public void robotPeriodic() {
         CommandScheduler.getInstance().run();
         //handles intake motor clamping down
+        if(!robotContainer.getPivotySubsystem().breakBeamOne.get()){
+            robotContainer.getPivotySubsystem().zeroEncoder();
+        }
         if(robotContainer.robotState.IntakeState.getIntakeClose()){
             intakeMotor.set(.2);
             intakeMotor.getEncoder().setPosition(0);
@@ -85,6 +89,7 @@ public class Robot extends TimedRobot {
         SmartDashboard.putBoolean("max", robotContainer.getElevatorSubsystem().maxExtend.get() );
         SmartDashboard.putBoolean("min", robotContainer.getElevatorSubsystem().minExtend.get() );
         SmartDashboard.putBoolean("pivoty", robotContainer.getPivotySubsystem().breakBeamOne.get() );
+        SmartDashboard.putNumber("pivoty encoder", robotContainer.getPivotySubsystem().getEncoderValue());
 
 /* */
          

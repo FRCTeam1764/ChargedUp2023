@@ -23,7 +23,10 @@ public class RobotContainer {
     /* Driver Buttons */
     private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kStart.value);
     private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
-    private final JoystickButton blinkinButton = new JoystickButton(driver, XboxController.Button.kY.value);
+    private final JoystickButton blinkinButton = new JoystickButton(driver, XboxController.Button.kB.value);
+    private final JoystickButton highButton = new JoystickButton(driver, XboxController.Button.kY.value);
+    private final JoystickButton lowButton = new JoystickButton(driver, XboxController.Button.kA.value);
+    private final JoystickButton midButton = new JoystickButton(driver, XboxController.Button.kX.value);
     //private final JoystickButton limelight1 = new JoystickButton(driver, XboxController.Button.kA.value);
     //private final JoystickButton limelight2 = new JoystickButton(driver, XboxController.Button.kB.value);
 
@@ -66,21 +69,20 @@ public class RobotContainer {
                 robotState
             )
         );
-        setTrajectories();
+
         configurePilotButtonBindings();
         configureCoPilotButtonBindings();
         // autonomousChooser = new AutonomousChooser(trajectories);
     }
-
-   private void setTrajectories() {
-       trajectories = Trajectories.getTrajectories();
-   }
 
 
     private void configurePilotButtonBindings() {
         // secondaryController.getBackButton().onTrue(new ResetGyroCommand(drivetrainSubsystem));
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
         blinkinButton.whileTrue(new BlinkinCommand( blinkin));
+        highButton.onTrue(new ElevatorCommand(elevator, .4, 3));
+        midButton.onTrue(new ElevatorCommand(elevator, .4, 2));
+        lowButton.onTrue(new ElevatorCommand(elevator, .4, 1));
     }
 //do new button bindings
    private void configureCoPilotButtonBindings() {
@@ -90,7 +92,7 @@ public class RobotContainer {
         highRung.onTrue(new ScoringCommand(elevator, 0.8, pivoty, 0.8, 3, intake, 0.2, false, limelight));
         lowerAndGrab.onTrue(new ScoringCommand(elevator, 0.8, pivoty, 0.8, 1, intake, 0.2, true, limelight));
         openIntake.onTrue(new intakeCommand(intake, 0.2, false, 1));
-        toggleDriveTrainAutoBalance.onTrue(new toggleSwerveState(robotState)); // set it up for a toggleontrue later
+        // toggleDriveTrainAutoBalance.onTrue(new toggleSwerveState(robotState)); // set it up for a toggleontrue later
        // elevatorUp.whileTrue(new ElevatorCommand(elevator, .8 , 3));
         //elevatorDown.whileTrue(new ElevatorCommand(elevator, 0.8, 1));
         //elevatorLeft.whileTrue(new PivotyCommand(pivoty, 0.8, 69420));

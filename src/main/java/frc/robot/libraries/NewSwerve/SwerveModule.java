@@ -24,26 +24,29 @@ public class SwerveModule {
     private TalonFX mAngleMotor;
     private TalonFX mDriveMotor;
     private CANCoder angleEncoder;
+    private CTREConfigs ctreConfigs;
 
     SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(SwerveConstants.Swerve.driveKS, SwerveConstants.Swerve.driveKV, SwerveConstants.Swerve.driveKA);
 
     public SwerveModule(int moduleNumber, SwerveModuleConstants moduleConstants){
         this.moduleNumber = moduleNumber;
         this.angleOffset = moduleConstants.angleOffset;
+        ctreConfigs = new CTREConfigs();
         
         /* Angle Encoder Config */
-        angleEncoder = new CANCoder(moduleConstants.cancoderID);
+        angleEncoder = new CANCoder(moduleConstants.cancoderID.id, moduleConstants.cancoderID.busName);
         configAngleEncoder();
 
         /* Angle Motor Config */
-        mAngleMotor = new TalonFX(moduleConstants.angleMotorID);
+        mAngleMotor = new TalonFX(moduleConstants.angleMotorID.id, moduleConstants.angleMotorID.busName);
         configAngleMotor();
 
         /* Drive Motor Config */
-        mDriveMotor = new TalonFX(moduleConstants.driveMotorID);
+        mDriveMotor = new TalonFX(moduleConstants.driveMotorID.id, moduleConstants.driveMotorID.busName);
         configDriveMotor();
 
         lastAngle = getState().angle;
+
     }
 
     public void setDesiredState(SwerveModuleState desiredState, boolean isOpenLoop){
@@ -86,12 +89,12 @@ public class SwerveModule {
 
     private void configAngleEncoder(){        
         angleEncoder.configFactoryDefault();
-        angleEncoder.configAllSettings(Robot.ctreConfigs.swerveCanCoderConfig);
+        angleEncoder.configAllSettings(ctreConfigs.swerveCanCoderConfig);
     }
 
     private void configAngleMotor(){
         mAngleMotor.configFactoryDefault();
-        mAngleMotor.configAllSettings(Robot.ctreConfigs.swerveAngleFXConfig);
+        mAngleMotor.configAllSettings(ctreConfigs.swerveAngleFXConfig);
         mAngleMotor.setInverted(SwerveConstants.Swerve.angleMotorInvert);
         mAngleMotor.setNeutralMode(SwerveConstants.Swerve.angleNeutralMode);
         resetToAbsolute();
@@ -99,7 +102,7 @@ public class SwerveModule {
 
     private void configDriveMotor(){        
         mDriveMotor.configFactoryDefault();
-        mDriveMotor.configAllSettings(Robot.ctreConfigs.swerveDriveFXConfig);
+        mDriveMotor.configAllSettings(ctreConfigs.swerveDriveFXConfig);
         mDriveMotor.setInverted(SwerveConstants.Swerve.driveMotorInvert);
         mDriveMotor.setNeutralMode(SwerveConstants.Swerve.driveNeutralMode);
         mDriveMotor.setSelectedSensorPosition(0);

@@ -40,11 +40,11 @@ boolean BreakBeamOffOrOn = false;
   //Elevator goes to the breakbeam specified via "heightlevel", speed can be negative or positive
   public void elevatorOn(double elevatorSpeed, int heightLevel){
     if (heightLevel < previousHeightLevel) { 
-      BreakBeamOffOrOn = false;
+      BreakBeamOffOrOn = true;
       Reverse = -1.0;
 
     }else {
-      BreakBeamOffOrOn = true;
+      BreakBeamOffOrOn = false;
       Reverse = 1.0;
     }
 
