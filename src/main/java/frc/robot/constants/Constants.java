@@ -1,39 +1,34 @@
 package frc.robot.constants;
 
-// import com.swervedrivespecialties.swervelib.CanPort;
+import frc.robot.common.CanPort;
 
-/**
- * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
- * constants. This class should not be used for any other purpose. All constants should be declared
- * globally (i.e. public static). Do not put anything functional in this class.
- *
- * <p>It is advised to statically import this class (or one of its inner classes) wherever the
- * constants are needed, to reduce verbosity.
- */
 public final class Constants {
+    
+    public static final String CANIVORE_NAME = "1764 canivore";
 
-    public static final int BACK_INTAKE_MOTOR =     21;
-    public static final int SIDE_INTAKE_MOTOR =     22;
-    public static final int INTAKE_OPENER_MOTOR =   23;
+    public static final CanPort BACK_INTAKE_MOTOR =     new CanPort(21);
+    public static final CanPort SIDE_INTAKE_MOTOR =     new CanPort(22);
+    public static final CanPort INTAKE_OPENER_MOTOR =   new CanPort(23);
 
-    public static final int PIVOTY_MOTOR =          32;
+    public static final CanPort PIVOTY_MOTOR =          new CanPort(36, CANIVORE_NAME);
+    public static final CanPort PIVOTY_MOTOR_2 =        new CanPort(20, CANIVORE_NAME);
 
-    public static final int ELEVATOR_MOTOR =        42;
+    public static final CanPort ELEVATOR_MOTOR =        new CanPort(32, CANIVORE_NAME);
+    public static final CanPort ELAVATOR_MOTOR_2 =      new CanPort(33, CANIVORE_NAME);;
 
     public static final int MIN_EXTEND_BREAK_BEAM =  0;
-    public static final int MAX_EXTEND_BREAK_BEAM =  2;
-    public static final int MID_EXTEND_BREAK_BEAM =  4;
-    public static final int PIVOTY_BREAK_BEAM =      6;
+    public static final int MAX_EXTEND_BREAK_BEAM =  3;
+    public static final int MID_EXTEND_BREAK_BEAM =  2;
+    public static final int PIVOTY_BREAK_BEAM =      1;
 
 
-    public static final int COLOR_SENSOR_1 =         8;
-    public static final int COLOR_SENSOR_2 =         9; // i dunno the port 
+    public static final int COLOR_SENSOR =           8;
+    public static final int COLOR_SENSOR2 =           8;
     public static final int BLINKIN_SPARK =          1;
     public static final int PRESSURE_SENSOR_PORT =   0;
 
 
 
-    public static final String CANIVORE_NAME = "1764 canivore";
     
    
 
