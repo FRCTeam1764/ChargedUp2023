@@ -23,7 +23,7 @@ public class RobotContainer {
 
     /* Driver Buttons */
     private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kStart.value);
-    private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
+    private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kRightStick.value);
     private final JoystickButton blinkinButton = new JoystickButton(driver, XboxController.Button.kB.value);
     private final JoystickButton highButton = new JoystickButton(driver, XboxController.Button.kY.value);
     private final JoystickButton lowButton = new JoystickButton(driver, XboxController.Button.kA.value);
@@ -37,8 +37,8 @@ public class RobotContainer {
     private final JoystickButton lowRung = new JoystickButton(secondaryController, XboxController.Button.kA.value);
     private final JoystickButton openIntake = new JoystickButton(secondaryController, XboxController.Button.kRightBumper.value);
     private final JoystickButton lowerAndGrab = new JoystickButton(secondaryController, XboxController.Button.kLeftBumper.value);
-    private final JoystickButton pivotyUp = new JoystickButton(secondaryController, XboxController.Button.kB.value);
-    private final JoystickButton pivotyDown = new JoystickButton(secondaryController, XboxController.Button.kBack.value);
+    private final JoystickButton pivotyUp = new JoystickButton(driver, XboxController.Button.kRightBumper.value);
+    private final JoystickButton pivotyDown = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
 
     /* Subsystems */
     public RobotState robotState = new RobotState(driver);
@@ -86,6 +86,8 @@ public class RobotContainer {
         highButton.onTrue(new ElevatorCommand(elevator, .6, 3));
         midButton.onTrue(new ElevatorCommand(elevator, .6, 2));
         lowButton.onTrue(new ElevatorCommand(elevator, .6, 1));
+        pivotyUp.onTrue(new PivotyCommand(pivoty, 0.6, 16, robotState.pivotyState));
+        pivotyDown.onTrue(new PivotyCommand(pivoty, 0.6, 7, robotState.pivotyState));
     }
 //do new button bindings
    private void configureCoPilotButtonBindings() {
@@ -95,8 +97,7 @@ public class RobotContainer {
         highRung.onTrue(new ScoringCommand(elevator, 0.8, pivoty, 0.8, 3, intake, 0.2, false, limelight, robotState.pivotyState));
         lowerAndGrab.onTrue(new ScoringCommand(elevator, 0.8, pivoty, 0.8, 1, intake, 0.2, true, limelight, robotState.pivotyState));
         openIntake.onTrue(new intakeCommand(intake, 0.2, false, 1));
-        pivotyUp.onTrue(new PivotyCommand(pivoty, 0.6, 16, robotState.pivotyState));
-        pivotyDown.onTrue(new PivotyCommand(pivoty, 0.6, 7, robotState.pivotyState));
+
         // toggleDriveTrainAutoBalance.onTrue(new toggleSwerveState(robotState)); // set it up for a toggleontrue later
        // elevatorUp.whileTrue(new ElevatorCommand(elevator, .8 , 3));
         //elevatorDown.whileTrue(new ElevatorCommand(elevator, 0.8, 1));
