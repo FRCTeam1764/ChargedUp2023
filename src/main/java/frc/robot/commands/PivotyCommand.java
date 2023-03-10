@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.state.PivotyState;
 import frc.robot.subsystems.PivotySubsystem;
 
 public class PivotyCommand extends CommandBase {
@@ -15,13 +16,15 @@ public class PivotyCommand extends CommandBase {
   DigitalInput breakBeamOne;
   DigitalInput breakBeamTwo;
   int desiredEncoderValue;
+  PivotyState pivotyState;
   //needs fixed
-  public PivotyCommand(PivotySubsystem pivoty, double pivotySpeed, int desiredEncoderValue) {
+  public PivotyCommand(PivotySubsystem pivoty, double pivotySpeed, int desiredEncoderValue, PivotyState pivotyState) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.pivoty = pivoty;
     this.pivotySpeed = pivotySpeed;
     this.desiredEncoderValue = desiredEncoderValue;
-    addRequirements(pivoty);
+    this.pivotyState = pivotyState;
+
   }
 
   // Called when the command is initially scheduled.
@@ -31,18 +34,18 @@ public class PivotyCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    pivoty.pivotyOn(pivotySpeed, desiredEncoderValue);
+    pivotyState.setEncoderValue(desiredEncoderValue);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    pivoty.pivotyOff();
+
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return Math.abs(pivoty.getEncoderValue())>=Math.abs(desiredEncoderValue);
   }
 }

@@ -14,7 +14,7 @@ public class SwerveState {
     private final JoystickButton toggleDriveTrainAutoBalance;
     public SwerveState(Joystick driver){
         swerveAutoBalance = false;
-        toggleDriveTrainAutoBalance =  new JoystickButton(driver, XboxController.Button.kStart.value);
+        toggleDriveTrainAutoBalance =  new JoystickButton(driver, XboxController.Button.kBack.value);
     }
     public void swerveAutoBalance(){
         swerveAutoBalance = true;

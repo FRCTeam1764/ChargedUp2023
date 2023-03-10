@@ -20,12 +20,12 @@ public class PivotySubsystem extends SubsystemBase {
   double pivotySpeed;
   public DigitalInput breakBeamOne;
   public PivotySubsystem(){
-    pivotyMotor1 = new LazyTalonFX(0, Constants.CANIVORE_NAME);
-    pivotyMotor2 = new LazyTalonFX(2, Constants.CANIVORE_NAME);
+    pivotyMotor1 = new LazyTalonFX(Constants.PIVOTY_MOTOR.id, Constants.PIVOTY_MOTOR.busName);
+    pivotyMotor2 = new LazyTalonFX(Constants.PIVOTY_MOTOR_2.id, Constants.PIVOTY_MOTOR_2.busName);
     breakBeamOne = new DigitalInput(Constants.PIVOTY_BREAK_BEAM);
   //  breakBeamTwo = new DigitalInput(6);
   }
-  public void pivotyOn(double pivotySpeed, int desiredEncoderValue){
+  public void pivotyOn(int desiredEncoderValue){
 
     pivotyMotor1.set(ControlMode.Position, desiredEncoderValue);
     pivotyMotor2.set(ControlMode.Position, desiredEncoderValue);

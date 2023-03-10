@@ -25,13 +25,13 @@ public class Elevator extends SubsystemBase {
   double Reverse = 1.0;
 boolean BreakBeamOffOrOn = false;
   public Elevator(){
-    elevatorMotor1 = new LazyTalonFX(0,Constants.CANIVORE_NAME);
-    elevatorMotor2 = new LazyTalonFX(1, Constants.CANIVORE_NAME);
-    elevatorMotor2.setInverted(true);
+    elevatorMotor1 = new LazyTalonFX(Constants.ELEVATOR_MOTOR.id, Constants.ELEVATOR_MOTOR.busName);
+    elevatorMotor2 = new LazyTalonFX(Constants.ELAVATOR_MOTOR_2.id, Constants.ELAVATOR_MOTOR_2.busName);
     elevatorMotor2.follow(elevatorMotor1);
     minExtend = new DigitalInput(Constants.MIN_EXTEND_BREAK_BEAM);
     maxExtend = new DigitalInput(Constants.MAX_EXTEND_BREAK_BEAM);
     midExtend = new DigitalInput(Constants.MID_EXTEND_BREAK_BEAM);
+    previousHeightLevel=1;
 
     
   }
@@ -41,21 +41,24 @@ boolean BreakBeamOffOrOn = false;
   public void elevatorOn(double elevatorSpeed, int heightLevel){
     if (heightLevel < previousHeightLevel) { 
       BreakBeamOffOrOn = true;
-      Reverse = -1.0;
-
+      Reverse = 1.0;
+      System.out.println("is it getting here");
     }else {
       BreakBeamOffOrOn = false;
-      Reverse = 1.0;
+      Reverse = -1.0;
     }
-
+    System.out.println("also here");
 
     if(getBreakBeam(heightLevel).get() == BreakBeamOffOrOn){  // checks if desired breakbeam isn't broken\is broken
-
+      System.out.println("here too");
       elevatorMotor1.set(elevatorSpeed * Reverse);
+      elevatorMotor2.set(elevatorSpeed * Reverse);
     
     } else {           // if the breakbeam is broken it stops the motors and sets the desired height level as the current height level
       elevatorMotor1.set(0);
+      elevatorMotor2.set(0);
       previousHeightLevel = heightLevel;
+      System.out.println("but also here");
     }
     
 
@@ -71,7 +74,7 @@ boolean BreakBeamOffOrOn = false;
   
 
   public boolean IsWantedHeight(int heightLevel) {
-    if (previousHeightLevel == heightLevel){
+    if (getBreakBeam(heightLevel).get() != BreakBeamOffOrOn){
       return true;
     }
     return false;

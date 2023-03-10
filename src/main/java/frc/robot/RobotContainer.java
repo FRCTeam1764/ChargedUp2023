@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 import frc.robot.libraries.external.control.Trajectory;
+import frc.robot.state.PivotyState;
 import frc.robot.state.RobotState;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Joystick;
@@ -36,6 +37,9 @@ public class RobotContainer {
     private final JoystickButton lowRung = new JoystickButton(secondaryController, XboxController.Button.kA.value);
     private final JoystickButton openIntake = new JoystickButton(secondaryController, XboxController.Button.kRightBumper.value);
     private final JoystickButton lowerAndGrab = new JoystickButton(secondaryController, XboxController.Button.kLeftBumper.value);
+    private final JoystickButton pivotyUp = new JoystickButton(secondaryController, XboxController.Button.kB.value);
+    private final JoystickButton pivotyDown = new JoystickButton(secondaryController, XboxController.Button.kBack.value);
+
     /* Subsystems */
     public RobotState robotState = new RobotState(driver);
     private final Swerve s_Swerve = new Swerve();
@@ -79,18 +83,20 @@ public class RobotContainer {
         // secondaryController.getBackButton().onTrue(new ResetGyroCommand(drivetrainSubsystem));
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
         blinkinButton.whileTrue(new BlinkinCommand( blinkin));
-        highButton.onTrue(new ElevatorCommand(elevator, .4, 3));
-        midButton.onTrue(new ElevatorCommand(elevator, .4, 2));
-        lowButton.onTrue(new ElevatorCommand(elevator, .4, 1));
+        highButton.onTrue(new ElevatorCommand(elevator, .6, 3));
+        midButton.onTrue(new ElevatorCommand(elevator, .6, 2));
+        lowButton.onTrue(new ElevatorCommand(elevator, .6, 1));
     }
 //do new button bindings
    private void configureCoPilotButtonBindings() {
 
-        lowRung.onTrue(new ScoringCommand(elevator, 0.8, pivoty, 0.8, 1, intake, 0.2, false, limelight));
-        midRung.onTrue(new ScoringCommand(elevator, 0.8, pivoty, 0.8, 2, intake, 0.2, false, limelight));
-        highRung.onTrue(new ScoringCommand(elevator, 0.8, pivoty, 0.8, 3, intake, 0.2, false, limelight));
-        lowerAndGrab.onTrue(new ScoringCommand(elevator, 0.8, pivoty, 0.8, 1, intake, 0.2, true, limelight));
+        lowRung.onTrue(new ScoringCommand(elevator, 0.8, pivoty, 0.8, 1, intake, 0.2, false, limelight, robotState.pivotyState));
+        midRung.onTrue(new ScoringCommand(elevator, 0.8, pivoty, 0.8, 2, intake, 0.2, false, limelight, robotState.pivotyState));
+        highRung.onTrue(new ScoringCommand(elevator, 0.8, pivoty, 0.8, 3, intake, 0.2, false, limelight, robotState.pivotyState));
+        lowerAndGrab.onTrue(new ScoringCommand(elevator, 0.8, pivoty, 0.8, 1, intake, 0.2, true, limelight, robotState.pivotyState));
         openIntake.onTrue(new intakeCommand(intake, 0.2, false, 1));
+        pivotyUp.onTrue(new PivotyCommand(pivoty, 0.6, 16, robotState.pivotyState));
+        pivotyDown.onTrue(new PivotyCommand(pivoty, 0.6, 7, robotState.pivotyState));
         // toggleDriveTrainAutoBalance.onTrue(new toggleSwerveState(robotState)); // set it up for a toggleontrue later
        // elevatorUp.whileTrue(new ElevatorCommand(elevator, .8 , 3));
         //elevatorDown.whileTrue(new ElevatorCommand(elevator, 0.8, 1));

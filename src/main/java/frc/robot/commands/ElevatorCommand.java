@@ -22,11 +22,14 @@ public class ElevatorCommand extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    System.out.println("it gets here");
     elevator.elevatorOn(elevatorSpeed, heightLevel);
   }
 
@@ -43,6 +46,7 @@ public class ElevatorCommand extends CommandBase {
 
     //needs encoder stuff
     if (elevator.IsWantedHeight(heightLevel)==true) {
+    System.out.println("why is it here though");
     return true; 
   }
     return false;

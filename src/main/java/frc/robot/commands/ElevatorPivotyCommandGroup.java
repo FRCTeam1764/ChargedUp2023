@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import frc.robot.state.PivotyState;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.PivotySubsystem;
 
@@ -20,13 +21,14 @@ public class ElevatorPivotyCommandGroup extends ParallelCommandGroup {
     double elevatorSpeed,
     PivotySubsystem pivoty,
     double pivotySpeed,
-    int heightLevel
+    int heightLevel,
+    PivotyState pivotyState
   ) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
 
     addCommands(
-      new PivotyCommand(pivoty, pivotySpeed, getEncoderValue(heightLevel)),
+      new PivotyCommand(pivoty, pivotySpeed, getEncoderValue(heightLevel), pivotyState),
       new ElevatorCommand(elevator, elevatorSpeed, heightLevel)
     );
   }

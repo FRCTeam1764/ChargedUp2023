@@ -35,7 +35,7 @@ public class Robot extends TimedRobot {
 
     //private Command m_autonomousCommand;
     CANSparkMax intakeMotor;
-    public RobotContainer robotContainer = new RobotContainer();
+    public RobotContainer robotContainer;
     private UpdateManager updateManager = new UpdateManager(
             // robotContainer.getDrivetrainSubsystem()
     );
@@ -55,14 +55,14 @@ public class Robot extends TimedRobot {
    public void robotInit() {
        //grabberCone = new robotContainer.getGrabberConeSubsystem();
        //grabber = new robotContainer.getGrabberSubsystem();
-
+         robotContainer = new RobotContainer();
         //CommandScheduler.getInstance().schedule(new BlinkinCommand(-.95, robotContainer.getBlinkinSubsystem()));
         robotContainer.getDrivetrainSubsystem().getNavx().calibrate();
         robotContainer.getDrivetrainSubsystem().zeroGyro();
 
        updateManager.startLoop(5.0e-3);
        // robotContainer.getVisionSubsystem().setLedMode(Limelight.LedMode.OFF);
-        ctreConfigs = new CTREConfigs();
+
         
         // CommandScheduler.getInstance().schedule(new BlinkinCommand(-.95, robotContainer.getBlinkinSubsystem()));
    }
@@ -72,6 +72,7 @@ public class Robot extends TimedRobot {
    public void robotPeriodic() {
         CommandScheduler.getInstance().run();
         //handles intake motor clamping down
+        runPivoty();
         if(!robotContainer.getPivotySubsystem().breakBeamOne.get()){
             robotContainer.getPivotySubsystem().zeroEncoder();
         }
@@ -79,7 +80,7 @@ public class Robot extends TimedRobot {
             intakeMotor.set(.2);
             intakeMotor.getEncoder().setPosition(0);
         }
-        else if(intakeMotor.getEncoder().getPosition()>70){
+        else if(intakeMotor.getEncoder().getPosition()<70){
             intakeMotor.set(-0.2);
         }
         else{
@@ -90,6 +91,7 @@ public class Robot extends TimedRobot {
         SmartDashboard.putBoolean("min", robotContainer.getElevatorSubsystem().minExtend.get() );
         SmartDashboard.putBoolean("pivoty", robotContainer.getPivotySubsystem().breakBeamOne.get() );
         SmartDashboard.putNumber("pivoty encoder", robotContainer.getPivotySubsystem().getEncoderValue());
+        SmartDashboard.putNumber("intakeEncoder", intakeMotor.getEncoder().getPosition());
 
 /* */
          
@@ -113,5 +115,9 @@ public class Robot extends TimedRobot {
 
    @Override
    public void teleopInit() {
+   }
+
+   public void runPivoty(){
+    robotContainer.getPivotySubsystem().pivotyOn(robotContainer.robotState.pivotyState.getEncoderValue());
    }
 }

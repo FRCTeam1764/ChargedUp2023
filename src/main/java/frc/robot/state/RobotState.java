@@ -11,9 +11,11 @@ public class RobotState {
     public LimelightState limelightState;
     public IntakeState IntakeState;
     public SwerveState swerveState;
+    public PivotyState pivotyState;
     public RobotState(Joystick driver) {
         this.limelightState = new LimelightState();
         this.IntakeState = new IntakeState();
         this.swerveState = new SwerveState(driver);
+        this.pivotyState = new PivotyState();
     }
 }
