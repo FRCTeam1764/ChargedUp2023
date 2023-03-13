@@ -72,16 +72,15 @@ public class Robot extends TimedRobot {
    public void robotPeriodic() {
         CommandScheduler.getInstance().run();
         //handles intake motor clamping down
-        runPivoty();
-        if(!robotContainer.getPivotySubsystem().breakBeamOne.get()){
+        // runPivoty();
+        if(!robotContainer.getPivotySubsystem().getBrkBeam()){
             robotContainer.getPivotySubsystem().zeroEncoder();
         }
-        if(robotContainer.robotState.IntakeState.getIntakeClose()){
-            intakeMotor.set(.2);
-            intakeMotor.getEncoder().setPosition(0);
+        if(robotContainer.getPrimaryController().getRawButton(XboxController.Button.kBack.value)){
+            intakeMotor.set(1);
         }
-        else if(intakeMotor.getEncoder().getPosition()<70){
-            intakeMotor.set(-0.2);
+        else if(robotContainer.getPrimaryController().getRawButton(XboxController.Button.kStart.value)){
+            intakeMotor.set(1);
         }
         else{
             intakeMotor.set(0.0);
@@ -89,7 +88,8 @@ public class Robot extends TimedRobot {
         SmartDashboard.putBoolean("mid", robotContainer.getElevatorSubsystem().midExtend.get() );
         SmartDashboard.putBoolean("max", robotContainer.getElevatorSubsystem().maxExtend.get() );
         SmartDashboard.putBoolean("min", robotContainer.getElevatorSubsystem().minExtend.get() );
-        SmartDashboard.putBoolean("pivoty", robotContainer.getPivotySubsystem().breakBeamOne.get() );
+        SmartDashboard.putBoolean("pivoty", robotContainer.getPivotySubsystem().getBrkBeam() );
+        System.out.println(robotContainer.getPivotySubsystem().getBrkBeam());
         SmartDashboard.putNumber("pivoty encoder", robotContainer.getPivotySubsystem().getEncoderValue());
         SmartDashboard.putNumber("intakeEncoder", intakeMotor.getEncoder().getPosition());
 

@@ -86,8 +86,8 @@ public class RobotContainer {
         highButton.onTrue(new ElevatorCommand(elevator, .6, 3));
         midButton.onTrue(new ElevatorCommand(elevator, .6, 2));
         lowButton.onTrue(new ElevatorCommand(elevator, .6, 1));
-        pivotyUp.onTrue(new PivotyCommand(pivoty, 0.6, 16, robotState.pivotyState));
-        pivotyDown.onTrue(new PivotyCommand(pivoty, 0.6, 7, robotState.pivotyState));
+        pivotyUp.whileTrue(new PivotyCommand(pivoty, -0.3, 16, robotState.pivotyState));
+        pivotyDown.whileTrue(new PivotyCommand(pivoty, 0.3, 7, robotState.pivotyState));
     }
 //do new button bindings
    private void configureCoPilotButtonBindings() {
@@ -144,6 +144,10 @@ public class RobotContainer {
 
     public Joystick getsecondaryController() {
         return secondaryController;
+    }
+
+    public Joystick getPrimaryController() {
+        return driver;
     }
 
    public Trajectory[] getTrajectories() {
