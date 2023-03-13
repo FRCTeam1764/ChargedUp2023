@@ -72,15 +72,16 @@ public class Robot extends TimedRobot {
    public void robotPeriodic() {
         CommandScheduler.getInstance().run();
         //handles intake motor clamping down
-        // runPivoty();
-        if(!robotContainer.getPivotySubsystem().getBrkBeam()){
+        runPivoty();
+        if(!robotContainer.getPivotySubsystem().breakBeamOne.get()){
             robotContainer.getPivotySubsystem().zeroEncoder();
         }
-        if(robotContainer.getPrimaryController().getRawButton(XboxController.Button.kBack.value)){
-            intakeMotor.set(1);
+        if(robotContainer.robotState.IntakeState.getIntakeClose()){
+            intakeMotor.set(.2);
+            intakeMotor.getEncoder().setPosition(0);
         }
-        else if(robotContainer.getPrimaryController().getRawButton(XboxController.Button.kStart.value)){
-            intakeMotor.set(1);
+        else if(intakeMotor.getEncoder().getPosition()<70){
+            intakeMotor.set(-0.2);
         }
         else{
             intakeMotor.set(0.0);
