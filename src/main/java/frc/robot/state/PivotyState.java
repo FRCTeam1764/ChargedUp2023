@@ -8,7 +8,6 @@ package frc.robot.state;
 public class PivotyState {
     int encoderValue;
     PivotyState(){
-        encoderValue = 0;
     }
     
     public void setEncoderValue(int desiredValue){

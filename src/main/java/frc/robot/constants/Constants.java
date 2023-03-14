@@ -19,7 +19,7 @@ public final class Constants {
     public static final int MIN_EXTEND_BREAK_BEAM =  0;
     public static final int MAX_EXTEND_BREAK_BEAM =  3;
     public static final int MID_EXTEND_BREAK_BEAM =  2;
-    public static final int PIVOTY_BREAK_BEAM =      1;
+    public static final int PIVOTY_BREAK_BEAM =      9;
 
     public static final int BLINKIN_SPARK =          1;
     public static final int PRESSURE_SENSOR_PORT =   0;

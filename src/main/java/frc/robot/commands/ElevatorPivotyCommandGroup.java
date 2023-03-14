@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.state.PivotyState;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.PivotySubsystem;
@@ -20,7 +21,6 @@ public class ElevatorPivotyCommandGroup extends ParallelCommandGroup {
     Elevator elevator,
     double elevatorSpeed,
     PivotySubsystem pivoty,
-    double pivotySpeed,
     int heightLevel,
     PivotyState pivotyState
   ) {
@@ -28,25 +28,36 @@ public class ElevatorPivotyCommandGroup extends ParallelCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
 
     addCommands(
-      new PivotyCommand(pivoty, pivotySpeed, getEncoderValue(heightLevel), pivotyState),
-      new ElevatorCommand(elevator, elevatorSpeed, heightLevel)
+      new PivotyCommand(pivoty, getEncoderValue(heightLevel), pivotyState),
+      new ElevatorCommand(elevator, elevatorSpeed, getBrkBeamNum(heightLevel))
     );
   }
-  private int getEncoderValue(int heightLevel){
-    if(NetworkTableInstance.getDefault().getTable("limelight").getEntry("tid").getInteger(0) == 8){
-      return 5;
-    }
-    else if(heightLevel==3){
-      return 349;
-    }
-    else if(heightLevel==2){
-      return 15;
-    }
-    else if(heightLevel==1){
-      return 20;
+  private int getBrkBeamNum(int heightLevel){
+    if(heightLevel == 4 ){
+      return 1;
     }
     else{
-      return 22;
+      return heightLevel;
+    }
+  }
+  private int getEncoderValue(int heightLevel){
+    // if(NetworkTableInstance.getDefault().getTable("limelight").getEntry("tid").getInteger(0) == 8){
+    //   return 5;
+    // }
+    if(heightLevel==4){
+      return 50000;
+    }
+    else if(heightLevel==3){
+      return 70000;
+    }
+    else if(heightLevel==2){
+      return 80000;
+    }
+    else if(heightLevel==1){
+      return 130000;
+    }
+    else{
+      return 0;
     }
   }
 }

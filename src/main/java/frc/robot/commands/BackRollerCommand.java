@@ -4,38 +4,48 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.BlinkinSubsystem;
+import frc.robot.subsystems.BackRollers;
 
-public class BlinkinCommand extends CommandBase {
-  /** Creates a new BlinkinCommand. */
-BlinkinSubsystem Blinkin;
-//needs toggle and state
-  public BlinkinCommand( BlinkinSubsystem Blinkin) {
-  this.Blinkin = Blinkin;
-  addRequirements(Blinkin);
+public class BackRollerCommand extends CommandBase {
+  /** Creates a new BackRollerCommand. */
+  BackRollers backRollers;
+  double speed;
+  Timer timer;
+  
+  public BackRollerCommand(BackRollers backRollers, double speed) {
+    this.backRollers=backRollers;
+    addRequirements(backRollers);
+    this.speed = speed;
+    timer = new Timer();
+    // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    timer.reset();
+    timer.start();
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
+  
   @Override
   public void execute() {
-    Blinkin.setLEDs(.67);
+    backRollers.backRollerOn(speed);
 
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    Blinkin.setLEDs(.89);
+    backRollers.backRollerOff();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return timer.hasElapsed(3.0);
   }
 }

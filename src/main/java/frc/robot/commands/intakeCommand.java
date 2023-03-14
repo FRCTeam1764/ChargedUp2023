@@ -4,57 +4,26 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.intakeSubsystem;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import frc.robot.subsystems.BackRollers;
+import frc.robot.subsystems.BlinkinSubsystem;
+import frc.robot.subsystems.Claw;
+import frc.robot.subsystems.SideRollers;
 
-public class intakeCommand extends CommandBase {
-  /** Creates a new intakeCommand. */
-  intakeSubsystem intake;
-  double intakeSpeed;
-  boolean intakeClose;
-  int heightLevel;
-  public intakeCommand(intakeSubsystem intake, double intakeSpeed, boolean intakeClose, int heightLevel) {
-    // Use addRequirements() here to declare subsystem dependencies.
-    this.intakeSpeed = intakeSpeed;
-    this.intake = intake;
-    this.intakeClose = intakeClose;
-    this.heightLevel = heightLevel;
-  }
-
-  // Called when the command is initially scheduled.
-  @Override
-  public void initialize() {}
-
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
-    if(intakeClose){
-      intake.intakeClose(intakeSpeed);
-    }
-    else if(heightLevel==3){
-      intake.intakeOpen(-intakeSpeed);
-    }
-    else if (!intake.getColor1() && !intake.getColor2()) {
-      intake.intakeOpen(intakeSpeed);
+// NOTE:  Consider using this command inline, rather than writing a subclass.  For more
+// information, see:
+// https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
+public class IntakeCommand extends ParallelCommandGroup {
+  /** Creates a new IntakeCommand. */
+  public IntakeCommand(Claw claw, double clawSpeed, SideRollers sideRollers,BackRollers backRollers, double speed, BlinkinSubsystem blinkin) {
+    // Add your commands in the addCommands() call, e.g.
+    // addCommands(new FooCommand(), new BarCommand());
+    // addRequirements(claw);
+    if(blinkin.getLEDColor()== .67){
+      addCommands(new ClawCommand(claw, clawSpeed ),new SideRollerCommand(sideRollers, speed),new BackRollerCommand(backRollers, speed));
     }
     else{
-      intake.intakeOpen(0);
+      addCommands(new ClawCommand(claw, clawSpeed ),new SideRollerCommand(sideRollers, speed),new BackRollerCommand(backRollers, 0));
     }
   }
-
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {
-    // intake.intakeOpen(openSpeed);
-  }
-
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    if(intake.getTimer()>30 || intake.getTimer2()>20){
-      return true;
-    }
-    return false;
-  }
-  
 }

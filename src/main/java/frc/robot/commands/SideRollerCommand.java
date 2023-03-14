@@ -4,49 +4,49 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.BackRollers;
+import frc.robot.subsystems.SideRollers;
 
-public class ElevatorCommand extends CommandBase {
-  /** Creates a new ElevatorCommand. */
-  //needs fixed
-  Elevator elevator;
-  double elevatorSpeed;
-  int heightLevel;
-  public ElevatorCommand(Elevator elevator, double elevatorSpeed, int heightLevel) {
+public class SideRollerCommand extends CommandBase {
+  /** Creates a new BackRollerCommand. */
+  SideRollers sideRollers;
+  double speed;
+  Timer timer;
+  
+  public SideRollerCommand(SideRollers sideRollers, double speed) {
+    this.sideRollers=sideRollers;
+    addRequirements(sideRollers);
+    this.speed = speed;
+    timer = new Timer();
     // Use addRequirements() here to declare subsystem dependencies.
-    this.elevator = elevator;
-    this.elevatorSpeed = elevatorSpeed;
-    this.heightLevel = heightLevel;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-
+    timer.reset();
+    timer.start();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
+  
   @Override
   public void execute() {
-    System.out.println("it gets here");
-    elevator.elevatorOn(elevatorSpeed, heightLevel);
+    sideRollers.sideRollerOn(speed);
+
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    while(elevator.stillRunning(1)){
-    elevator.elevatorOn(elevatorSpeed, 1);
-    }
+    sideRollers.sideRollerOff();
   }
 
-  // // Returns true when the command should end.
-
+  // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-
-    //needs encoder stuff
-  return false;
-}
+    return timer.hasElapsed(3.0);
+  }
 }

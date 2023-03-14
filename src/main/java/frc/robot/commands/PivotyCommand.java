@@ -18,10 +18,9 @@ public class PivotyCommand extends CommandBase {
   int desiredEncoderValue;
   PivotyState pivotyState;
   //needs fixed
-  public PivotyCommand(PivotySubsystem pivoty, double pivotySpeed, int desiredEncoderValue, PivotyState pivotyState) {
+  public PivotyCommand(PivotySubsystem pivoty, int desiredEncoderValue, PivotyState pivotyState) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.pivoty = pivoty;
-    this.pivotySpeed = pivotySpeed;
     this.desiredEncoderValue = desiredEncoderValue;
     this.pivotyState = pivotyState;
 
@@ -29,7 +28,9 @@ public class PivotyCommand extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    pivotyState.setEncoderValue(desiredEncoderValue);
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
@@ -40,12 +41,13 @@ public class PivotyCommand extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-
+    pivotyState.setEncoderValue(0);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return Math.abs(pivoty.getEncoderValue())>=Math.abs(desiredEncoderValue);
+    // return Math.abs(pivoty.getEncoderValue())>=Math.abs(desiredEncoderValue);
+    return false;
   }
 }

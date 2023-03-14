@@ -4,38 +4,47 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.BlinkinSubsystem;
+import frc.robot.subsystems.Claw;
 
-public class BlinkinCommand extends CommandBase {
-  /** Creates a new BlinkinCommand. */
-BlinkinSubsystem Blinkin;
-//needs toggle and state
-  public BlinkinCommand( BlinkinSubsystem Blinkin) {
-  this.Blinkin = Blinkin;
-  addRequirements(Blinkin);
+public class OpenClawCommand extends CommandBase {
+  Claw claw;
+  double speed;
+  Timer timer;
+  
+  public OpenClawCommand(Claw claw, double speed) {
+    this.claw=claw;
+    addRequirements(claw);
+    this.speed = speed;
+    timer = new Timer();
+    // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    timer.reset();
+    timer.start();
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
+  
   @Override
   public void execute() {
-    Blinkin.setLEDs(.67);
+    claw.clawOpen(speed);
 
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    Blinkin.setLEDs(.89);
+    claw.clawOff();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return claw.getEncoderValue()>=70;
   }
 }

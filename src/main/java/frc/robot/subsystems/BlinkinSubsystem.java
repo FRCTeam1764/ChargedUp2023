@@ -4,46 +4,34 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.PWM;
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.constants.Constants;
 public class BlinkinSubsystem extends SubsystemBase {
   /** Creates a new BlinkinSubsystem. */
-  Spark blinkin;
+  PWM blinkin;
   // double LEDColor;
   double LEDColor;
 
   public BlinkinSubsystem() {
     //:D wahoo!
-    blinkin = new Spark(Constants.BLINKIN_SPARK);
+    blinkin = new PWM(Constants.BLINKIN_SPARK);
     // this.LEDColor = LEDColor;
     
   }
   //zach is so very cool :D (better than aiden and sawyer) he's so cool :3
-  public void setLEDs(){
-    blinkin.set(getLEDColor());
+  public void setLEDs(double LEDColor){
+    this.LEDColor = LEDColor;
+    blinkin.setSpeed(LEDColor);
+    //getLEDColor());
   }
 
   
 //i did it :DDDDDDDDDDDDDDDDDDD
-  public void setLEDColor() {
-      if(LEDColor == .67){
-        LEDColor =.89;
-      }
-      if(LEDColor == .89){
-        LEDColor = .67;
-      }
-  }
+
   public double getLEDColor(){
-    if(LEDColor==.89){
-      return .67;
-    }
-    if(LEDColor == .67){
-      return .89;
-    }
-    else{
-      return  (Double) null;
-    }
+    return LEDColor;
   }
 
   @Override

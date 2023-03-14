@@ -22,12 +22,12 @@ public class RobotContainer {
     private final int rotationAxis = XboxController.Axis.kRightX.value;
 
     /* Driver Buttons */
-    private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kStart.value);
-    private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kRightStick.value);
+    private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kY.value);
+    private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kStart.value);
     private final JoystickButton blinkinButton = new JoystickButton(driver, XboxController.Button.kB.value);
-    private final JoystickButton highButton = new JoystickButton(driver, XboxController.Button.kY.value);
-    private final JoystickButton lowButton = new JoystickButton(driver, XboxController.Button.kA.value);
-    private final JoystickButton midButton = new JoystickButton(driver, XboxController.Button.kX.value);
+    // private final JoystickButton highButton = new JoystickButton(driver, XboxController.Button.kY.value);
+    // private final JoystickButton lowButton = new JoystickButton(driver, XboxController.Button.kA.value);
+    // private final JoystickButton midButton = new JoystickButton(driver, XboxController.Button.kX.value);
     //private final JoystickButton limelight1 = new JoystickButton(driver, XboxController.Button.kA.value);
     //private final JoystickButton limelight2 = new JoystickButton(driver, XboxController.Button.kB.value);
 
@@ -35,10 +35,12 @@ public class RobotContainer {
     private final JoystickButton highRung = new JoystickButton(secondaryController, XboxController.Button.kY.value);
     private final JoystickButton midRung = new JoystickButton(secondaryController, XboxController.Button.kX.value);
     private final JoystickButton lowRung = new JoystickButton(secondaryController, XboxController.Button.kA.value);
-    private final JoystickButton openIntake = new JoystickButton(secondaryController, XboxController.Button.kRightBumper.value);
-    private final JoystickButton lowerAndGrab = new JoystickButton(secondaryController, XboxController.Button.kLeftBumper.value);
+    private final JoystickButton intakeClose = new JoystickButton(secondaryController, XboxController.Button.kRightBumper.value);
+    private final JoystickButton intakeOpen = new JoystickButton(secondaryController, XboxController.Button.kLeftBumper.value);
     private final JoystickButton pivotyUp = new JoystickButton(driver, XboxController.Button.kRightBumper.value);
     private final JoystickButton pivotyDown = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
+    private final JoystickButton playerStation = new JoystickButton(secondaryController, XboxController.Button.kB.value);
+
 
     /* Subsystems */
     public RobotState robotState = new RobotState(driver);
@@ -47,7 +49,10 @@ public class RobotContainer {
     private final Elevator elevator = new Elevator();
     private final PivotySubsystem pivoty = new PivotySubsystem();
     private final BlinkinSubsystem blinkin = new BlinkinSubsystem();
-    public final intakeSubsystem intake = new intakeSubsystem(robotState.IntakeState);
+    private final Claw claw = new Claw();
+    private final SideRollers sideRollers = new SideRollers();
+    private final BackRollers backRollers = new BackRollers();
+
     private final LimelightSubsystem limelight = new LimelightSubsystem(NetworkTableInstance.getDefault().getTable("limelight"));
     // private final DrivetrainSubsystem drivetrainSubsystem = new DrivetrainSubsystem();
     // private final VisionSubsystem visionSubsystem = new VisionSubsystem(drivetrainSubsystem);
@@ -82,21 +87,28 @@ public class RobotContainer {
     private void configurePilotButtonBindings() {
         // secondaryController.getBackButton().onTrue(new ResetGyroCommand(drivetrainSubsystem));
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
-        blinkinButton.whileTrue(new BlinkinCommand( blinkin));
-        highButton.onTrue(new ElevatorCommand(elevator, .6, 3));
-        midButton.onTrue(new ElevatorCommand(elevator, .6, 2));
-        lowButton.onTrue(new ElevatorCommand(elevator, .6, 1));
-        pivotyUp.whileTrue(new PivotyCommand(pivoty, -0.3, 16, robotState.pivotyState));
-        pivotyDown.whileTrue(new PivotyCommand(pivoty, 0.3, 7, robotState.pivotyState));
+        blinkinButton.toggleOnTrue(new BlinkinCommand( blinkin));
+        // highButton.onTrue(new ElevatorCommand(elevator, .6, 3));
+        // midButton.onTrue(new ElevatorCommand(elevator, .6, 2));
+        // lowButton.onTrue(new ElevatorCommand(elevator, .6, 1));
+        pivotyUp.whileTrue(new PivotyCommand(pivoty, 16, robotState.pivotyState));
+        pivotyDown.whileTrue(new PivotyCommand(pivoty, 7, robotState.pivotyState));
     }
 //do new button bindings
    private void configureCoPilotButtonBindings() {
 
-        lowRung.onTrue(new ScoringCommand(elevator, 0.8, pivoty, 0.8, 1, intake, 0.2, false, limelight, robotState.pivotyState));
-        midRung.onTrue(new ScoringCommand(elevator, 0.8, pivoty, 0.8, 2, intake, 0.2, false, limelight, robotState.pivotyState));
-        highRung.onTrue(new ScoringCommand(elevator, 0.8, pivoty, 0.8, 3, intake, 0.2, false, limelight, robotState.pivotyState));
-        lowerAndGrab.onTrue(new ScoringCommand(elevator, 0.8, pivoty, 0.8, 1, intake, 0.2, true, limelight, robotState.pivotyState));
-        openIntake.onTrue(new intakeCommand(intake, 0.2, false, 1));
+        // lowRung.onTrue(new ScoringCommand(elevator, 0.8, pivoty, 0.8, 1, intake, 0.2, false, limelight, robotState.pivotyState));
+        // midRung.onTrue(new ScoringCommand(elevator, 0.8, pivoty, 0.8, 2, intake, 0.2, false, limelight, robotState.pivotyState));
+        // highRung.onTrue(new ScoringCommand(elevator, 0.8, pivoty, 0.8, 3, intake, 0.2, false, limelight, robotState.pivotyState));
+        // lowerAndGrab.onTrue(new ScoringCommand(elevator, 0.8, pivoty, 0.8, 1, intake, 0.2, true, limelight, robotState.pivotyState));
+        // openIntake.onTrue(new intakeCommand(intake, 0.2, false, 1));
+        intakeClose.onTrue(new IntakeCommand(claw, -.2, sideRollers, backRollers, -1, blinkin));
+        intakeOpen.onTrue(new OutakeCommand(claw, .2, sideRollers, backRollers, 1));
+        lowRung.toggleOnTrue(new ElevatorPivotyCommandGroup(elevator, .6, pivoty, 1, robotState.pivotyState));
+        midRung.toggleOnTrue(new ElevatorPivotyCommandGroup(elevator, .6, pivoty, 2, robotState.pivotyState));
+        highRung.toggleOnTrue(new ElevatorPivotyCommandGroup(elevator, .6, pivoty, 3, robotState.pivotyState));
+        // playerStation.toggleOnTrue(new ElevatorPivotyCommandGroup(elevator, .6, pivoty, 4, robotState.pivotyState));
+        playerStation.toggleOnTrue(new PivotyCommand(pivoty, 50000, robotState.pivotyState));
 
         // toggleDriveTrainAutoBalance.onTrue(new toggleSwerveState(robotState)); // set it up for a toggleontrue later
        // elevatorUp.whileTrue(new ElevatorCommand(elevator, .8 , 3));
@@ -122,9 +134,7 @@ public class RobotContainer {
      public Swerve getDrivetrainSubsystem() {
          return s_Swerve;
      }
-     public intakeSubsystem getIntakeSubsystem() {
-        return intake;
-    }
+
     public BlinkinSubsystem getBlinkinSubsystem() {
          return blinkin;
     }

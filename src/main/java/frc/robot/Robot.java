@@ -34,14 +34,12 @@ public class Robot extends TimedRobot {
 
 
     //private Command m_autonomousCommand;
-    CANSparkMax intakeMotor;
     public RobotContainer robotContainer;
     private UpdateManager updateManager = new UpdateManager(
             // robotContainer.getDrivetrainSubsystem()
     );
 
    public Robot() {
-        intakeMotor = new CANSparkMax(Constants.INTAKE_OPENER_MOTOR.id, MotorType.kBrushless);
        instance = this;
    }
 
@@ -76,23 +74,15 @@ public class Robot extends TimedRobot {
         if(!robotContainer.getPivotySubsystem().breakBeamOne.get()){
             robotContainer.getPivotySubsystem().zeroEncoder();
         }
-        if(robotContainer.robotState.IntakeState.getIntakeClose()){
-            intakeMotor.set(.2);
-            intakeMotor.getEncoder().setPosition(0);
-        }
-        else if(intakeMotor.getEncoder().getPosition()<70){
-            intakeMotor.set(-0.2);
-        }
-        else{
-            intakeMotor.set(0.0);
-        }
+
+
         SmartDashboard.putBoolean("mid", robotContainer.getElevatorSubsystem().midExtend.get() );
         SmartDashboard.putBoolean("max", robotContainer.getElevatorSubsystem().maxExtend.get() );
         SmartDashboard.putBoolean("min", robotContainer.getElevatorSubsystem().minExtend.get() );
         SmartDashboard.putBoolean("pivoty", robotContainer.getPivotySubsystem().getBrkBeam() );
-        System.out.println(robotContainer.getPivotySubsystem().getBrkBeam());
+        // System.out.println(robotContainer.getPivotySubsystem().getBrkBeam());
         SmartDashboard.putNumber("pivoty encoder", robotContainer.getPivotySubsystem().getEncoderValue());
-        SmartDashboard.putNumber("intakeEncoder", intakeMotor.getEncoder().getPosition());
+        // System.out.println(robotContainer.robotState.pivotyState.getEncoderValue());
 
 /* */
          
