@@ -82,6 +82,7 @@ public class Robot extends TimedRobot {
         SmartDashboard.putBoolean("pivoty", robotContainer.getPivotySubsystem().getBrkBeam() );
         // System.out.println(robotContainer.getPivotySubsystem().getBrkBeam());
         SmartDashboard.putNumber("pivoty encoder", robotContainer.getPivotySubsystem().getEncoderValue());
+        SmartDashboard.putNumber("Intake Encoder", robotContainer.getClaw().getEncoderValue());
         // System.out.println(robotContainer.robotState.pivotyState.getEncoderValue());
 
 /* */

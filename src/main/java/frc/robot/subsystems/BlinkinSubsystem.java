@@ -10,20 +10,21 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.constants.Constants;
 public class BlinkinSubsystem extends SubsystemBase {
   /** Creates a new BlinkinSubsystem. */
-  PWM blinkin;
+  Spark blinkin;
   // double LEDColor;
   double LEDColor;
 
   public BlinkinSubsystem() {
     //:D wahoo!
-    blinkin = new PWM(Constants.BLINKIN_SPARK);
+    blinkin = new Spark(Constants.BLINKIN_SPARK);
     // this.LEDColor = LEDColor;
     
   }
   //zach is so very cool :D (better than aiden and sawyer) he's so cool :3
   public void setLEDs(double LEDColor){
     this.LEDColor = LEDColor;
-    blinkin.setSpeed(LEDColor);
+    blinkin.set(LEDColor);
+    System.out.println(blinkin.get());
     //getLEDColor());
   }
 

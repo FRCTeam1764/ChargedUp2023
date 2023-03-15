@@ -23,7 +23,7 @@ public class RobotContainer {
 
     /* Driver Buttons */
     private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kY.value);
-    private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kStart.value);
+    private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kRightBumper.value);
     private final JoystickButton blinkinButton = new JoystickButton(driver, XboxController.Button.kB.value);
     // private final JoystickButton highButton = new JoystickButton(driver, XboxController.Button.kY.value);
     // private final JoystickButton lowButton = new JoystickButton(driver, XboxController.Button.kA.value);
@@ -162,6 +162,9 @@ public class RobotContainer {
 
    public Trajectory[] getTrajectories() {
        return trajectories;
+   }
+   public Claw getClaw(){
+    return claw;
    }
     
 

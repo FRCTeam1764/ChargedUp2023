@@ -26,6 +26,7 @@ public class ClawCommand extends CommandBase {
   @Override
   public void execute() {
     claw.clawOpen(speed);
+    claw.zeroEncoder();
   }
 
   // Called once the command ends or is interrupted.

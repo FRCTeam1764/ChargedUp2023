@@ -33,6 +33,7 @@ public class OpenClawCommand extends CommandBase {
   @Override
   public void execute() {
     claw.clawOpen(speed);
+    System.out.println(claw.getEncoderValue());
 
   }
 
@@ -45,6 +46,6 @@ public class OpenClawCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return claw.getEncoderValue()>=70;
+    return Math.abs(claw.getEncoderValue())>=2;
   }
 }

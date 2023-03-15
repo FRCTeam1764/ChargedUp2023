@@ -24,7 +24,7 @@ BlinkinSubsystem Blinkin;
   @Override
   public void execute() {
     Blinkin.setLEDs(.67);
-
+    System.out.println("hello world");
   }
 
   // Called once the command ends or is interrupted.

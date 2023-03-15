@@ -18,7 +18,7 @@ public class OutakeCommand extends ParallelDeadlineGroup {
   public OutakeCommand(Claw claw, double clawSpeed, SideRollers sideRollers,BackRollers backRollers, double speed) {
     // Add the deadline command in the super() call. Add other commands using
     // addCommands().
-    super(new SideRollerCommand(sideRollers, speed));
-    addCommands(new OpenClawCommand(claw, clawSpeed), new BackRollerCommand(backRollers, speed));
+    super(new OpenClawCommand(claw, clawSpeed) );
+    addCommands(new SideRollerCommand(sideRollers, speed), new BackRollerCommand(backRollers, speed));
   }
 }

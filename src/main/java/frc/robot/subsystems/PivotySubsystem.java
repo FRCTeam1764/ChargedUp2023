@@ -26,8 +26,8 @@ public class PivotySubsystem extends SubsystemBase {
   public PivotySubsystem(){
     pivotyMotor1 = new LazyTalonFX(Constants.PIVOTY_MOTOR.id, Constants.PIVOTY_MOTOR.busName);
     pivotyMotor2 = new LazyTalonFX(Constants.PIVOTY_MOTOR_2.id, Constants.PIVOTY_MOTOR_2.busName);
-    pivotyMotor1.config_kP(0, .009);
-    pivotyMotor2.config_kP(0, .009);
+    pivotyMotor1.config_kP(0, .015);
+    pivotyMotor2.config_kP(0, .015);
     pivotyMotor1.config_kI(0, 0.0000);
     pivotyMotor2.config_kI(0, 0.0000);
 

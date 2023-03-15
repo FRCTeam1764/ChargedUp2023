@@ -25,6 +25,9 @@ public class Claw extends SubsystemBase {
   public double getEncoderValue() {
     return clawMotor.getEncoder().getPosition();
   }
+  public void zeroEncoder(){
+    clawMotor.getEncoder().setPosition(0);
+  }
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
