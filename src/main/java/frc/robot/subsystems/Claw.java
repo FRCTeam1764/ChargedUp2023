@@ -13,8 +13,8 @@ import frc.robot.constants.Constants;
 
 public class Claw extends SubsystemBase {
   CANSparkMax clawMotor;
-  private static final double INTAKE_OPENER_MOTOR_P = 0.0001;
-  private static final double INTAKE_OPENER_MOTOR_D = 0.0000;
+  private static final double INTAKE_OPENER_MOTOR_P = 0.14;
+  private static final double INTAKE_OPENER_MOTOR_D = 0.004;
   private PIDController pidController = new PIDController(INTAKE_OPENER_MOTOR_P, 0, INTAKE_OPENER_MOTOR_D);
 
   /** Creates a new Claw. */
@@ -49,7 +49,8 @@ public class Claw extends SubsystemBase {
     clawMotor.set(pidController.calculate(getEncoderValue(), 1));
   }
 
-  public void openClaw() {
-    clawMotor.set(pidController.calculate(getEncoderValue(), 0));
+  public void openClaw(double setpoint) {
+    clawMotor.set(pidController.calculate(getEncoderValue(), setpoint));
+    System.out.println(pidController.calculate(getEncoderValue(), setpoint));
   }
 }

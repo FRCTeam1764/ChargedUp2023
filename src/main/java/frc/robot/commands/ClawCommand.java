@@ -10,34 +10,38 @@ import frc.robot.subsystems.Claw;
 public class ClawCommand extends CommandBase {
   Claw claw;
   double speed;
+  private double setpoint;
   /** Creates a new ClawCommand. */
-  public ClawCommand(Claw claw, double speed) {
+  public ClawCommand(Claw claw, double speed, double setpoint) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.claw = claw;
     addRequirements(claw);
     this.speed = speed;
+    this.setpoint = setpoint;
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+  
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    claw.clawOpen(speed);
-    claw.zeroEncoder();
+    claw.openClaw(setpoint);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    // claw.openClaw(2);
     claw.clawOff();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return claw.getEncoderValue() >setpoint +.05 && claw.getEncoderValue() < setpoint +.05;
   }
 }

@@ -13,12 +13,12 @@ import frc.robot.subsystems.SideRollers;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class OutakeCommand extends ParallelDeadlineGroup {
-  /** Creates a new OutakeCommand. */
-  public OutakeCommand(Claw claw, double clawSpeed, SideRollers sideRollers,BackRollers backRollers, double speed) {
-    // Add the deadline command in the super() call. Add other commands using
-    // addCommands().
-    super(new OpenClawCommand(claw, clawSpeed) );
-    addCommands(new SideRollerCommand(sideRollers, speed), new BackRollerCommand(backRollers, speed));
-  }
-}
+// public class OutakeCommand extends ParallelDeadlineGroup {
+//   /** Creates a new OutakeCommand. */
+//   // public OutakeCommand(Claw claw, double clawSpeed, SideRollers sideRollers,BackRollers backRollers, double speed) {
+//   //   // Add the deadline command in the super() call. Add other commands using
+//   //   // addCommands().
+//   //   //super(new OpenClawCommand(claw, clawSpeed) );
+//   //   addCommands(new SideRollerCommand(sideRollers, speed), new BackRollerCommand(backRollers, speed));
+//   // }
+// }

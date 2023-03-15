@@ -26,15 +26,34 @@ public class PivotySubsystem extends SubsystemBase {
   public PivotySubsystem(){
     pivotyMotor1 = new LazyTalonFX(Constants.PIVOTY_MOTOR.id, Constants.PIVOTY_MOTOR.busName);
     pivotyMotor2 = new LazyTalonFX(Constants.PIVOTY_MOTOR_2.id, Constants.PIVOTY_MOTOR_2.busName);
-    pivotyMotor1.config_kP(0, .015);
-    pivotyMotor2.config_kP(0, .015);
-    pivotyMotor1.config_kI(0, 0.0000);
-    pivotyMotor2.config_kI(0, 0.0000);
+    pivotyMotor1.config_kP(0, .125);
+    pivotyMotor2.config_kP(0, .125);
+    pivotyMotor1.config_kD(0, 150.00);
+    pivotyMotor2.config_kD(0, 150.00);
 
     breakBeamOne = new DigitalInput(Constants.PIVOTY_BREAK_BEAM);
   //  breakBeamTwo = new DigitalInput(6);
   }
   public void pivotyOn(int desiredEncoderValue){
+    if(desiredEncoderValue == 0) {
+      pivotyMotor1.config_kP(0, .125);
+      pivotyMotor2.config_kP(0, .125);
+      pivotyMotor1.config_kD(0, 30.00);
+      pivotyMotor2.config_kD(0, 30.00);
+     
+    }
+    else if (desiredEncoderValue == 135000) {
+      pivotyMotor1.config_kP(0, .121);
+      pivotyMotor2.config_kP(0, .121);
+      pivotyMotor1.config_kD(0, 150.00);
+      pivotyMotor2.config_kD(0, 150.00);
+    }
+    else {
+      pivotyMotor1.config_kP(0, .125);
+      pivotyMotor2.config_kP(0, .125);
+      pivotyMotor1.config_kD(0, 50.00);
+      pivotyMotor2.config_kD(0, 50.00);
+    }
 
     pivotyMotor1.set(ControlMode.Position, desiredEncoderValue);
     pivotyMotor2.set(ControlMode.Position, desiredEncoderValue);
