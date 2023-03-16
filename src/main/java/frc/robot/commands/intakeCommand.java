@@ -15,15 +15,14 @@ import frc.robot.subsystems.SideRollers;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class IntakeCommand extends ParallelCommandGroup {
   /** Creates a new IntakeCommand. */
-  public IntakeCommand(Claw claw, double clawSpeed, SideRollers sideRollers,BackRollers backRollers, double speed, BlinkinSubsystem blinkin) {
+  public IntakeCommand(Claw claw, SideRollers sideRollers,BackRollers backRollers, double speed, BlinkinSubsystem blinkin) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    // addRequirements(claw);
-    // if(blinkin.getLEDColor()== .67){
-    //   addCommands(new ClawCommand(claw, clawSpeed ),new SideRollerCommand(sideRollers, speed),new BackRollerCommand(backRollers, speed));
-    // }
-    // else{
-    //   addCommands(new ClawCommand(claw, clawSpeed ),new SideRollerCommand(sideRollers, speed),new BackRollerCommand(backRollers, 0));
-    // }
+    if(blinkin.getLEDColor()== .67){
+      addCommands(new OpenClawCommand(claw, 0 ),new SideRollerCommand(sideRollers, speed),new BackRollerCommand(backRollers, speed));
+    }
+    else{
+      addCommands(new OpenClawCommand(claw, 0),new SideRollerCommand(sideRollers, speed),new BackRollerCommand(backRollers, 0));
+    }
   }
 }

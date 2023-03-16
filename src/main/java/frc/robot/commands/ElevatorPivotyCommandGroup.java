@@ -4,7 +4,6 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.state.PivotyState;
@@ -14,50 +13,18 @@ import frc.robot.subsystems.PivotySubsystem;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class ElevatorPivotyCommandGroup extends ParallelCommandGroup {
+public class ElevatorPivotyCommandGroup extends SequentialCommandGroup {
   /** Creates a new ElevatorPivotyCommandGroup. */
-  
   public ElevatorPivotyCommandGroup(
-    Elevator elevator,
-    double elevatorSpeed,
-    PivotySubsystem pivoty,
-    int heightLevel,
-    PivotyState pivotyState
-  ) {
+    PivotySubsystem pivoty, int desiredEncoderValue, PivotyState pivotyState,
+    Elevator elevator, double elevatorSpeed, int heightLevel) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-
     addCommands(
-      new PivotyCommand(pivoty, getEncoderValue(heightLevel), pivotyState),
-      new ElevatorCommand(elevator, elevatorSpeed, getBrkBeamNum(heightLevel))
+      new PivotyCommand(pivoty, desiredEncoderValue, pivotyState, true),
+      new ParallelCommandGroup(
+        new PivotyCommand(pivoty, desiredEncoderValue, pivotyState, false),
+        new ElevatorCommand(elevator,elevatorSpeed, heightLevel))
     );
-  }
-  private int getBrkBeamNum(int heightLevel){
-    if(heightLevel == 4 ){
-      return 1;
-    }
-    else{
-      return heightLevel;
-    }
-  }
-  private int getEncoderValue(int heightLevel){
-    // if(NetworkTableInstance.getDefault().getTable("limelight").getEntry("tid").getInteger(0) == 8){
-    //   return 5;
-    // }
-    if(heightLevel==4){
-      return 50000;
-    }
-    else if(heightLevel==3){
-      return 70000;
-    }
-    else if(heightLevel==2){
-      return 80000;
-    }
-    else if(heightLevel==1){
-      return 130000;
-    }
-    else{
-      return 0;
-    }
   }
 }

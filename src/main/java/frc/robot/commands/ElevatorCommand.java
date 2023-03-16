@@ -36,7 +36,7 @@ public class ElevatorCommand extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    while(elevator.stillRunning(1)){
+    while(!elevator.IsWantedHeight(1)){
     elevator.elevatorOn(elevatorSpeed, 1);
     }
   }

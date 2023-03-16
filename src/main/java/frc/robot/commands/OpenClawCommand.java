@@ -13,7 +13,7 @@ public class OpenClawCommand extends CommandBase {
   double speed;
   private double setpoint;
   /** Creates a new ClawCommand. */
-  public OpenClawCommand(Claw claw, double speed, double setpoint) {
+  public OpenClawCommand(Claw claw, double setpoint) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.claw = claw;
     addRequirements(claw);

@@ -17,13 +17,14 @@ public class PivotyCommand extends CommandBase {
   DigitalInput breakBeamTwo;
   int desiredEncoderValue;
   PivotyState pivotyState;
+  boolean finish;
   //needs fixed
-  public PivotyCommand(PivotySubsystem pivoty, int desiredEncoderValue, PivotyState pivotyState) {
+  public PivotyCommand(PivotySubsystem pivoty, int desiredEncoderValue, PivotyState pivotyState, boolean finish) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.pivoty = pivoty;
     this.desiredEncoderValue = desiredEncoderValue;
     this.pivotyState = pivotyState;
-
+    this.finish = finish;
   }
 
   // Called when the command is initially scheduled.
@@ -41,13 +42,20 @@ public class PivotyCommand extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    if(!finish){
     pivotyState.setEncoderValue(0);
+    }
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
     // return Math.abs(pivoty.getEncoderValue())>=Math.abs(desiredEncoderValue);
+    if( finish){
+      return pivoty.getEncoderValue() <= desiredEncoderValue+2000 && pivoty.getEncoderValue() >= desiredEncoderValue-2000;
+    }
+    else{
     return false;
+   }
   }
 }
