@@ -37,9 +37,8 @@ public class RobotContainer {
     private final JoystickButton midRung = new JoystickButton(secondaryController, XboxController.Button.kX.value);
     private final JoystickButton lowRung = new JoystickButton(secondaryController, XboxController.Button.kA.value);
     private final JoystickButton intakeClose = new JoystickButton(secondaryController, XboxController.Button.kRightBumper.value);
-    private final JoystickButton intakeOpen = new JoystickButton(secondaryController, XboxController.Button.kLeftBumper.value);
-    private final JoystickButton pivotyUp = new JoystickButton(driver, XboxController.Button.kRightBumper.value);
-    private final JoystickButton pivotyDown = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
+    private final JoystickButton intakeZero = new JoystickButton(secondaryController, XboxController.Button.kLeftBumper.value);
+
     private final JoystickButton playerStation = new JoystickButton(secondaryController, XboxController.Button.kB.value);
 
     /* Subsystems */
@@ -108,6 +107,7 @@ public class RobotContainer {
         // intakeClose.onTrue(new IntakeCommand(claw, -.2, sideRollers, backRollers, -1, blinkin));
         intakeClose.whileTrue(new ClawCommand(claw,2));
         intakeClose.whileFalse(new IntakeCommand(claw, sideRollers, backRollers, 1.0, blinkin));
+        intakeZero.onTrue(new ZeroIntakeCommand(claw, -.2));
         // intakeOpen.onTrue(new OutakeCommand(claw, .2, sideRollers, backRollers, 1));
         lowRung.toggleOnTrue(new ElevatorPivotyCommandGroup(pivoty, 133000, robotState.pivotyState, elevator, .6, 1));
         midRung.toggleOnTrue(new ElevatorPivotyCommandGroup(pivoty, 20000, robotState.pivotyState, elevator, .6, 2));
@@ -131,7 +131,7 @@ public class RobotContainer {
     // }
     // // public Command getAutonomousCommand() {
          // An ExampleCommand will run in autonomous
-         return new exampleAuto(s_Swerve);
+         return new AutoBalance(s_Swerve, robotState);
      }
 
 
@@ -170,7 +170,7 @@ public class RobotContainer {
    public Claw getClaw(){
     return claw;
    }
-    
+   
 
     // public AutonomousChooser getAutonomousChooser() {
     //     return autonomousChooser;

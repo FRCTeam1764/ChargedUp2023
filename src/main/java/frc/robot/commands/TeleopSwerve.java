@@ -102,6 +102,6 @@ public class TeleopSwerve extends CommandBase {
        System.out.println("error" + error);
        autoLevelPwr = -Math.min(error*.023, 1);
         System.out.println(error+ " " +autoLevelPwr);
-       return -autoLevelPwr;
+       return autoLevelPwr;
    }
 }
