@@ -83,6 +83,7 @@ public class Robot extends TimedRobot {
         // System.out.println(robotContainer.getPivotySubsystem().getBrkBeam());
         SmartDashboard.putNumber("pivoty encoder", robotContainer.getPivotySubsystem().getEncoderValue());
         SmartDashboard.putNumber("Intake Encoder", robotContainer.getClaw().getEncoderValue());
+        SmartDashboard.putNumber("elevator encoder", robotContainer.getElevatorSubsystem().getEncoderValue());
         // System.out.println(robotContainer.robotState.pivotyState.getEncoderValue());
 
 /* */
@@ -96,7 +97,7 @@ public class Robot extends TimedRobot {
     //    robotContainer.getDrivetrainSubsystem().resetGyroAngle(Rotation2.ZERO);
 
 
-       robotContainer.getAutonomousCommand().schedule();
+    //-    robotContainer.getAutonomousCommand().schedule();
    }
 
 
@@ -110,6 +111,6 @@ public class Robot extends TimedRobot {
    }
 
    public void runPivoty(){
-    robotContainer.getPivotySubsystem().pivotyOn(robotContainer.robotState.pivotyState.getEncoderValue());
+    robotContainer.getPivotySubsystem().pivotyOn(robotContainer.robotState.pivotyState.getEncoderValue(), robotContainer.getElevatorSubsystem());
    }
 }

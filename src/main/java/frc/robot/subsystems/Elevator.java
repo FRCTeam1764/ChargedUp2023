@@ -96,6 +96,9 @@ boolean BreakBeamOffOrOn = false;
       return no;
     }
   }
+  public double getEncoderValue(){
+    return elevatorMotor1.getSelectedSensorPosition();
+  }
   //assigning height levels numbers, numbers cooralate to min, mid, and max.
 
   @Override

@@ -25,6 +25,7 @@ public class RobotContainer {
     private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kY.value);
     private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kRightBumper.value);
     private final JoystickButton blinkinButton = new JoystickButton(driver, XboxController.Button.kB.value);
+    private final JoystickButton elevatorTest = new JoystickButton(driver, XboxController.Button.kA.value);
     // private final JoystickButton highButton = new JoystickButton(driver, XboxController.Button.kY.value);
     // private final JoystickButton lowButton = new JoystickButton(driver, XboxController.Button.kA.value);
     // private final JoystickButton midButton = new JoystickButton(driver, XboxController.Button.kX.value);
@@ -40,7 +41,6 @@ public class RobotContainer {
     private final JoystickButton pivotyUp = new JoystickButton(driver, XboxController.Button.kRightBumper.value);
     private final JoystickButton pivotyDown = new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
     private final JoystickButton playerStation = new JoystickButton(secondaryController, XboxController.Button.kB.value);
-
 
     /* Subsystems */
     public RobotState robotState = new RobotState(driver);
@@ -87,7 +87,9 @@ public class RobotContainer {
     private void configurePilotButtonBindings() {
         // secondaryController.getBackButton().onTrue(new ResetGyroCommand(drivetrainSubsystem));
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
-        blinkinButton.toggleOnTrue(new BlinkinCommand( blinkin));
+        blinkinButton.toggleOnTrue(new BlinkinCommand(blinkin));
+        elevatorTest.toggleOnTrue(new ElevatorCommand(elevator, .6, 3));
+
         // highButton.onTrue(new ElevatorCommand(elevator, .6, 3));
         // midButton.onTrue(new ElevatorCommand(elevator, .6, 2));
         // lowButton.onTrue(new ElevatorCommand(elevator, .6, 1));
@@ -98,20 +100,20 @@ public class RobotContainer {
    private void configureCoPilotButtonBindings() {
 
         // lowRung.onTrue(new ScoringCommand(elevator, 0.8, pivoty, 0.8, 1, intake, 0.2, false, limelight, robotState.pivotyState));
+        
         // midRung.onTrue(new ScoringCommand(elevator, 0.8, pivoty, 0.8, 2, intake, 0.2, false, limelight, robotState.pivotyState));
         // highRung.onTrue(new ScoringCommand(elevator, 0.8, pivoty, 0.8, 3, intake, 0.2, false, limelight, robotState.pivotyState));
         // lowerAndGrab.onTrue(new ScoringCommand(elevator, 0.8, pivoty, 0.8, 1, intake, 0.2, true, limelight, robotState.pivotyState));
         // openIntake.onTrue(new intakeCommand(intake, 0.2, false, 1));
         // intakeClose.onTrue(new IntakeCommand(claw, -.2, sideRollers, backRollers, -1, blinkin));
         intakeClose.whileTrue(new ClawCommand(claw,2));
-        intakeClose.whileFalse(new IntakeCommand(claw, sideRollers, backRollers, 1, blinkin));
+        intakeClose.whileFalse(new IntakeCommand(claw, sideRollers, backRollers, 1.0, blinkin));
         // intakeOpen.onTrue(new OutakeCommand(claw, .2, sideRollers, backRollers, 1));
-        lowRung.toggleOnTrue(new ElevatorPivotyCommandGroup(pivoty, 135000, robotState.pivotyState, elevator, .6, 1));
-        midRung.toggleOnTrue(new ElevatorPivotyCommandGroup(pivoty, 70000, robotState.pivotyState, elevator, .6, 1));
-        highRung.toggleOnTrue(new ElevatorPivotyCommandGroup(pivoty, 75000, robotState.pivotyState, elevator, .6, 1));
+        lowRung.toggleOnTrue(new ElevatorPivotyCommandGroup(pivoty, 133000, robotState.pivotyState, elevator, .6, 1));
+        midRung.toggleOnTrue(new ElevatorPivotyCommandGroup(pivoty, 20000, robotState.pivotyState, elevator, .6, 2));
+        highRung.toggleOnTrue(new ElevatorPivotyCommandGroup(pivoty, 75000, robotState.pivotyState, elevator, .6, 3));
         // playerStation.toggleOnTrue(new ElevatorPivotyCommandGroup(elevator, .6, pivoty, 4, robotState.pivotyState));
         playerStation.toggleOnTrue(new ElevatorPivotyCommandGroup(pivoty, 50000, robotState.pivotyState, elevator, .6, 1));
-
         // toggleDriveTrainAutoBalance.onTrue(new toggleSwerveState(robotState)); // set it up for a toggleontrue later
        // elevatorUp.whileTrue(new ElevatorCommand(elevator, .8 , 3));
         //elevatorDown.whileTrue(new ElevatorCommand(elevator, 0.8, 1));

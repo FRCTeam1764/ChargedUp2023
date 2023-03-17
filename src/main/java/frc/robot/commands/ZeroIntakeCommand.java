@@ -5,16 +5,11 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.BlinkinSubsystem;
 
-public class BlinkinCommand extends CommandBase {
-  /** Creates a new BlinkinCommand. */
-BlinkinSubsystem Blinkin;
-//needs toggle and state
-  public BlinkinCommand( BlinkinSubsystem Blinkin) {
-  System.out.println("created");
-  this.Blinkin = Blinkin;
-  addRequirements(Blinkin);
+public class ZeroIntakeCommand extends CommandBase {
+  /** Creates a new ZeroIntakeCommand. */
+  public ZeroIntakeCommand() {
+    // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
@@ -23,17 +18,11 @@ BlinkinSubsystem Blinkin;
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    Blinkin.setLEDs(.67);
-    System.out.println("hello world");
-  }
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    Blinkin.setLEDs(.89);
-    System.out.println("hello not world");
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override
