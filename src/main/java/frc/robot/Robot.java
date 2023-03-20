@@ -77,13 +77,13 @@ public class Robot extends TimedRobot {
          }
 
 
-        SmartDashboard.putBoolean("mid", robotContainer.getElevatorSubsystem().midExtend.get() );
-        SmartDashboard.putBoolean("max", robotContainer.getElevatorSubsystem().maxExtend.get() );
-        SmartDashboard.putBoolean("min", robotContainer.getElevatorSubsystem().minExtend.get() );
+        // SmartDashboard.putBoolean("mid", robotContainer.getElevatorSubsystem().midExtend.get() );
+        // SmartDashboard.putBoolean("max", robotContainer.getElevatorSubsystem().maxExtend.get() );
+        // SmartDashboard.putBoolean("min", robotContainer.getElevatorSubsystem().minExtend.get() );
         SmartDashboard.putBoolean("pivoty", robotContainer.getPivotySubsystem().getBrkBeam() );
         // System.out.println(robotContainer.getPivotySubsystem().getBrkBeam());
         SmartDashboard.putNumber("pivoty encoder", robotContainer.getPivotySubsystem().getEncoderValue());
-        SmartDashboard.putNumber("Intake Encoder", robotContainer.getClaw().getEncoderValue());
+       // SmartDashboard.putNumber("Intake Encoder", robotContainer.getClaw().getEncoderValue());
         SmartDashboard.putNumber("elevator encoder", robotContainer.getElevatorSubsystem().getEncoderValue());
         // System.out.println(robotContainer.robotState.pivotyState.getEncoderValue());
 

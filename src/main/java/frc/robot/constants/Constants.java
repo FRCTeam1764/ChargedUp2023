@@ -6,28 +6,44 @@ public final class Constants {
     
     public static final String CANIVORE_NAME = "1764 canivore";
 
-    public static final CanPort BACK_INTAKE_MOTOR =     new CanPort(21);
-    public static final CanPort SIDE_INTAKE_MOTOR =     new CanPort(22);
-    public static final CanPort INTAKE_OPENER_MOTOR =   new CanPort(23);
+    // public static final CanPort BACK_INTAKE_MOTOR =     new CanPort(21);
+    // public static final CanPort SIDE_INTAKE_MOTOR =     new CanPort(22);
+    // public static final CanPort INTAKE_OPENER_MOTOR =   new CanPort(23);
+
+
 
     public static final CanPort PIVOTY_MOTOR =          new CanPort(36, CANIVORE_NAME);
     public static final CanPort PIVOTY_MOTOR_2 =        new CanPort(20, CANIVORE_NAME);
 
     public static final CanPort ELEVATOR_MOTOR =        new CanPort(32, CANIVORE_NAME);
-    public static final CanPort ELAVATOR_MOTOR_2 =      new CanPort(33, CANIVORE_NAME);;
+    public static final CanPort ELAVATOR_MOTOR_2 =      new CanPort(33, CANIVORE_NAME);
 
-    public static final int MIN_EXTEND_BREAK_BEAM =  1;
-    public static final int MAX_EXTEND_BREAK_BEAM =  3;
-    public static final int MID_EXTEND_BREAK_BEAM =  2;
+    public static final CanPort WRIST_MOTOR =           new CanPort(18);
+    public static final CanPort INTAKE_MOTOR =          new CanPort(16);
+
+
+    // public static final int MIN_EXTEND_BREAK_BEAM =  1;
+    // public static final int MAX_EXTEND_BREAK_BEAM =  3;
+    // public static final int MID_EXTEND_BREAK_BEAM =  2;
+    public static final int ELEVATOR_LIMIT_SWITCH = 0;//TO DO: FIND PORT
+
+
     public static final int PIVOTY_BREAK_BEAM =      9;
 
     public static final int BLINKIN_SPARK =          9;
     public static final int PRESSURE_SENSOR_PORT =   0;
 
-    public static final int COLOR_SENSOR_2 = 5;
+    public static final int COLOR_SENSOR_2 =         5;
+    public static final int COLOR_SENSOR_1 =         7;
 
-    public static final int COLOR_SENSOR_1 = 7;
 
+
+
+    public static final int WRIST_ANGLE_ENCODER = 1;
+    public static final int ARM_ANGLE_ENCODER = 0;
+
+    public static final int DROP_INTAKE_SOLENOID_CHANNEL = 1;
+    public static final int RAISE_INTAKE_SOLENOID_CHANNEL = 0;
 
 
     

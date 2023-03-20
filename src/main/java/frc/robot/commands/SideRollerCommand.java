@@ -1,53 +1,53 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
+// // Copyright (c) FIRST and other WPILib contributors.
+// // Open Source Software; you can modify and/or share it under the terms of
+// // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
+// package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.BackRollers;
-import frc.robot.subsystems.SideRollers;
+// import edu.wpi.first.wpilibj.Timer;
+// import edu.wpi.first.wpilibj2.command.CommandBase;
+// import frc.robot.subsystems.BackRollers;
+// import frc.robot.subsystems.SideRollers;
 
-public class SideRollerCommand extends CommandBase {
-  /** Creates a new BackRollerCommand. */
-  SideRollers sideRollers;
-  double speed;
-  Timer timer;
+// public class SideRollerCommand extends CommandBase {
+//   /** Creates a new BackRollerCommand. */
+//   SideRollers sideRollers;
+//   double speed;
+//   Timer timer;
   
-  public SideRollerCommand(SideRollers sideRollers, double speed) {
-    this.sideRollers=sideRollers;
-    // addRequirements(sideRollers);
-    this.speed = speed;
-    timer = new Timer();
-    // addRequirements(sideRollers);
-    // Use addRequirements() here to declare subsystem dependencies.
-  }
+//   public SideRollerCommand(SideRollers sideRollers, double speed) {
+//     this.sideRollers=sideRollers;
+//     // addRequirements(sideRollers);
+//     this.speed = speed;
+//     timer = new Timer();
+//     // addRequirements(sideRollers);
+//     // Use addRequirements() here to declare subsystem dependencies.
+//   }
 
-  // Called when the command is initially scheduled.
-  @Override
-  public void initialize() {
-    timer.reset();
-    timer.start();
-  }
+//   // Called when the command is initially scheduled.
+//   @Override
+//   public void initialize() {
+//     timer.reset();
+//     timer.start();
+//   }
 
-  // Called every time the scheduler runs while the command is scheduled.
+//   // Called every time the scheduler runs while the command is scheduled.
   
-  @Override
-  public void execute() {
-    sideRollers.sideRollerOn(speed);
+//   @Override
+//   public void execute() {
+//     sideRollers.sideRollerOn(speed);
 
-  }
+//   }
 
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {
-    sideRollers.sideRollerOff();
-  }
+//   // Called once the command ends or is interrupted.
+//   @Override
+//   public void end(boolean interrupted) {
+//     sideRollers.sideRollerOff();
+//   }
 
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return timer.hasElapsed(1.0);
-  }
-}
+//   // Returns true when the command should end.
+//   @Override
+//   public boolean isFinished() {
+//     return timer.hasElapsed(1.0);
+//   }
+// }

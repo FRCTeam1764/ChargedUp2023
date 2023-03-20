@@ -6,10 +6,9 @@ package frc.robot;
 
 import frc.robot.constants.SwerveConstants;
 import frc.robot.state.RobotState;
-import frc.robot.subsystems.Claw;
 import frc.robot.subsystems.Swerve;
 import frc.robot.commands.AutoBalanceCommand;
-import frc.robot.commands.ZeroIntakeCommand;
+// import frc.robot.commands.ZeroIntakeCommand;
 
 import java.util.List;
 
@@ -28,7 +27,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 
 public class AutoBalance extends SequentialCommandGroup {
-    public AutoBalance(Swerve s_Swerve,RobotState robotState, Claw claw){
+    public AutoBalance(Swerve s_Swerve,RobotState robotState){
         TrajectoryConfig config =
             new TrajectoryConfig(
                     // SwerveConstants.AutoConstants.kMaxSpeedMetersPerSecond,
@@ -89,7 +88,7 @@ public class AutoBalance extends SequentialCommandGroup {
         addCommands(
             new InstantCommand(() -> s_Swerve.resetOdometry(goForward.getInitialPose())),
             new ParallelCommandGroup(
-                new ZeroIntakeCommand(claw, .2),
+               // new ZeroIntakeCommand(claw, .2),
                 swerveControllerCommand
             ),
             // swerveControllerCommand2,

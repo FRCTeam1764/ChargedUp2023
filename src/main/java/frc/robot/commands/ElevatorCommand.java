@@ -30,7 +30,7 @@ public class ElevatorCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    elevator.elevatorOn(elevatorSpeed, heightLevel);
+    elevator.elevatorOn();
   }
 
   // Called once the command ends or is interrupted.
@@ -39,10 +39,10 @@ public class ElevatorCommand extends CommandBase {
   public void end(boolean interrupted) {
 
     
-    elevator.elevatorOn(elevatorSpeed, 1);
-    while(!elevator.IsWantedHeight(1)){
-    elevator.elevatorOn(elevatorSpeed, 1);
-    }
+    // elevator.elevatorOn(elevatorSpeed, 1);
+    // while(!elevator.IsWantedHeight(1)){
+    // elevator.elevatorOn(elevatorSpeed, 1);
+  //  }
   }
 
   // // Returns true when the command should end.
