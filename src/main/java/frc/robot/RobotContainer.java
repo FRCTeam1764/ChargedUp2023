@@ -36,8 +36,8 @@ public class RobotContainer {
     private final JoystickButton highRung = new JoystickButton(secondaryController, XboxController.Button.kY.value);
     private final JoystickButton midRung = new JoystickButton(secondaryController, XboxController.Button.kX.value);
     private final JoystickButton lowRung = new JoystickButton(secondaryController, XboxController.Button.kA.value);
-    private final JoystickButton intakeClose = new JoystickButton(secondaryController, XboxController.Button.kRightBumper.value);
-    private final JoystickButton intakeZero = new JoystickButton(secondaryController, XboxController.Button.kLeftBumper.value);
+    private final JoystickButton intakeIn = new JoystickButton(secondaryController, XboxController.Button.kRightBumper.value);
+    private final JoystickButton intakeOut = new JoystickButton(secondaryController, XboxController.Button.kLeftBumper.value);
 
     private final JoystickButton playerStation = new JoystickButton(secondaryController, XboxController.Button.kB.value);
 
@@ -107,6 +107,7 @@ public class RobotContainer {
         // intakeClose.onFalse(new IntakeCommand(claw, sideRollers, backRollers, -1.0, blinkin));
         // intakeZero.whileTrue(new ZeroIntakeCommand(claw, .2));
         // intakeOpen.onTrue(new OutakeCommand(claw, .2, sideRollers, backRollers, 1));
+        intakeIn.toggleOnTrue(new )
         lowRung.toggleOnTrue(new ElevatorPivotyCommandGroup(pivoty, 130000, robotState.pivotyState, elevator, .6, 1));
         midRung.toggleOnTrue(new ElevatorPivotyCommandGroup(pivoty, 50000, robotState.pivotyState, elevator, .6, 2));
         highRung.toggleOnTrue(new ElevatorPivotyCommandGroup(pivoty, 50000, robotState.pivotyState, elevator, .6, 3));//previosuly 75k
