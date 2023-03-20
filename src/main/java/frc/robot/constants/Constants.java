@@ -30,6 +30,9 @@ public final class Constants {
 
     public static final int PIVOTY_BREAK_BEAM =      9;
 
+    public static final int INTAKE_BREAK_BEAM1 = 0;//TO DO: FIND PORT
+    public static final int INTAKE_BREAK_BEAM2 = 0;
+
     public static final int BLINKIN_SPARK =          9;
     public static final int PRESSURE_SENSOR_PORT =   0;
 

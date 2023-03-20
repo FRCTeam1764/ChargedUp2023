@@ -47,6 +47,8 @@ public class PivotySubsystem extends SubsystemBase {
     maxFeedForward = new ArmFeedforward(0.12106, 0.1171, 3.6673);
     breakBeamOne = new DigitalInput(Constants.PIVOTY_BREAK_BEAM);
     encoderOffset = 115000;
+
+    
   //  breakBeamTwo = new DigitalInput(6);
   }
   public void pivotyOn(int desiredEncoderValue, Elevator elevator){
