@@ -45,9 +45,10 @@ public class RobotContainer {
     public RobotState robotState = new RobotState(driver);
     private final Swerve s_Swerve = new Swerve();
     private final Superstructure superstructure = new Superstructure();
-    private final Elevator elevator = new Elevator();
+    private final Elevator elevator = new Elevator(robotState.elevatorState);
     private final PivotySubsystem pivoty = new PivotySubsystem();
     private final BlinkinSubsystem blinkin = new BlinkinSubsystem();
+    private final Intake intake = new Intake(pivoty);
 
 
     private final LimelightSubsystem limelight = new LimelightSubsystem(NetworkTableInstance.getDefault().getTable("limelight"));
@@ -85,7 +86,7 @@ public class RobotContainer {
         // secondaryController.getBackButton().onTrue(new ResetGyroCommand(drivetrainSubsystem));
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
         blinkinButton.toggleOnTrue(new BlinkinCommand(blinkin));
-        elevatorTest.toggleOnTrue(new ElevatorCommand(elevator, .6, 3));
+        elevatorTest.toggleOnTrue(new ElevatorCommand(elevator, .6));
 
         // highButton.onTrue(new ElevatorCommand(elevator, .6, 3));
         // midButton.onTrue(new ElevatorCommand(elevator, .6, 2));
@@ -106,13 +107,14 @@ public class RobotContainer {
         // intakeClose.onTrue(new OutakeCommandGroup(backRollers, sideRollers, claw, 1));
         // intakeClose.onFalse(new IntakeCommand(claw, sideRollers, backRollers, -1.0, blinkin));
         // intakeZero.whileTrue(new ZeroIntakeCommand(claw, .2));
-        // intakeOpen.onTrue(new OutakeCommand(claw, .2, sideRollers, backRollers, 1));
-        intakeIn.toggleOnTrue(new )
-        lowRung.toggleOnTrue(new ElevatorPivotyCommandGroup(pivoty, 130000, robotState.pivotyState, elevator, .6, 1));
-        midRung.toggleOnTrue(new ElevatorPivotyCommandGroup(pivoty, 50000, robotState.pivotyState, elevator, .6, 2));
-        highRung.toggleOnTrue(new ElevatorPivotyCommandGroup(pivoty, 50000, robotState.pivotyState, elevator, .6, 3));//previosuly 75k
+        intakeIn.toggleOnTrue(new intakeCommand(true,intake)); //CONE
+        intakeOut.toggleOnTrue(new intakeCommand(false,intake)); //CUBE
+        //intakeIn.toggleOnTrue(new intakeCommand(0.1, intake));
+        lowRung.toggleOnTrue(new ElevatorPivotyCommandGroup(pivoty, 130000, robotState.pivotyState, elevator, .6));
+        midRung.toggleOnTrue(new ElevatorPivotyCommandGroup(pivoty, 50000, robotState.pivotyState, elevator, .6));
+        highRung.toggleOnTrue(new ElevatorPivotyCommandGroup(pivoty, 50000, robotState.pivotyState, elevator, .6));//previosuly 75k
         // playerStation.toggleOnTrue(new ElevatorPivotyCommandGroup(elevator, .6, pivoty, 4, robotState.pivotyState));
-        playerStation.toggleOnTrue(new ElevatorPivotyCommandGroup(pivoty, 50000, robotState.pivotyState, elevator, .6, 1));
+        playerStation.toggleOnTrue(new ElevatorPivotyCommandGroup(pivoty, 50000, robotState.pivotyState, elevator, .6));
         // toggleDriveTrainAutoBalance.onTrue(new toggleSwerveState(robotState)); // set it up for a toggleontrue later
        // elevatorUp.whileTrue(new ElevatorCommand(elevator, .8 , 3));
         //elevatorDown.whileTrue(new ElevatorCommand(elevator, 0.8, 1));

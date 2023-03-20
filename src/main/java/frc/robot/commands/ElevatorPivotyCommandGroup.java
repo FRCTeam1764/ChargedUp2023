@@ -19,14 +19,14 @@ public class ElevatorPivotyCommandGroup extends SequentialCommandGroup {
   /** Creates a new ElevatorPivotyCommandGroup. */
   public ElevatorPivotyCommandGroup(
     PivotySubsystem pivoty, int desiredEncoderValue, PivotyState pivotyState,
-    Elevator elevator, double elevatorSpeed, int heightLevel) {
+    Elevator elevator, double elevatorSpeed) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new PivotyCommand(pivoty, desiredEncoderValue, pivotyState, true),
       new ParallelCommandGroup(
         new PivotyCommand(pivoty, desiredEncoderValue, pivotyState, false),
-        new ElevatorCommand(elevator,elevatorSpeed, heightLevel))
+        new ElevatorCommand(elevator,elevatorSpeed))
     );
   }
 }

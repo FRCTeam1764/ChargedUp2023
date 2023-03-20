@@ -17,7 +17,7 @@ import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.constants.Constants;
-import frc.robot.libraries.internal.*;
+import frc.robot.libraries.internal.RevThroughBoreEncoder;
 // import frc.robot.constants.GlobalConstants.IntakeConstants;
 // import frc.robot.trobot5013lib.RevThroughBoreEncoder;
 import frc.robot.RobotContainer;
@@ -88,3 +88,4 @@ public class Intake extends SubsystemBase {
     }
     
  }
+//there was a "isconnected" for m_angleencoder

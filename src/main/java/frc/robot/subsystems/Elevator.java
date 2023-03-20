@@ -4,12 +4,16 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.StatorCurrentLimitConfiguration;
+
 import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.constants.Constants;
 import frc.robot.libraries.internal.LazyTalonFX;
+import frc.robot.state.ElevatorState;
 
 public class Elevator extends SubsystemBase {
   /** Creates a new Elevator. */
@@ -19,35 +23,47 @@ public class Elevator extends SubsystemBase {
   public PIDController pidController;
   public DigitalInput limitSwitch;
   public ArmFeedforward feedforward; 
+  public ElevatorState elevatorState;
   double elevatorOffset;
+  int MaxElevatorEncoder =-120000;
 
-  public Elevator() {
+  public Elevator(ElevatorState elevatorState) {
     elevatorMotor1 = new LazyTalonFX(Constants.ELEVATOR_MOTOR.id, Constants.ELEVATOR_MOTOR.busName);
     elevatorMotor2 = new LazyTalonFX(Constants.ELAVATOR_MOTOR_2.id, Constants.ELAVATOR_MOTOR_2.busName);
     elevatorMotor2.follow(elevatorMotor1);
     limitSwitch = new DigitalInput(Constants.ELEVATOR_LIMIT_SWITCH);
 
+    this.elevatorState = elevatorState;
 
-    pidController = new PIDController(.001, 0, .001); //need tuning
+    pidController = new PIDController(.001, 0, .001); //need tunin
     feedforward = new ArmFeedforward(0.1, 0.1,0.1 );//needs characterization
 
   }
 
   public void elevatorOn(double desiredEncoderValue){
-    if(!limitSwitch.get()){
-      elevatorMotor1.setSelectedSensorPosition(0);
-    }
-    
+
 
     double velocity = feedforward.calculate(getEncoderValueOffset(), 0.02);
 
 
-    elevatorMotor1.setVoltage(velocity + pidController.calculate(getEncoderValue(),desiredEncoderValue));
-    elevatorMotor2.setVoltage(velocity + pidController.calculate(getEncoderValue(),desiredEncoderValue));
+    elevatorMotor1.setVoltage(velocity + pidController.calculate(getEncoderValue(),-desiredEncoderValue));
+    elevatorMotor2.setVoltage(velocity + pidController.calculate(getEncoderValue(),-desiredEncoderValue));
     
   }
-  public void elevatorOff(){
 
+  public void zeroEncoder(){
+    elevatorMotor1.getSensorCollection().setIntegratedSensorPosition(0.0,0);
+    elevatorMotor2.getSensorCollection().setIntegratedSensorPosition(0.0,0);
+  }
+  
+  public boolean getLimitSwitch(){
+    return limitSwitch.get();
+  }
+  public void elevatorOff(){
+    elevatorMotor1.set(ControlMode.PercentOutput, 0);
+    elevatorMotor2.set(0);
+    elevatorMotor1.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, 10, 0, 0));
+    elevatorMotor2.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, 10, 0, 0));
 
   }
 
@@ -59,8 +75,7 @@ public class Elevator extends SubsystemBase {
    }
 
   public double getEncoderValueOffset(){
-     return elevatorMotor1.getSelectedSensorPosition() -  elevatorOffset;
-     
+     return elevatorMotor1.getSelectedSensorPosition() -  elevatorOffset; //may need to convert to a unit?
    }
 
 

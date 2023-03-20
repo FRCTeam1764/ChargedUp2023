@@ -12,9 +12,11 @@ public class RobotState {
 
     public SwerveState swerveState;
     public PivotyState pivotyState;
+    public ElevatorState elevatorState;
     public RobotState(Joystick driver) {
         this.limelightState = new LimelightState();
         this.swerveState = new SwerveState(driver);
         this.pivotyState = new PivotyState();
+        this.elevatorState = new ElevatorState();
     }
 }

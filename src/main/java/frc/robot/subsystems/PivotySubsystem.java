@@ -76,8 +76,8 @@ public class PivotySubsystem extends SubsystemBase {
     maxFeedforwardVelo = maxFeedForward.calculate(getEncoderRadians(), .0002);
     feedforward= interpolate(minFeedforwardVelo, maxFeedforwardVelo, elevator.getEncoderValue());
 
-    pivotyMotor1.setVoltage( feedforward+pidController.calculate(pivotyMotor1.getSelectedSensorPosition(), desiredEncoderValue));
-    pivotyMotor2.setVoltage( feedforward+pidController.calculate(pivotyMotor1.getSelectedSensorPosition(), desiredEncoderValue));
+    pivotyMotor1.setVoltage(feedforward+pidController.calculate(pivotyMotor1.getSelectedSensorPosition(), desiredEncoderValue));
+    pivotyMotor2.setVoltage(feedforward+pidController.calculate(pivotyMotor1.getSelectedSensorPosition(), desiredEncoderValue));
     //System.out.println(pivotyMotor1.get()+", "+desiredEncoderValue);
 
     

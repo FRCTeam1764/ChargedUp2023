@@ -3,6 +3,7 @@ package frc.robot;
 
 
 
+import com.fasterxml.jackson.databind.util.RootNameLookup;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
@@ -76,11 +77,15 @@ public class Robot extends TimedRobot {
              robotContainer.getPivotySubsystem().zeroEncoder();
          }
 
+         if(!robotContainer.getElevatorSubsystem().limitSwitch.get()){
+            robotContainer.getElevatorSubsystem().zeroEncoder();
+        }
 
         // SmartDashboard.putBoolean("mid", robotContainer.getElevatorSubsystem().midExtend.get() );
         // SmartDashboard.putBoolean("max", robotContainer.getElevatorSubsystem().maxExtend.get() );
         // SmartDashboard.putBoolean("min", robotContainer.getElevatorSubsystem().minExtend.get() );
-        SmartDashboard.putBoolean("pivoty", robotContainer.getPivotySubsystem().getBrkBeam() );
+        SmartDashboard.putBoolean("pivoty", robotContainer.getPivotySubsystem().getBrkBeam());
+        SmartDashboard.putBoolean("elevator", robotContainer.getElevatorSubsystem().getLimitSwitch());
         // System.out.println(robotContainer.getPivotySubsystem().getBrkBeam());
         SmartDashboard.putNumber("pivoty encoder", robotContainer.getPivotySubsystem().getEncoderValue());
        // SmartDashboard.putNumber("Intake Encoder", robotContainer.getClaw().getEncoderValue());
