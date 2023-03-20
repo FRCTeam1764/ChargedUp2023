@@ -16,7 +16,7 @@ public final class Constants {
     public static final CanPort ELEVATOR_MOTOR =        new CanPort(32, CANIVORE_NAME);
     public static final CanPort ELAVATOR_MOTOR_2 =      new CanPort(33, CANIVORE_NAME);;
 
-    public static final int MIN_EXTEND_BREAK_BEAM =  0;
+    public static final int MIN_EXTEND_BREAK_BEAM =  1;
     public static final int MAX_EXTEND_BREAK_BEAM =  3;
     public static final int MID_EXTEND_BREAK_BEAM =  2;
     public static final int PIVOTY_BREAK_BEAM =      9;

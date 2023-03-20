@@ -105,15 +105,15 @@ public class RobotContainer {
         // lowerAndGrab.onTrue(new ScoringCommand(elevator, 0.8, pivoty, 0.8, 1, intake, 0.2, true, limelight, robotState.pivotyState));
         // openIntake.onTrue(new intakeCommand(intake, 0.2, false, 1));
         // intakeClose.onTrue(new IntakeCommand(claw, -.2, sideRollers, backRollers, -1, blinkin));
-        intakeClose.whileTrue(new ClawCommand(claw,2));
-        intakeClose.whileFalse(new IntakeCommand(claw, sideRollers, backRollers, 1.0, blinkin));
-        intakeZero.onTrue(new ZeroIntakeCommand(claw, -.2));
+        intakeClose.onTrue(new OutakeCommandGroup(backRollers, sideRollers, claw, 1));
+        intakeClose.onFalse(new IntakeCommand(claw, sideRollers, backRollers, -1.0, blinkin));
+        intakeZero.whileTrue(new ZeroIntakeCommand(claw, .2));
         // intakeOpen.onTrue(new OutakeCommand(claw, .2, sideRollers, backRollers, 1));
-        lowRung.toggleOnTrue(new ElevatorPivotyCommandGroup(pivoty, 133000, robotState.pivotyState, elevator, .6, 1));
-        midRung.toggleOnTrue(new ElevatorPivotyCommandGroup(pivoty, 20000, robotState.pivotyState, elevator, .6, 2));
-        highRung.toggleOnTrue(new ElevatorPivotyCommandGroup(pivoty, 75000, robotState.pivotyState, elevator, .6, 3));
+        lowRung.toggleOnTrue(new ElevatorPivotyCommandGroup(pivoty, 130000, robotState.pivotyState, elevator, .6, 1,sideRollers,backRollers,-1));
+        midRung.toggleOnTrue(new ElevatorPivotyCommandGroup(pivoty, 50000, robotState.pivotyState, elevator, .6, 2,sideRollers,backRollers,-1));
+        highRung.toggleOnTrue(new ElevatorPivotyCommandGroup(pivoty, 50000, robotState.pivotyState, elevator, .6, 3,sideRollers,backRollers,-1));//previosuly 75k
         // playerStation.toggleOnTrue(new ElevatorPivotyCommandGroup(elevator, .6, pivoty, 4, robotState.pivotyState));
-        playerStation.toggleOnTrue(new ElevatorPivotyCommandGroup(pivoty, 50000, robotState.pivotyState, elevator, .6, 1));
+        playerStation.toggleOnTrue(new ElevatorPivotyCommandGroup(pivoty, 50000, robotState.pivotyState, elevator, .6, 1,sideRollers,backRollers,-1));
         // toggleDriveTrainAutoBalance.onTrue(new toggleSwerveState(robotState)); // set it up for a toggleontrue later
        // elevatorUp.whileTrue(new ElevatorCommand(elevator, .8 , 3));
         //elevatorDown.whileTrue(new ElevatorCommand(elevator, 0.8, 1));
@@ -131,7 +131,7 @@ public class RobotContainer {
     // }
     // // public Command getAutonomousCommand() {
          // An ExampleCommand will run in autonomous
-         return new AutoBalance(s_Swerve, robotState);
+         return new AutoBalance(s_Swerve, robotState,claw);
      }
 
 

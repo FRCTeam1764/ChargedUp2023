@@ -42,15 +42,12 @@ boolean BreakBeamOffOrOn = false;
     if (heightLevel < previousHeightLevel) { 
       BreakBeamOffOrOn = true;
       Reverse = 1.0;
-      System.out.println("is it getting here");
     }else {
       BreakBeamOffOrOn = false;
       Reverse = -1.0;
     }
-    System.out.println("also here");
 
     if(getBreakBeam(heightLevel).get() == BreakBeamOffOrOn){  // checks if desired breakbeam isn't broken\is broken
-      System.out.println("here too");
       elevatorMotor1.set(elevatorSpeed * Reverse);
       elevatorMotor2.set(elevatorSpeed * Reverse);
     
@@ -58,7 +55,6 @@ boolean BreakBeamOffOrOn = false;
       elevatorMotor1.set(0);
       elevatorMotor2.set(0);
       previousHeightLevel = heightLevel;
-      System.out.println("but also here");
     }
     
 
@@ -66,6 +62,9 @@ boolean BreakBeamOffOrOn = false;
   // public boolean stillRunning(int heightLevel){
   //   return getBreakBeam(heightLevel).get() == BreakBeamOffOrOn;
   // }
+  public void setHeightLevel(){
+    previousHeightLevel = 1;
+  }
 
 
   public void elevatorOff(){

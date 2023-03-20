@@ -17,9 +17,10 @@ public class SideRollerCommand extends CommandBase {
   
   public SideRollerCommand(SideRollers sideRollers, double speed) {
     this.sideRollers=sideRollers;
-    addRequirements(sideRollers);
+    // addRequirements(sideRollers);
     this.speed = speed;
     timer = new Timer();
+    // addRequirements(sideRollers);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -47,6 +48,6 @@ public class SideRollerCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return timer.hasElapsed(3.0);
+    return timer.hasElapsed(1.0);
   }
 }

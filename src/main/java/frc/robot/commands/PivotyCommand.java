@@ -4,11 +4,15 @@
 
 package frc.robot.commands;  
 
+import javax.management.modelmbean.RequiredModelMBean;
+
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.state.PivotyState;
+import frc.robot.subsystems.BackRollers;
 import frc.robot.subsystems.PivotySubsystem;
+import frc.robot.subsystems.SideRollers;
 
 public class PivotyCommand extends CommandBase {
   /** Creates a new PivotyCommand. */
@@ -18,30 +22,45 @@ public class PivotyCommand extends CommandBase {
   DigitalInput breakBeamTwo;
   int desiredEncoderValue;
   PivotyState pivotyState;
+  BackRollers backRollers;
+  SideRollers sideRollers;
+  double speed;
   boolean finish;
   Timer timer;
   //needs fixed
-  public PivotyCommand(PivotySubsystem pivoty, int desiredEncoderValue, PivotyState pivotyState, boolean finish) {
+  public PivotyCommand(PivotySubsystem pivoty, int desiredEncoderValue, PivotyState pivotyState, boolean finish,SideRollers sideRollers,BackRollers backRollers, double speed) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.pivoty = pivoty;
     this.desiredEncoderValue = desiredEncoderValue;
     this.pivotyState = pivotyState;
     this.finish = finish;
-    timer = new Timer();
+    // this.sideRollers = sideRollers;
+    // this.backRollers = backRollers;
+    this.speed = speed;
+    // addRequirements(sideRollers,backRollers);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
     pivotyState.setEncoderValue(desiredEncoderValue);
-    timer.reset();
-    timer.start();
+    // backRollers.backRollerOn(speed);
+    // sideRollers.sideRollerOn(speed);
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     pivotyState.setEncoderValue(desiredEncoderValue);
+    // if(pivoty.getEncoderValue() <desiredEncoderValue-1000 || pivoty.getEncoderValue()>desiredEncoderValue+1000){
+    // backRollers.backRollerOn(speed);
+    // sideRollers.sideRollerOn(speed);
+    // }
+    // else{
+    //   backRollers.backRollerOff();
+    //   sideRollers.sideRollerOff();
+    // }
   }
 
   // Called once the command ends or is interrupted.
@@ -49,6 +68,8 @@ public class PivotyCommand extends CommandBase {
   public void end(boolean interrupted) {
     if(!finish){
     pivotyState.setEncoderValue(0);
+    // backRollers.backRollerOn(speed);
+    // sideRollers.sideRollerOn(speed);
     }
   }
 
@@ -57,7 +78,7 @@ public class PivotyCommand extends CommandBase {
   public boolean isFinished() {
     // return Math.abs(pivoty.getEncoderValue())>=Math.abs(desiredEncoderValue);
     if( finish){
-      return pivoty.getEncoderValue() <= desiredEncoderValue+1000 && pivoty.getEncoderValue() >= desiredEncoderValue-1000 && timer.hasElapsed(2);
+      return pivoty.getEncoderValue() <= desiredEncoderValue+4000 && pivoty.getEncoderValue() >= desiredEncoderValue-4000;
     }
     else{
     return false;

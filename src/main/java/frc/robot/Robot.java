@@ -59,6 +59,7 @@ public class Robot extends TimedRobot {
         robotContainer.getDrivetrainSubsystem().zeroGyro();
 
        updateManager.startLoop(5.0e-3);
+       robotContainer.getPivotySubsystem().zeroEncoder();
        // robotContainer.getVisionSubsystem().setLedMode(Limelight.LedMode.OFF);
 
         
@@ -72,8 +73,8 @@ public class Robot extends TimedRobot {
         //handles intake motor clamping down
         runPivoty();
         if(!robotContainer.getPivotySubsystem().breakBeamOne.get()){
-            robotContainer.getPivotySubsystem().zeroEncoder();
-        }
+             robotContainer.getPivotySubsystem().zeroEncoder();
+         }
 
 
         SmartDashboard.putBoolean("mid", robotContainer.getElevatorSubsystem().midExtend.get() );
@@ -97,7 +98,7 @@ public class Robot extends TimedRobot {
     //    robotContainer.getDrivetrainSubsystem().resetGyroAngle(Rotation2.ZERO);
 
 
-    //-    robotContainer.getAutonomousCommand().schedule();
+         robotContainer.getAutonomousCommand().schedule();//fix later
    }
 
 
@@ -108,6 +109,7 @@ public class Robot extends TimedRobot {
 
    @Override
    public void teleopInit() {
+    CommandScheduler.getInstance().cancelAll();
    }
 
    public void runPivoty(){

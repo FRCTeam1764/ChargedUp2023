@@ -16,7 +16,7 @@ public class BackRollerCommand extends CommandBase {
   
   public BackRollerCommand(BackRollers backRollers, double speed) {
     this.backRollers=backRollers;
-    addRequirements(backRollers);
+    // addRequirements(backRollers);
     this.speed = speed;
     timer = new Timer();
     // Use addRequirements() here to declare subsystem dependencies.
@@ -46,6 +46,6 @@ public class BackRollerCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return timer.hasElapsed(3.0);
+    return timer.hasElapsed(1.0);
   }
 }

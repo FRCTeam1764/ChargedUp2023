@@ -12,7 +12,6 @@ public class BlinkinCommand extends CommandBase {
 BlinkinSubsystem Blinkin;
 //needs toggle and state
   public BlinkinCommand( BlinkinSubsystem Blinkin) {
-  System.out.println("created");
   this.Blinkin = Blinkin;
   addRequirements(Blinkin);
   }
@@ -25,14 +24,12 @@ BlinkinSubsystem Blinkin;
   @Override
   public void execute() {
     Blinkin.setLEDs(.67);
-    System.out.println("hello world");
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     Blinkin.setLEDs(.89);
-    System.out.println("hello not world");
   }
 
   // Returns true when the command should end.

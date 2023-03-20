@@ -36,7 +36,7 @@ public class PivotySubsystem extends SubsystemBase {
   PIDController pidController;
   
   public PivotySubsystem(){
-    pidController = new PIDController(.0002, 0, .00001);
+    pidController = new PIDController(.00015, 0, .00003);
     pivotyMotor1 = new LazyTalonFX(Constants.PIVOTY_MOTOR.id, Constants.PIVOTY_MOTOR.busName);
     pivotyMotor2 = new LazyTalonFX(Constants.PIVOTY_MOTOR_2.id, Constants.PIVOTY_MOTOR_2.busName);
     // pivotyMotor1.config_kP(0, .002);
@@ -46,7 +46,7 @@ public class PivotySubsystem extends SubsystemBase {
     minFeedForward = new ArmFeedforward(0.098267, 0.072146, 3.7608);
     maxFeedForward = new ArmFeedforward(0.12106, 0.1171, 3.6673);
     breakBeamOne = new DigitalInput(Constants.PIVOTY_BREAK_BEAM);
-    encoderOffset = 85000;
+    encoderOffset = 115000;
   //  breakBeamTwo = new DigitalInput(6);
   }
   public void pivotyOn(int desiredEncoderValue, Elevator elevator){
@@ -70,12 +70,13 @@ public class PivotySubsystem extends SubsystemBase {
     //   pivotyMotor2.config_kD(0, 50.00);
     // }
     
-    minFeedforwardVelo = minFeedForward.calculate(getEncoderRadians(), .001);
-    maxFeedforwardVelo = maxFeedForward.calculate(getEncoderRadians(), .001);
+    minFeedforwardVelo = minFeedForward.calculate(getEncoderRadians(), .0002); //previously .0005
+    maxFeedforwardVelo = maxFeedForward.calculate(getEncoderRadians(), .0002);
     feedforward= interpolate(minFeedforwardVelo, maxFeedforwardVelo, elevator.getEncoderValue());
 
     pivotyMotor1.setVoltage( feedforward+pidController.calculate(pivotyMotor1.getSelectedSensorPosition(), desiredEncoderValue));
     pivotyMotor2.setVoltage( feedforward+pidController.calculate(pivotyMotor1.getSelectedSensorPosition(), desiredEncoderValue));
+    //System.out.println(pivotyMotor1.get()+", "+desiredEncoderValue);
 
     
 

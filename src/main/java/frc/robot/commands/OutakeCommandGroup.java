@@ -5,24 +5,23 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.BackRollers;
-import frc.robot.subsystems.BlinkinSubsystem;
 import frc.robot.subsystems.Claw;
 import frc.robot.subsystems.SideRollers;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class IntakeCommand extends ParallelCommandGroup {
-  /** Creates a new IntakeCommand. */
-  public IntakeCommand(Claw claw, SideRollers sideRollers,BackRollers backRollers, double speed, BlinkinSubsystem blinkin) {
+public class OutakeCommandGroup extends SequentialCommandGroup {
+  /** Creates a new OutakeCommandGroup. */
+  public OutakeCommandGroup(BackRollers backRollers, SideRollers sideRollers, Claw claw, double speed) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    // if(blinkin.getLEDColor()== .67){
-    //   addCommands(new OpenClawCommand(claw, 0 ),new SideRollerCommand(sideRollers, speed),new BackRollerCommand(backRollers, speed));
-    // }
-    // else{
-      addCommands(new OpenClawCommand(claw, -1),new SideRollerCommand(sideRollers, speed),new BackRollerCommand(backRollers, speed));
-    // }
+    
+    addCommands(
+      new RollersCommandGroup(backRollers, sideRollers, speed),
+      new ClawCommand(claw, 2)
+    );
   }
 }

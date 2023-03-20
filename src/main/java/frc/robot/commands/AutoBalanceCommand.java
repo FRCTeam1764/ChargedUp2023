@@ -35,12 +35,14 @@ public RobotState robotState;
 double error;
 double autoLevelPwr;
 public double getAutoLevel(){
-    error = -s_Swerve.getNavx().getRoll();
+    error = -s_Swerve.getNavx().getPitch();
     if(Math.abs(error)<1){
         robotState.swerveState.noSwerveAutoBalance();;
     }
-    autoLevelPwr = -Math.min(error*.01, 1);
+    autoLevelPwr = -Math.min(error*.015 , 1); //previously was .018
+    System.out.println(autoLevelPwr);
     return autoLevelPwr;
+
 }
 
 

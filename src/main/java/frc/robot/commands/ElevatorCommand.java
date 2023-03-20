@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Elevator;
 
@@ -29,13 +30,16 @@ public class ElevatorCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    System.out.println("it gets here");
     elevator.elevatorOn(elevatorSpeed, heightLevel);
   }
 
   // Called once the command ends or is interrupted.
+
   @Override
   public void end(boolean interrupted) {
+
+    
+    elevator.elevatorOn(elevatorSpeed, 1);
     while(!elevator.IsWantedHeight(1)){
     elevator.elevatorOn(elevatorSpeed, 1);
     }

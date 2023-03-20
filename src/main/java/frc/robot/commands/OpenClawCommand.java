@@ -37,7 +37,7 @@ public class OpenClawCommand extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     // claw.openClaw(2);
-    claw.clawOpen(-.2);
+    claw.clawOpen(-1.0);
   }
 
   // Returns true when the command should end.

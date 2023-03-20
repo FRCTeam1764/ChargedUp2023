@@ -6,8 +6,10 @@ package frc.robot;
 
 import frc.robot.constants.SwerveConstants;
 import frc.robot.state.RobotState;
+import frc.robot.subsystems.Claw;
 import frc.robot.subsystems.Swerve;
 import frc.robot.commands.AutoBalanceCommand;
+import frc.robot.commands.ZeroIntakeCommand;
 
 import java.util.List;
 
@@ -20,26 +22,34 @@ import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
 import edu.wpi.first.math.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ScheduleCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 
 public class AutoBalance extends SequentialCommandGroup {
-    public AutoBalance(Swerve s_Swerve,RobotState robotState){
+    public AutoBalance(Swerve s_Swerve,RobotState robotState, Claw claw){
         TrajectoryConfig config =
             new TrajectoryConfig(
                     // SwerveConstants.AutoConstants.kMaxSpeedMetersPerSecond,
                     // SwerveConstants.AutoConstants.kMaxAccelerationMetersPerSecondSquared)
                     2,
-                    2)
+                    3)
                 .setKinematics(SwerveConstants.Swerve.swerveKinematics);
+        TrajectoryConfig configSlow =
+                new TrajectoryConfig(
+                        // SwerveConstants.AutoConstants.kMaxSpeedMetersPerSecond,
+                        // SwerveConstants.AutoConstants.kMaxAccelerationMetersPerSecondSquared)
+                        1,
+                        1)
+                    .setKinematics(SwerveConstants.Swerve.swerveKinematics);
 
         // An example trajectory to follow.  All units in meters.
         Trajectory goForward =
             TrajectoryGenerator.generateTrajectory(
                 new Pose2d(0, 0, new Rotation2d(0)),
                 List.of(new Translation2d(-2,0),new Translation2d(-4, 0)),
-                new Pose2d(-6, 0, new Rotation2d(0)),
+                new Pose2d(-5, 0, new Rotation2d(0)),
                 config.setReversed(true));
 
         Trajectory goBack = 
@@ -47,7 +57,7 @@ public class AutoBalance extends SequentialCommandGroup {
                 new Pose2d(0, 0, new Rotation2d(0)),
                 List.of(new Translation2d(.5, 0)),
                 new Pose2d(1, 0, new Rotation2d(0)),
-                config.setReversed(false));
+                configSlow.setReversed(false));
 
         var thetaController =
             new ProfiledPIDController(
@@ -78,7 +88,10 @@ public class AutoBalance extends SequentialCommandGroup {
 
         addCommands(
             new InstantCommand(() -> s_Swerve.resetOdometry(goForward.getInitialPose())),
-            swerveControllerCommand,
+            new ParallelCommandGroup(
+                new ZeroIntakeCommand(claw, .2),
+                swerveControllerCommand
+            ),
             // swerveControllerCommand2,
             swerveControllerCommand3,
             new AutoBalanceCommand(s_Swerve, robotState, false).repeatedly()
