@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.state.ElevatorState;
 import frc.robot.state.PivotyState;
 
 import frc.robot.subsystems.Elevator;
@@ -19,14 +20,14 @@ public class ElevatorPivotyCommandGroup extends SequentialCommandGroup {
   /** Creates a new ElevatorPivotyCommandGroup. */
   public ElevatorPivotyCommandGroup(
     PivotySubsystem pivoty, int desiredEncoderValue, PivotyState pivotyState,
-    Elevator elevator, double elevatorSpeed) {
+    Elevator elevator, double encoderValue, ElevatorState elevatorState) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new PivotyCommand(pivoty, desiredEncoderValue, pivotyState, true),
       new ParallelCommandGroup(
         new PivotyCommand(pivoty, desiredEncoderValue, pivotyState, false),
-        new ElevatorCommand(elevator,elevatorSpeed))
+        new ElevatorCommand(elevator,encoderValue,elevatorState,false))
     );
   }
 }

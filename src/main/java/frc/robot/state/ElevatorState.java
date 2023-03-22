@@ -6,15 +6,15 @@ package frc.robot.state;
 
 /** Add your docs here. */
 public class ElevatorState {
-    int encoderValue;
+    double encoderValue;
     ElevatorState(){
     }
     
-    public void setEncoderValue(int desiredValue){
+    public void setEncoderValue(double desiredValue){
         encoderValue = desiredValue;
     }
 
-    public int getEncoderValue(){
+    public double getEncoderValue(){
         return encoderValue;
     }
 

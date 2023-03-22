@@ -61,6 +61,8 @@ public class Robot extends TimedRobot {
 
        updateManager.startLoop(5.0e-3);
        robotContainer.getPivotySubsystem().zeroEncoder();
+       robotContainer.getElevatorSubsystem().zeroEncoder();
+
        // robotContainer.getVisionSubsystem().setLedMode(Limelight.LedMode.OFF);
 
         
@@ -71,8 +73,11 @@ public class Robot extends TimedRobot {
    @Override
    public void robotPeriodic() {
         CommandScheduler.getInstance().run();
-        //handles intake motor clamping down
         runPivoty();
+        runElevator();
+
+
+
         if(!robotContainer.getPivotySubsystem().breakBeamOne.get()){
              robotContainer.getPivotySubsystem().zeroEncoder();
          }
@@ -119,5 +124,10 @@ public class Robot extends TimedRobot {
 
    public void runPivoty(){
     robotContainer.getPivotySubsystem().pivotyOn(robotContainer.robotState.pivotyState.getEncoderValue(), robotContainer.getElevatorSubsystem());
+   }
+
+   public void runElevator(){
+    robotContainer.getElevatorSubsystem().elevatorOn(robotContainer.robotState.elevatorState.getEncoderValue());
+
    }
 }

@@ -28,6 +28,8 @@ public class Elevator extends SubsystemBase {
   int MaxElevatorEncoder =-120000;
 
   public Elevator(ElevatorState elevatorState) {
+    //I dont know what im doing - aidan
+    
     elevatorMotor1 = new LazyTalonFX(Constants.ELEVATOR_MOTOR.id, Constants.ELEVATOR_MOTOR.busName);
     elevatorMotor2 = new LazyTalonFX(Constants.ELAVATOR_MOTOR_2.id, Constants.ELAVATOR_MOTOR_2.busName);
     elevatorMotor2.follow(elevatorMotor1);

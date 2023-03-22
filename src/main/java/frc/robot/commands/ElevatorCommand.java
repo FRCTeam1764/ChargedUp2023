@@ -4,8 +4,8 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.state.ElevatorState;
 import frc.robot.subsystems.Elevator;
 
 public class ElevatorCommand extends CommandBase {
@@ -14,30 +14,35 @@ public class ElevatorCommand extends CommandBase {
   Elevator elevator;
   double desiredEncoderValue;
   int heightLevel;
-  public ElevatorCommand(Elevator elevator, double desiredEncoderValue) {
+  ElevatorState elevatorState;
+  boolean finish;
+  public ElevatorCommand(Elevator elevator, double desiredEncoderValue,ElevatorState elevatorState,boolean finish) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.elevator = elevator;
     this.desiredEncoderValue = desiredEncoderValue;
-
+    this.elevatorState = elevatorState;
+    this.finish = finish;
+    addRequirements(elevator);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    elevatorState.setEncoderValue(desiredEncoderValue);
 
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    elevator.elevatorOn(desiredEncoderValue);
+    elevatorState.setEncoderValue(desiredEncoderValue);
   }
 
   // Called once the command ends or is interrupted.
 
   @Override
   public void end(boolean interrupted) {
-
+    elevatorState.setEncoderValue(0);
     
     // elevator.elevatorOn(elevatorSpeed, 1);
     // while(!elevator.IsWantedHeight(1)){
@@ -49,8 +54,9 @@ public class ElevatorCommand extends CommandBase {
 
   @Override
   public boolean isFinished() {
-
-    //needs encoder stuff
-  return false;
+    if(finish){
+      return elevator.getEncoderValue() <= desiredEncoderValue+4000 && elevator.getEncoderValue() >= desiredEncoderValue-4000;
+    }
+    return false;
 }
 }
