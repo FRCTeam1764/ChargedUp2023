@@ -5,13 +5,16 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
+import frc.robot.libraries.external.control.Path;
 import frc.robot.libraries.external.control.Trajectory;
+import frc.robot.libraries.external.util.AutonomousChooser;
 import frc.robot.state.ElevatorState;
 import frc.robot.state.PivotyState;
 import frc.robot.state.RobotState;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+
 
 public class RobotContainer {
     private final Joystick driver = new Joystick(0);
@@ -57,7 +60,8 @@ public class RobotContainer {
     // private final VisionSubsystem visionSubsystem = new VisionSubsystem(drivetrainSubsystem);
 
     private Trajectory[] trajectories;
-    // private final AutonomousChooser autonomousChooser;
+     private final AutonomousChooser autonomousChooser;
+
 
     public RobotContainer() {
         // secondaryController.getLeftXAxis().setInverted(true);
@@ -79,7 +83,7 @@ public class RobotContainer {
 
         configurePilotButtonBindings();
         configureCoPilotButtonBindings();
-        // autonomousChooser = new AutonomousChooser(trajectories);
+         autonomousChooser = new AutonomousChooser(trajectories);
     }
 
 
@@ -113,9 +117,9 @@ public class RobotContainer {
         //intakeIn.toggleOnTrue(new intakeCommand(0.1, intake));
         lowRung.toggleOnTrue(new ElevatorPivotyCommandGroup(pivoty, 130000, robotState.pivotyState, elevator, 0,robotState.elevatorState));
         midRung.toggleOnTrue(new ElevatorPivotyCommandGroup(pivoty, 50000, robotState.pivotyState, elevator, 70000,robotState.elevatorState)); // TUNE ELEVATOR ENCODERVALUES
-        highRung.toggleOnTrue(new ElevatorPivotyCommandGroup(pivoty, 50000, robotState.pivotyState, elevator, 120000,robotState.elevatorState));//previosuly 75k KEEP ALL ELEVATORVALUES POSITIVE
+        highRung.toggleOnTrue(new ElevatorPivotyCommandGroup(pivoty, 50000, robotState.pivotyState, elevator, 110000,robotState.elevatorState));//previosuly 75k KEEP ALL ELEVATORVALUES POSITIVE
         // playerStation.toggleOnTrue(new ElevatorPivotyCommandGroup(elevator, .6, pivoty, 4, robotState.pivotyState));
-        playerStation.toggleOnTrue(new ElevatorPivotyCommandGroup(pivoty, 50000, robotState.pivotyState, elevator, .6,robotState.elevatorState));
+        playerStation.toggleOnTrue(new ElevatorPivotyCommandGroup(pivoty, 50000, robotState.pivotyState, elevator, 90000,robotState.elevatorState));
         // toggleDriveTrainAutoBalance.onTrue(new toggleSwerveState(robotState)); // set it up for a toggleontrue later
        // elevatorUp.whileTrue(new ElevatorCommand(elevator, .8 , 3));
         //elevatorDown.whileTrue(new ElevatorCommand(elevator, 0.8, 1));
@@ -174,9 +178,9 @@ public class RobotContainer {
 //    }
    
 
-    // public AutonomousChooser getAutonomousChooser() {
-    //     return autonomousChooser;
-    // }
+ public AutonomousChooser getAutonomousChooser() {
+         return autonomousChooser;
+     }
 
 
     // public VisionSubsystem getVisionSubsystem() {
