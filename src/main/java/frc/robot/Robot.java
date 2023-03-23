@@ -82,7 +82,7 @@ public class Robot extends TimedRobot {
              robotContainer.getPivotySubsystem().zeroEncoder();
          }
 
-         if(!robotContainer.getElevatorSubsystem().limitSwitch.get()){
+         if(!robotContainer.getElevatorSubsystem().limitSwitch.get() && !robotContainer.getElevatorSubsystem().limitSwitch2.get() ){
             robotContainer.getElevatorSubsystem().zeroEncoder();
         }
 
@@ -91,6 +91,8 @@ public class Robot extends TimedRobot {
         // SmartDashboard.putBoolean("min", robotContainer.getElevatorSubsystem().minExtend.get() );
         SmartDashboard.putBoolean("pivoty", robotContainer.getPivotySubsystem().getBrkBeam());
         SmartDashboard.putBoolean("elevator", robotContainer.getElevatorSubsystem().getLimitSwitch());
+
+        SmartDashboard.putBoolean("elevator2", robotContainer.getElevatorSubsystem().getLimitSwitch2());
         // System.out.println(robotContainer.getPivotySubsystem().getBrkBeam());
         SmartDashboard.putNumber("pivoty encoder", robotContainer.getPivotySubsystem().getEncoderValue());
        // SmartDashboard.putNumber("Intake Encoder", robotContainer.getClaw().getEncoderValue());

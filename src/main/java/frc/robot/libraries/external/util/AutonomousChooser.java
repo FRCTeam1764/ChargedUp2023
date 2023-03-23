@@ -42,7 +42,7 @@ public class AutonomousChooser {
 
         eventMap = new HashMap<>();
         eventMap.put("marker1", new PrintCommand("Passed marker 1"));
-        eventMap.put("intakeDown", new intakeCommand(false,robotContainer.getIntake()));
+        eventMap.put("PlacePiece", new intakeCommand(false,robotContainer.getIntake()));
 
         autoBuilder = new SwerveAutoBuilder(
     robotContainer.getDrivetrainSubsystem()::getPose, // Pose2d supplier

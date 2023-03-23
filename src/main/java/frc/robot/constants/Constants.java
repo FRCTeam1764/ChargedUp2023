@@ -27,6 +27,7 @@ public final class Constants {
     // public static final int MID_EXTEND_BREAK_BEAM =  2;
     public static final int ELEVATOR_LIMIT_SWITCH = 0;//TO DO: FIND PORT
 
+    public static final int ELEVATOR_LIMIT_SWITCH2 = 0;//TO DO: FIND PORT
 
     public static final int PIVOTY_BREAK_BEAM =      9;
 

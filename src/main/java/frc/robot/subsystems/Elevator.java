@@ -24,6 +24,7 @@ public class Elevator extends SubsystemBase {
   public DigitalInput limitSwitch;
   public ArmFeedforward feedforward; 
   public ElevatorState elevatorState;
+  public DigitalInput limitSwitch2;
   double elevatorOffset;
   int MaxElevatorEncoder =-120000;
 //30.5 inches
@@ -36,6 +37,7 @@ public class Elevator extends SubsystemBase {
     elevatorMotor2 = new LazyTalonFX(Constants.ELAVATOR_MOTOR_2.id, Constants.ELAVATOR_MOTOR_2.busName);
     elevatorMotor2.follow(elevatorMotor1);
     limitSwitch = new DigitalInput(Constants.ELEVATOR_LIMIT_SWITCH);
+    limitSwitch2 = new DigitalInput(Constants.ELEVATOR_LIMIT_SWITCH2);
 
     this.elevatorState = elevatorState;
 
@@ -62,6 +64,9 @@ public class Elevator extends SubsystemBase {
   
   public boolean getLimitSwitch(){
     return limitSwitch.get();
+  }
+  public boolean getLimitSwitch2(){
+    return limitSwitch2.get();
   }
   public void elevatorOff(){
     elevatorMotor1.set(ControlMode.PercentOutput, 0);
