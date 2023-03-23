@@ -44,6 +44,7 @@ public class AutonomousChooser {
         eventMap.put("marker1", new PrintCommand("Passed marker 1"));
         eventMap.put("PlacePiece", new intakeCommand(false,robotContainer.getIntake()));
 
+
         autoBuilder = new SwerveAutoBuilder(
     robotContainer.getDrivetrainSubsystem()::getPose, // Pose2d supplier
     robotContainer.getDrivetrainSubsystem()::resetOdometry, // Pose2d consumer, used to reset odometry at the beginning of auto

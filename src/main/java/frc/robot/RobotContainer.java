@@ -91,7 +91,7 @@ public class RobotContainer {
         // secondaryController.getBackButton().onTrue(new ResetGyroCommand(drivetrainSubsystem));
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
         blinkinButton.toggleOnTrue(new BlinkinCommand(blinkin));
-        elevatorTest.toggleOnTrue(new ElevatorCommand(elevator, .6,robotState.elevatorState,false));
+        elevatorTest.toggleOnTrue(new ElevatorCommand(elevator, 90000,robotState.elevatorState,false));
 
         // highButton.onTrue(new ElevatorCommand(elevator, .6, 3));
         // midButton.onTrue(new ElevatorCommand(elevator, .6, 2));

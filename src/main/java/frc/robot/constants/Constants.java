@@ -18,8 +18,8 @@ public final class Constants {
     public static final CanPort ELEVATOR_MOTOR =        new CanPort(32, CANIVORE_NAME);
     public static final CanPort ELAVATOR_MOTOR_2 =      new CanPort(33, CANIVORE_NAME);
 
-    public static final CanPort WRIST_MOTOR =           new CanPort(18);
-    public static final CanPort INTAKE_MOTOR =          new CanPort(16);
+    public static final CanPort WRIST_MOTOR =           new CanPort(21);
+    public static final CanPort INTAKE_MOTOR =          new CanPort(22); // may need to be swapped
 
 
     // public static final int MIN_EXTEND_BREAK_BEAM =  1;
