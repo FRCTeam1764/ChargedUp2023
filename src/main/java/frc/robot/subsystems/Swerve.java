@@ -23,8 +23,10 @@ public class Swerve extends SubsystemBase {
     public SwerveDriveOdometry swerveOdometry;
     public SwerveModule[] mSwerveMods;
     public AHRS gyro;
+    public SwerveDriveKinematics kinematics;
 
     public Swerve() {
+        kinematics = SwerveConstants.Swerve.swerveKinematics;
         //gyro = new NavX(SwerveConstants.Swerve.pigeonID);
         gyro = new AHRS(SPI.Port.kMXP); // find out wich port it is 
       //  gyro.calibrate();
@@ -75,6 +77,8 @@ public class Swerve extends SubsystemBase {
             mod.setDesiredState(desiredStates[mod.moduleNumber], false);
         }
     }    
+
+    
 
     public Pose2d getPose() {
         return swerveOdometry.getPoseMeters();

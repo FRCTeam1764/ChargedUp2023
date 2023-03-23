@@ -125,6 +125,7 @@ public class PivotySubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
 
   }
+  
   public double getEncoderRadians(){
     return ((pivotyMotor1.getSelectedSensorPosition()-encoderOffset)*224)/(2*Math.PI);
   }

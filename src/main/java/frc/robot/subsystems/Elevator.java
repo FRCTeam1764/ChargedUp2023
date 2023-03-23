@@ -80,8 +80,9 @@ public class Elevator extends SubsystemBase {
 
    //8.597094609770005
 
+   
    public double getEncoderValueTranslatedToInches(){
-    return (elevatorMotor1).getSelectedSensorPosition() * 2048*9*(1/(8.597094609770005*Math.PI));
+    return (elevatorMotor1.getSelectedSensorPosition() -  elevatorOffset) * 2048*9*(1/(8.597094609770005*Math.PI));
   }
 
   public double getEncoderValueOffset(){

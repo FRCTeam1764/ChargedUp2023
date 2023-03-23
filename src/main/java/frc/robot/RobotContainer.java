@@ -83,7 +83,7 @@ public class RobotContainer {
 
         configurePilotButtonBindings();
         configureCoPilotButtonBindings();
-         autonomousChooser = new AutonomousChooser(trajectories);
+         autonomousChooser = new AutonomousChooser(trajectories, this);
     }
 
 
@@ -137,7 +137,8 @@ public class RobotContainer {
     // }
     // // public Command getAutonomousCommand() {
          // An ExampleCommand will run in autonomous
-         return new AutoBalance(s_Swerve, robotState);
+        // return new AutoBalance(s_Swerve, robotState);
+return autonomousChooser.getCommand(this);
      }
 
 
@@ -180,6 +181,9 @@ public class RobotContainer {
 
  public AutonomousChooser getAutonomousChooser() {
          return autonomousChooser;
+     }
+     public Intake getIntake(){
+        return intake;
      }
 
 
