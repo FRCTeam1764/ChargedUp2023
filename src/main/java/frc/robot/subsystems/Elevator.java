@@ -26,9 +26,11 @@ public class Elevator extends SubsystemBase {
   public ElevatorState elevatorState;
   double elevatorOffset;
   int MaxElevatorEncoder =-120000;
+//30.5 inches
 
   public Elevator(ElevatorState elevatorState) {
     //I dont know what im doing - aidan
+
     
     elevatorMotor1 = new LazyTalonFX(Constants.ELEVATOR_MOTOR.id, Constants.ELEVATOR_MOTOR.busName);
     elevatorMotor2 = new LazyTalonFX(Constants.ELAVATOR_MOTOR_2.id, Constants.ELAVATOR_MOTOR_2.busName);
@@ -75,6 +77,12 @@ public class Elevator extends SubsystemBase {
   public double getEncoderValue(){
      return elevatorMotor1.getSelectedSensorPosition();
    }
+
+   //8.597094609770005
+
+   public double getEncoderValueTranslatedToInches(){
+    return (elevatorMotor1).getSelectedSensorPosition() * 2048*9*(1/(8.597094609770005*Math.PI));
+  }
 
   public double getEncoderValueOffset(){
      return elevatorMotor1.getSelectedSensorPosition() -  elevatorOffset; //may need to convert to a unit?
