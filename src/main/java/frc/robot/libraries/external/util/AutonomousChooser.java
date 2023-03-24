@@ -30,19 +30,18 @@ public class AutonomousChooser {
 
     private enum AutonomousMode {
         DEFAULT,
-        OPTION1
+        AUTOBALANCELEFT,
     }
 
     public AutonomousChooser(Trajectory[] trajectories,RobotContainer robotContainer) {
         this.trajectories = trajectories;
 
         autonomousModeChooser.setDefaultOption("Default", AutonomousMode.DEFAULT);
-        autonomousModeChooser.addOption("Option1", AutonomousMode.OPTION1);
+        autonomousModeChooser.addOption("AutoBalanceLeftSide", AutonomousMode.AUTOBALANCELEFT);
 
 
         eventMap = new HashMap<>();
-        eventMap.put("marker1", new PrintCommand("Passed marker 1"));
-        eventMap.put("PlacePiece", new intakeCommand(false,robotContainer.getIntake()));
+        eventMap.put("PlacePieceCone", new AutoIntakeCommand(robotContainer.getIntake(),false,"Cone"));
 
 
         autoBuilder = new SwerveAutoBuilder(
@@ -67,7 +66,7 @@ public class AutonomousChooser {
 return new InstantCommand();
     }
 
-    private Command getOption1AutoCommand(RobotContainer robotContainer) {
+    private Command getAUTOBALANCELEFTAutoCommand(RobotContainer robotContainer) {
         List<PathPlannerTrajectory> pathGroup = PathPlanner.loadPathGroup("OnePieceLeft", new PathConstraints(4, 3));
         Command fullAuto = autoBuilder.fullAuto(pathGroup);
 
@@ -80,8 +79,8 @@ return new InstantCommand();
         switch (autonomousModeChooser.getSelected()) {
             case DEFAULT:
                 return getDefaultAutoCommand(container);
-            case OPTION1:
-                return getOption1AutoCommand(container);
+            case AUTOBALANCELEFT:
+                return getAUTOBALANCELEFTAutoCommand(container);
         }
 
         return getDefaultAutoCommand(container);

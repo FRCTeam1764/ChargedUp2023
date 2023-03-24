@@ -110,7 +110,7 @@ public class Robot extends TimedRobot {
     //    robotContainer.getDrivetrainSubsystem().resetGyroAngle(Rotation2.ZERO);
 
 
-         robotContainer.getAutonomousCommand().schedule();//fix later
+      //   robotContainer.getAutonomousCommand().schedule();//fix later
    }
 
 

@@ -130,9 +130,5 @@ public class PivotySubsystem extends SubsystemBase {
     return ((pivotyMotor1.getSelectedSensorPosition()-encoderOffset)*224)/(2*Math.PI);
   }
 
-  public double getEncoderRadiansButForReal(){
-    return ((pivotyMotor1.getSelectedSensorPosition())*224)/(2*Math.PI);
-
-  }
 }
 

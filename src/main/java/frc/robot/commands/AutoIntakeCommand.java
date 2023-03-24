@@ -11,10 +11,12 @@ public class AutoIntakeCommand extends CommandBase {
   /** Creates a new AutoIntakeCommand. */
 boolean OnOff;
 Intake intake;
+String ConeCube;
 
-  public AutoIntakeCommand(Intake intake, boolean OnOff) {
+  public AutoIntakeCommand(Intake intake, boolean OnOff,String ConeCube) {
     this.intake = intake;
     this.OnOff = OnOff;
+    this.ConeCube = ConeCube;
 
 
     addRequirements(intake);
@@ -27,7 +29,22 @@ Intake intake;
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    if(OnOff){
+      if(ConeCube == "Cube"){
+        intake.pickUpCube();
+
+      }else if(ConeCube == "Cone"){
+intake.pickUpCone();
+
+      }
+
+
+    }else{
+      intake.stop();
+    }
+
+  }
 
   // Called once the command ends or is interrupted.
   @Override

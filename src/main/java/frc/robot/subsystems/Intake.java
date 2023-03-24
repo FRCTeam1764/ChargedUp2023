@@ -80,7 +80,7 @@ public class Intake extends SubsystemBase {
         SmartDashboard.putNumber("WristAngle",(m_angleEncoder.getAngle()).getDegrees());
         SmartDashboard.putNumber("WriseAngleGround",Units.radiansToDegrees(getGroundRelativeWristPossitionRadians())); 
         if (
-           pivoty.getEncoderRadiansButForReal() < Units.degreesToRadians(85) || pivoty.getEncoderRadiansButForReal() > Units.degreesToRadians(337) ){
+           pivoty.getEncoderRadians() < Units.degreesToRadians(85) || pivoty.getEncoderRadians() > Units.degreesToRadians(337) ){
             m_flexPIDController.setTolerance(Rotation2d.fromDegrees(2).getRadians());
             m_flexPIDController.setSetpoint(Rotation2d.fromDegrees(17).getRadians());
             flexClosedLoop(m_flexPIDController.calculate(getGroundRelativeWristPossitionRadians()));
