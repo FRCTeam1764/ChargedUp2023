@@ -4,12 +4,17 @@
 
 package frc.robot.subsystems;
 
+import org.ejml.equation.VariableMatrix;
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.StatorCurrentLimitConfiguration;
+import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 
 import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.constants.Constants;
 import frc.robot.libraries.internal.LazyTalonFX;
@@ -27,6 +32,7 @@ public class Elevator extends SubsystemBase {
   public DigitalInput limitSwitch2;
   double elevatorOffset;
   int MaxElevatorEncoder =-120000;
+  int negative;
 //30.5 inches
 
   public Elevator(ElevatorState elevatorState) {
@@ -38,23 +44,46 @@ public class Elevator extends SubsystemBase {
     elevatorMotor2.follow(elevatorMotor1);
     limitSwitch = new DigitalInput(Constants.ELEVATOR_LIMIT_SWITCH);
     limitSwitch2 = new DigitalInput(Constants.ELEVATOR_LIMIT_SWITCH2);
+    negative =1;
 
     this.elevatorState = elevatorState;
-
-    pidController = new PIDController(.001, 0, .001); //need tunin
-    feedforward = new ArmFeedforward(0.1, 0.1,0.1 );//needs characterization
+  //  pidController = new PIDController(.00000, 0, 10000); //need tunin
+    //feedforward = new ArmFeedforward(0.1, 0.1,0.1 );//needs characterization
 
   }
+  double desiredEncoder;
+  public void elevatorOn(double desiredEncoderValue,double velocity){
+    desiredEncoder = desiredEncoderValue;
 
-  public void elevatorOn(double desiredEncoderValue){
+   // double velocity = feedforward.calculate(getEncoderValueOffset(), 0.02);
 
+//velocity +
+//0.000002, 0, 1
+//0.00025 - P VALUE
+//0.00002 - P VALUE
+//pidController = new PIDController(SmartDashboard.getNumber("Kp", 0), SmartDashboard.getNumber("Ki", 0), SmartDashboard.getNumber("Kd", 0));
+pidController = new PIDController(SmartDashboard.getNumber("elevator Kp", 0), SmartDashboard.getNumber("elevator Ki", 0), SmartDashboard.getNumber("elevator Kd", 0));
+double variable = pidController.calculate(getEncoderValue(),desiredEncoderValue);
+if(variable<0){
+  negative = -1;
+}
+else{
+  negative = 1;
+}
 
-    double velocity = feedforward.calculate(getEncoderValueOffset(), 0.02);
+ variable = negative*Math.min(7.2, Math.abs(variable));
 
-
-    elevatorMotor1.setVoltage(velocity + pidController.calculate(getEncoderValue(),-desiredEncoderValue));
-    elevatorMotor2.setVoltage(velocity + pidController.calculate(getEncoderValue(),-desiredEncoderValue));
+SmartDashboard.putNumber("elevatorPID",variable);
+// elevatorMotor1.neutralOutput();
+// elevatorMotor2.neutralOutput();
+// elevatorMotor1.setNeutralMode(NeutralMode.Coast);
+// elevatorMotor2.setNeutralMode(NeutralMode.Coast);
+      elevatorMotor1.setVoltage(velocity+variable);  
+      elevatorMotor2.setVoltage(velocity+variable);  
     
+  }
+  public double getDesiredEncoder(){
+    return desiredEncoder;
   }
 
   public void zeroEncoder(){
@@ -69,10 +98,12 @@ public class Elevator extends SubsystemBase {
     return limitSwitch2.get();
   }
   public void elevatorOff(){
-    elevatorMotor1.set(ControlMode.PercentOutput, 0);
-    elevatorMotor2.set(0);
-    elevatorMotor1.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, 10, 0, 0));
-    elevatorMotor2.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, 10, 0, 0));
+
+
+    // elevatorMotor1.set(ControlMode.PercentOutput, 0);
+    // elevatorMotor2.set(0);
+    // elevatorMotor1.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, 10, 0, 0));
+    // elevatorMotor2.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, 10, 0, 0));
 
   }
 

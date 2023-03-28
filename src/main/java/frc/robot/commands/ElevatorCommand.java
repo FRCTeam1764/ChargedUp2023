@@ -16,12 +16,14 @@ public class ElevatorCommand extends CommandBase {
   int heightLevel;
   ElevatorState elevatorState;
   boolean finish;
-  public ElevatorCommand(Elevator elevator, double desiredEncoderValue,ElevatorState elevatorState,boolean finish) {
+  double velo;
+  public ElevatorCommand(Elevator elevator, double desiredEncoderValue,ElevatorState elevatorState,boolean finish,double velo) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.elevator = elevator;
     this.desiredEncoderValue = desiredEncoderValue;
     this.elevatorState = elevatorState;
     this.finish = finish;
+    this.velo = velo;
     addRequirements(elevator);
   }
 
@@ -29,6 +31,7 @@ public class ElevatorCommand extends CommandBase {
   @Override
   public void initialize() {
     elevatorState.setEncoderValue(desiredEncoderValue);
+    elevatorState.setVelocity(velo);
 
   }
 
@@ -36,6 +39,7 @@ public class ElevatorCommand extends CommandBase {
   @Override
   public void execute() {
     elevatorState.setEncoderValue(desiredEncoderValue);
+    elevatorState.setVelocity(velo);
   }
 
   // Called once the command ends or is interrupted.

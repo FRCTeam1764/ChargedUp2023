@@ -76,7 +76,7 @@ public class PivotyCommand extends CommandBase {
   public boolean isFinished() {
     // return Math.abs(pivoty.getEncoderValue())>=Math.abs(desiredEncoderValue);
     if( finish){
-      return pivoty.getEncoderValue() <= desiredEncoderValue+4000 && pivoty.getEncoderValue() >= desiredEncoderValue-4000;
+      return pivoty.getEncoderValue() <= desiredEncoderValue+2000 && pivoty.getEncoderValue() >= desiredEncoderValue-2000;
     }
     else{
     return false;

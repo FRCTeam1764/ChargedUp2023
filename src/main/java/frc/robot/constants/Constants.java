@@ -18,21 +18,21 @@ public final class Constants {
     public static final CanPort ELEVATOR_MOTOR =        new CanPort(32, CANIVORE_NAME);
     public static final CanPort ELAVATOR_MOTOR_2 =      new CanPort(33, CANIVORE_NAME);
 
-    public static final CanPort WRIST_MOTOR =           new CanPort(21);
+    public static final CanPort WRIST_MOTOR =           new CanPort(23);
     public static final CanPort INTAKE_MOTOR =          new CanPort(22); // may need to be swapped
 
 
     // public static final int MIN_EXTEND_BREAK_BEAM =  1;
     // public static final int MAX_EXTEND_BREAK_BEAM =  3;
     // public static final int MID_EXTEND_BREAK_BEAM =  2;
-    public static final int ELEVATOR_LIMIT_SWITCH = 0;//TO DO: FIND PORT
+    public static final int ELEVATOR_LIMIT_SWITCH = 3;//TO DO: FIND PORT
 
-    public static final int ELEVATOR_LIMIT_SWITCH2 = 0;//TO DO: FIND PORT
+    public static final int ELEVATOR_LIMIT_SWITCH2 = 4;//TO DO: FIND PORT
 
     public static final int PIVOTY_BREAK_BEAM =      9;
 
-    public static final int INTAKE_BREAK_BEAM1 = 0;//TO DO: FIND PORT
-    public static final int INTAKE_BREAK_BEAM2 = 0;
+    public static final int INTAKE_BREAK_BEAM1 = 1;//TO DO: FIND PORT
+    public static final int INTAKE_BREAK_BEAM2 = 2;
 
     public static final int BLINKIN_SPARK =          9;
     public static final int PRESSURE_SENSOR_PORT =   0;

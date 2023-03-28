@@ -36,15 +36,14 @@ public class PivotySubsystem extends SubsystemBase {
   PIDController pidController;
   
   public PivotySubsystem(){
-    pidController = new PIDController(.00015, 0, .00003);
     pivotyMotor1 = new LazyTalonFX(Constants.PIVOTY_MOTOR.id, Constants.PIVOTY_MOTOR.busName);
     pivotyMotor2 = new LazyTalonFX(Constants.PIVOTY_MOTOR_2.id, Constants.PIVOTY_MOTOR_2.busName);
     // pivotyMotor1.config_kP(0, .002);
     // pivotyMotor2.config_kP(0, .002);
     // pivotyMotor1.config_kD(0, .0001);
     // pivotyMotor2.config_kD(0, .0001);
-    minFeedForward = new ArmFeedforward(0.098267, 0.072146, 3.7608);
-    maxFeedForward = new ArmFeedforward(0.12106, 0.1171, 3.6673);
+    minFeedForward = new ArmFeedforward(0.29772, 0.18567, 3.2669);
+    maxFeedForward = new ArmFeedforward(0.78839, 0.55864, 1.9288);
     breakBeamOne = new DigitalInput(Constants.PIVOTY_BREAK_BEAM);
     encoderOffset = 115000;
 
@@ -71,13 +70,24 @@ public class PivotySubsystem extends SubsystemBase {
     //   pivotyMotor1.config_kD(0, 50.00);
     //   pivotyMotor2.config_kD(0, 50.00);
     // }
+    pidController = new PIDController(SmartDashboard.getNumber("Kp", 0), SmartDashboard.getNumber("Ki", 0), SmartDashboard.getNumber("Kd", 0));//.00015, 0, .00003
     
-    minFeedforwardVelo = minFeedForward.calculate(getEncoderRadians(), .0002); //previously .0005
-    maxFeedforwardVelo = maxFeedForward.calculate(getEncoderRadians(), .0002);
-    feedforward= interpolate(minFeedforwardVelo, maxFeedforwardVelo, elevator.getEncoderValue());
+     minFeedforwardVelo = minFeedForward.calculate(getEncoderRadians(), .0001); //previously .0002
+     maxFeedforwardVelo = maxFeedForward.calculate(getEncoderRadians(), .0001);
+     feedforward= interpolate(minFeedforwardVelo, maxFeedforwardVelo, elevator.getEncoderValue());
+     SmartDashboard.putNumber("pivotyPID",pidController.calculate(pivotyMotor1.getSelectedSensorPosition(), desiredEncoderValue));
+     SmartDashboard.putNumber("pivotyFEED",feedforward);
+      double variable = pidController.calculate(pivotyMotor1.getSelectedSensorPosition(), desiredEncoderValue);
 
-    pivotyMotor1.setVoltage(feedforward+pidController.calculate(pivotyMotor1.getSelectedSensorPosition(), desiredEncoderValue));
-    pivotyMotor2.setVoltage(feedforward+pidController.calculate(pivotyMotor1.getSelectedSensorPosition(), desiredEncoderValue));
+      if(variable > 3){
+        variable = 3;
+      }else if (variable < -3){
+        variable = -3;
+      }
+
+      
+     pivotyMotor1.setVoltage(feedforward+variable);
+     pivotyMotor2.setVoltage(feedforward+variable);
     //System.out.println(pivotyMotor1.get()+", "+desiredEncoderValue);
 
     
@@ -100,10 +110,10 @@ public class PivotySubsystem extends SubsystemBase {
     pivotyMotor2.setNeutralMode(NeutralMode.Brake);
   }
   public void pivotyOff(){
-    pivotyMotor1.set(ControlMode.PercentOutput, 0);
-    pivotyMotor2.set(0);
-    pivotyMotor1.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, 10, 0, 0));
-    pivotyMotor2.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, 10, 0, 0));
+     pivotyMotor1.set(ControlMode.PercentOutput, 0);
+     pivotyMotor2.set(0);
+     pivotyMotor1.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, 10, 0, 0));
+     pivotyMotor2.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, 10, 0, 0));
 
   }
   public double getEncoderValue(){

@@ -7,6 +7,7 @@ package frc.robot.state;
 /** Add your docs here. */
 public class ElevatorState {
     double encoderValue;
+    double velocity;
     ElevatorState(){
     }
     
@@ -14,8 +15,17 @@ public class ElevatorState {
         encoderValue = desiredValue;
     }
 
+
+    public void setVelocity(double Desiredvelocity){
+        velocity = Desiredvelocity;
+    }
+
+
     public double getEncoderValue(){
         return encoderValue;
     }
 
+    public double getVelocity(){
+        return velocity;
+    }
 }

@@ -13,6 +13,7 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -27,10 +28,11 @@ import frc.robot.RobotContainer;
 public class Intake extends SubsystemBase {
     private final CANSparkMax m_flexMotor = new CANSparkMax(Constants.WRIST_MOTOR.id, MotorType.kBrushless);
     private final CANSparkMax m_intakeMotor = new CANSparkMax(Constants.INTAKE_MOTOR.id, MotorType.kBrushless);
-    private final PIDController m_flexPIDController = new PIDController(1.1, 0, 0.05);
+    // private final PIDController m_flexPIDController = new PIDController(1.1, 0, 0.05);
+    private final PIDController m_flexPIDController = new PIDController(SmartDashboard.getNumber("intake Kp", 0), SmartDashboard.getNumber("intake Ki", 0), SmartDashboard.getNumber("intake Kd", 0));
     private final RevThroughBoreEncoder m_angleEncoder = new RevThroughBoreEncoder(Constants.WRIST_ANGLE_ENCODER);
 
-    private ArmFeedforward m_feedForward = new ArmFeedforward(0.8, 1.1,1); 
+    private ArmFeedforward m_feedForward = new ArmFeedforward(0.11202, 0.11202,2.0024); 
     private PivotySubsystem pivoty;
 
 
@@ -74,6 +76,12 @@ public class Intake extends SubsystemBase {
         return pivoty.getEncoderRadians() + getAngleRadians();
     }
 //m_angleEncoder.isConnected() && pivoty.isArmEncoderConnected() && 
+
+
+// public DigitalInput getBreakBeam1(){
+
+
+// }
 
     @Override
     public void periodic(){

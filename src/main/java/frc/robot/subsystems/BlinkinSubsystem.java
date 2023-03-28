@@ -16,15 +16,13 @@ public class BlinkinSubsystem extends SubsystemBase {
 
   public BlinkinSubsystem() {
     //:D wahoo!
-    blinkin = new Spark(Constants.BLINKIN_SPARK);
+
     // this.LEDColor = LEDColor;
     
   }
   //zach is so very cool :D (better than aiden and sawyer) he's so cool :3
   public void setLEDs(double LEDColor){
     this.LEDColor = LEDColor;
-    blinkin.set(LEDColor);
-    System.out.println(blinkin.get());
     //getLEDColor());
   }
 

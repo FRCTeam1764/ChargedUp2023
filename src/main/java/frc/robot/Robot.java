@@ -10,6 +10,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 // import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -27,6 +28,7 @@ import frc.robot.constants.Constants;
 
 public class Robot extends TimedRobot {
    private static Robot instance = null;
+   Spark blinkin;
    
   
    // (^ v ^) colors :D
@@ -55,6 +57,18 @@ public class Robot extends TimedRobot {
        //grabberCone = new robotContainer.getGrabberConeSubsystem();
        //grabber = new robotContainer.getGrabberSubsystem();
          robotContainer = new RobotContainer();
+         blinkin = new Spark(Constants.BLINKIN_SPARK);
+         SmartDashboard.putNumber("Kp", 0);
+         SmartDashboard.putNumber("Kd", 0);
+         SmartDashboard.putNumber("Ki", 0);
+         SmartDashboard.putNumber("elevator Kp", 0);
+         SmartDashboard.putNumber("elevator Kd", 0);
+         SmartDashboard.putNumber("elevator Ki", 0);
+         SmartDashboard.putNumber("intake Kp", 0);
+         SmartDashboard.putNumber("intake Kd", 0);
+         SmartDashboard.putNumber("intake Ki", 0);
+
+        
         //CommandScheduler.getInstance().schedule(new BlinkinCommand(-.95, robotContainer.getBlinkinSubsystem()));
         robotContainer.getDrivetrainSubsystem().getNavx().calibrate();
         robotContainer.getDrivetrainSubsystem().zeroGyro();
@@ -63,6 +77,7 @@ public class Robot extends TimedRobot {
        robotContainer.getPivotySubsystem().zeroEncoder();
        robotContainer.getElevatorSubsystem().zeroEncoder();
 
+      // robotContainer.robotState.elevatorState.setEncoderValue(-4000);
        // robotContainer.getVisionSubsystem().setLedMode(Limelight.LedMode.OFF);
 
         
@@ -72,17 +87,18 @@ public class Robot extends TimedRobot {
 
    @Override
    public void robotPeriodic() {
+
         CommandScheduler.getInstance().run();
         runPivoty();
         runElevator();
 
-
+        blinkin.set(robotContainer.getBlinkinSubsystem().getLEDColor());
 
         if(!robotContainer.getPivotySubsystem().breakBeamOne.get()){
              robotContainer.getPivotySubsystem().zeroEncoder();
          }
 
-         if(!robotContainer.getElevatorSubsystem().limitSwitch.get() && !robotContainer.getElevatorSubsystem().limitSwitch2.get() ){
+         if(!robotContainer.getElevatorSubsystem().limitSwitch.get() || !robotContainer.getElevatorSubsystem().limitSwitch2.get() ){
             robotContainer.getElevatorSubsystem().zeroEncoder();
         }
 
@@ -91,7 +107,10 @@ public class Robot extends TimedRobot {
         // SmartDashboard.putBoolean("min", robotContainer.getElevatorSubsystem().minExtend.get() );
         SmartDashboard.putBoolean("pivoty", robotContainer.getPivotySubsystem().getBrkBeam());
         SmartDashboard.putBoolean("elevator", robotContainer.getElevatorSubsystem().getLimitSwitch());
+        SmartDashboard.putNumber("DesiredElevator", robotContainer.getElevatorSubsystem().getDesiredEncoder());
+        SmartDashboard.putNumber("DesiredPivoty", robotContainer.robotState.pivotyState.getEncoderValue());
 
+        SmartDashboard.putNumber("velocity", robotContainer.robotState.elevatorState.getVelocity());
         SmartDashboard.putBoolean("elevator2", robotContainer.getElevatorSubsystem().getLimitSwitch2());
         // System.out.println(robotContainer.getPivotySubsystem().getBrkBeam());
         SmartDashboard.putNumber("pivoty encoder", robotContainer.getPivotySubsystem().getEncoderValue());
@@ -129,7 +148,7 @@ public class Robot extends TimedRobot {
    }
 
    public void runElevator(){
-    robotContainer.getElevatorSubsystem().elevatorOn(robotContainer.robotState.elevatorState.getEncoderValue());
+    robotContainer.getElevatorSubsystem().elevatorOn(robotContainer.getElevatorSubsystem().getDesiredEncoder(),robotContainer.robotState.elevatorState.getVelocity());
 
    }
 }
