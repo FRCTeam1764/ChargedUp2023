@@ -40,7 +40,7 @@ public double getAutoLevel(){
         robotState.swerveState.noSwerveAutoBalance();;
     }
     autoLevelPwr = -Math.min(error*.015 , 1); //previously was .018
-    System.out.println(autoLevelPwr);
+    // System.out.println(autoLevelPwr);
     return autoLevelPwr;
 
 }

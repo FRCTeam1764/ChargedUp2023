@@ -4,19 +4,25 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.BlinkinSubsystem;
 import frc.robot.subsystems.Intake;
 
 public class intakeCommand extends CommandBase {
   /** Creates a new IntakeCommand. */
   boolean ConeCube;
   Intake intake;
-
-  public intakeCommand(boolean ConeCube, Intake intake ) {
+  Timer timer;
+  double speed;
+  BlinkinSubsystem blinkin;
+  public intakeCommand(boolean ConeCube, Intake intake, double speed, BlinkinSubsystem blinkin ) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.intake = intake;
     this.ConeCube  = ConeCube;
-
+    this.speed = speed;
+    timer = new Timer();
+    this.blinkin = blinkin;
     addRequirements(intake);
   }
 
@@ -29,18 +35,43 @@ public class intakeCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(ConeCube){
-      intake.pickUpCone();
-    }else{
-      intake.pickUpCube();
+    if(blinkin.getLEDColor()==.67){
+      intake.wheelsCone(speed);
     }
+    else{
+      intake.wheelsCube(speed);
+    }
+    // if(ConeCube){
+    //   intake.pickUpCone();
+    // }else{
+    //   intake.pickUpCube();
+    // }
 
+  }
+  public double getSpeed(){
+    if(blinkin.getLEDColor()== .67){
+      return speed*-1;
+    }
+    else{
+      return speed;
+    }
   }
 
   // Called once the command ends or is interrupted.
+
   @Override
   public void end(boolean interrupted) {
-intake.stop();
+    timer.restart();
+    while(timer.get() <.75){
+      if(blinkin.getLEDColor()==.67){
+        intake.wheelsCone(-speed);
+      }
+      else{
+        intake.wheelsCube(-speed);
+      }
+    }
+    intake.stop();
+
   }
 
   // Returns true when the command should end.

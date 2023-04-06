@@ -20,13 +20,13 @@ public class PivotyCommand extends CommandBase {
   double pivotySpeed;
   DigitalInput breakBeamOne;
   DigitalInput breakBeamTwo;
-  int desiredEncoderValue;
+  double desiredEncoderValue;
   PivotyState pivotyState;
   double speed;
   boolean finish;
   Timer timer;
   //needs fixed
-  public PivotyCommand(PivotySubsystem pivoty, int desiredEncoderValue, PivotyState pivotyState, boolean finish) {
+  public PivotyCommand(PivotySubsystem pivoty, double desiredEncoderValue, PivotyState pivotyState, boolean finish) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.pivoty = pivoty;
     this.desiredEncoderValue = desiredEncoderValue;
@@ -76,7 +76,7 @@ public class PivotyCommand extends CommandBase {
   public boolean isFinished() {
     // return Math.abs(pivoty.getEncoderValue())>=Math.abs(desiredEncoderValue);
     if( finish){
-      return pivoty.getEncoderValue() <= desiredEncoderValue+2000 && pivoty.getEncoderValue() >= desiredEncoderValue-2000;
+      return pivoty.getEncoderValue() <= desiredEncoderValue+4000 && pivoty.getEncoderValue() >= desiredEncoderValue-4000;
     }
     else{
     return false;

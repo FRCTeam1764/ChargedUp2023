@@ -15,7 +15,6 @@ import frc.robot.subsystems.Swerve;
 import frc.robot.commands.AutoBalanceCommand;
 // import frc.robot.commands.ZeroIntakeCommand;
 import frc.robot.commands.GroundPickup;
-import frc.robot.commands.simpleWaitCommand;
 
 import java.util.List;
 
@@ -34,8 +33,8 @@ import edu.wpi.first.wpilibj2.command.ScheduleCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 
-public class AutoBalance extends SequentialCommandGroup {
-    public AutoBalance(Swerve s_Swerve,RobotState robotState,PivotySubsystem pivoty, PivotyState pivotyState, Elevator elevator, ElevatorState elevatorState, Intake intake){
+public class AutoBalanceBlue extends SequentialCommandGroup {
+    public AutoBalanceBlue(Swerve s_Swerve,RobotState robotState,PivotySubsystem pivoty, PivotyState pivotyState, Elevator elevator, ElevatorState elevatorState, Intake intake){
         TrajectoryConfig config =
             new TrajectoryConfig(
                     // SwerveConstants.AutoConstants.kMaxSpeedMetersPerSecond,
@@ -55,22 +54,22 @@ public class AutoBalance extends SequentialCommandGroup {
         Trajectory goForward =
             TrajectoryGenerator.generateTrajectory(
                 new Pose2d(0, 0, new Rotation2d(0)),
-                List.of(new Translation2d(-2,0.35),new Translation2d(-4, 0.4)),
+                List.of(new Translation2d(-2,-0.35),new Translation2d(-4, -0.4)),
                //  new Pose2d(-SmartDashboard.getNumber("auto length", 4.7), SmartDashboard.getNumber("auto width", .7), new Rotation2d(Math.PI)),
-                new Pose2d(-4.3, .55, new Rotation2d(Math.PI)),
+                new Pose2d(-4.3, -.6, new Rotation2d(-Math.PI)),
                 config.setReversed(true));
 
         Trajectory goBack = 
             TrajectoryGenerator.generateTrajectory(
                 new Pose2d(0, 0, new Rotation2d(0)),
-                List.of(new Translation2d(1.5, 0)),
-                new Pose2d(3, 0, new Rotation2d(Math.PI)),
+                List.of(new Translation2d(.3, 0)),
+                new Pose2d(.6, 0, new Rotation2d(-Math.PI)),
                 configSlow.setReversed(false));
         Trajectory spin = 
             TrajectoryGenerator.generateTrajectory(
                 new Pose2d(0, 0, new Rotation2d(0)),
                 List.of(new Translation2d(-.3, 0)),
-                new Pose2d(-.6, 0, new Rotation2d(Math.PI)),
+                new Pose2d(-.6, 0, new Rotation2d(-Math.PI)),
                 config.setReversed(true));
 
         var thetaController =
@@ -113,7 +112,6 @@ public class AutoBalance extends SequentialCommandGroup {
 
         addCommands(
             new InstantCommand(() -> s_Swerve.resetOdometry(goForward.getInitialPose())),
-            new simpleWaitCommand(1),
             new OnePiece(pivoty, robotState.pivotyState, elevator, robotState.elevatorState, intake),
             swerveControllerCommand,
             new GroundPickup(pivoty, pivotyState, elevator, elevatorState, intake),

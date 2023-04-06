@@ -6,15 +6,15 @@ package frc.robot.state;
 
 /** Add your docs here. */
 public class PivotyState {
-    int encoderValue;
+    double encoderValue;
     PivotyState(){
     }
     
-    public void setEncoderValue(int desiredValue){
-        encoderValue = desiredValue;
+    public void setEncoderValue(double desiredEncoderValue){
+        encoderValue = desiredEncoderValue;
     }
 
-    public int getEncoderValue(){
+    public double getEncoderValue(){
         return encoderValue;
     }
 
