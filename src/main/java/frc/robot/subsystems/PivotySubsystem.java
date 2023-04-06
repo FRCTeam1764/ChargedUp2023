@@ -44,6 +44,7 @@ public class PivotySubsystem extends SubsystemBase {
     // pivotyMotor2.config_kP(0, .002);
     // pivotyMotor1.config_kD(0, .0001);
     // pivotyMotor2.config_kD(0, .0001);
+    pidController = new PIDController(0.0015 ,0, 0.012);
     minFeedForward = new ArmFeedforward(0.29772, 0.18567, 3.2669);
     maxFeedForward = new ArmFeedforward(0.78839, 0.55864, 1.9288);
     breakBeamOne = new DigitalInput(Constants.PIVOTY_BREAK_BEAM);
@@ -73,7 +74,6 @@ public class PivotySubsystem extends SubsystemBase {
     //   pivotyMotor2.config_kD(0, 50.00);
     // }
    // pidController = new PIDController(SmartDashboard.getNumber("pivoty Kp", 0), SmartDashboard.getNumber("pivoty Ki", 0), SmartDashboard.getNumber("pivoty Kd", 0));//.00015, 0, .00003
-      pidController = new PIDController(0.0015 ,0, 0.012);
      minFeedforwardVelo = minFeedForward.calculate(getEncoderRadians(), .0001); //previously .0002
      maxFeedforwardVelo = maxFeedForward.calculate(getEncoderRadians(), .0001);
      feedforward= interpolate(minFeedforwardVelo, maxFeedforwardVelo, elevator.getEncoderValue());
@@ -93,10 +93,10 @@ variable = 0;
 
 }
 
-      SmartDashboard.putNumber("variable", variable);
-      SmartDashboard.putNumber("pivoty feedfoward", feedforward);
-      SmartDashboard.putNumber(" pivoty EncoderValue",getEncoderValue());
-      SmartDashboard.putNumber("pivoty DesiredEncoder", desiredEncoderValue);
+      // SmartDashboard.putNumber("variable", variable);
+      // SmartDashboard.putNumber("pivoty feedfoward", feedforward);
+      // SmartDashboard.putNumber(" pivoty EncoderValue",getEncoderValue());
+      // SmartDashboard.putNumber("pivoty DesiredEncoder", desiredEncoderValue);
 
       
 

@@ -181,14 +181,14 @@ Timer timer = new Timer();
         //  PIDController m_flexPIDController = new PIDController(SmartDashboard.getNumber("intake Kp", 0), SmartDashboard.getNumber("intake Ki", 0), SmartDashboard.getNumber("intake Kd", 0));
         //  m_flexPIDController.enableContinuousInput(0, 2 * Math.PI);
         //m_angleEncoder.setZeroOffset(SmartDashboard.getNumber("IntakeOffset",0));
-m_angleEncoder.setZeroOffset(140);
-SmartDashboard.putBoolean("intake1", breakBeamCone.get());
-        SmartDashboard.putBoolean("intake2", breakBeamCube.get());
-        SmartDashboard.putNumber("pivotyEncoderRadians", pivoty.getEncoderRadiansIntake());
-         SmartDashboard.putNumber("WristAngle",((m_angleEncoder.getPosition())));
+m_angleEncoder.setZeroOffset(140); // do not remove 
+//SmartDashboard.putBoolean("intake1", breakBeamCone.get());
+        // SmartDashboard.putBoolean("intake2", breakBeamCube.get());
+        // SmartDashboard.putNumber("pivotyEncoderRadians", pivoty.getEncoderRadiansIntake());
+        //  SmartDashboard.putNumber("WristAngle",((m_angleEncoder.getPosition())));
         // // System.out.println()
 
-         SmartDashboard.putNumber("WriseAngleGround",Units.radiansToDegrees(getGroundRelativeWristPossitionRadians())); 
+  //       SmartDashboard.putNumber("WriseAngleGround",Units.radiansToDegrees(getGroundRelativeWristPossitionRadians())); 
         // if (
         //    pivoty.getEncoderRadians() < Units.degreesToRadians(85) || pivoty.getEncoderRadians() > Units.degreesToRadians(200) ){
             // m_flexPIDController.setTolerance(Rotation2d.fromDegrees(2).getRadians());
