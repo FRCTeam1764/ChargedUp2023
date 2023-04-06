@@ -55,13 +55,13 @@ public double square(double num){
      * moves to target
      */
     public double moveLeftOrRight() {
-        if(robotState.swerveState.getSlowMode()){
-            strafeVal = MathUtil.applyDeadband(square(strafeSup.getAsDouble())*.3, SwerveConstants.stickDeadband);
-        }
-        else {
-            strafeVal = MathUtil.applyDeadband(square(strafeSup.getAsDouble()), SwerveConstants.stickDeadband);
-        }
-        return strafeVal;
+        // if(robotState.swerveState.getSlowMode()){
+        //     strafeVal = MathUtil.applyDeadband(square(strafeSup.getAsDouble())*.3, SwerveConstants.stickDeadband);
+        // }
+        // else {
+        //     strafeVal = MathUtil.applyDeadband(square(strafeSup.getAsDouble()), SwerveConstants.stickDeadband);
+        // }
+        return MathUtil.applyDeadband(strafeSup.getAsDouble()*.5, SwerveConstants.stickDeadband);
     }
 
 
@@ -75,13 +75,14 @@ public double square(double num){
 
 
         double translationVal = MathUtil.applyDeadband(getTranslation(), SwerveConstants.stickDeadband);
-        double rotationVal = MathUtil.applyDeadband(square(rotationSup.getAsDouble()), SwerveConstants.stickDeadband);
+        double rotationVal = MathUtil.applyDeadband(rotationSup.getAsDouble() * .5, SwerveConstants.stickDeadband);
         // double strafeVal = MathUtil.applyDeadband(strafeSup.getAsDouble()*.75, SwerveConstants.stickDeadband);
        
-       //auto balance if autobalance has been toggled
-        if(robotState.swerveState.getStartButton()){
-            robotState.swerveState.swerveAutoBalance();
-        }
+       //auto balance if autobalance has been toggled why was this still enabled
+        // if(robotState.swerveState.getStartButton()){
+        //     robotState.swerveState.swerveAutoBalance();
+        // }
+        
         if(robotState.swerveState.getSlowButton()){
             robotState.swerveState.ToggleSlowMode();
         }
@@ -96,16 +97,16 @@ public double square(double num){
     }
     double transValue;
     public double getTranslation(){
-        if(robotState.swerveState.getSwerveState()){
-            transValue = getAutoLevel();
-        }
-        else if(robotState.swerveState.getSlowMode()){
-            transValue = translationSup.getAsDouble()*.3;
-        }
-        else{
-            transValue =square(translationSup.getAsDouble());
-        }
-        return transValue;
+        // if(robotState.swerveState.getSwerveState()){
+        //     transValue = getAutoLevel();
+        // }
+        // else if(robotState.swerveState.getSlowMode()){
+        //     transValue = translationSup.getAsDouble()*.3;
+        // }
+        // else{
+        //     transValue =square(translationSup.getAsDouble());
+        // }
+        return translationSup.getAsDouble() * 0.5;
     }
     double error;
     double autoLevelPwr;
