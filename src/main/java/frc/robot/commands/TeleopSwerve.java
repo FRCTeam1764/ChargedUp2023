@@ -33,6 +33,9 @@ public class TeleopSwerve extends CommandBase {
     private RobotState robotState;
     private double strafeVal;
 
+public double square(double num){
+    return num * Math.abs(num);
+}
 
     public TeleopSwerve(Swerve s_Swerve, DoubleSupplier translationSup, DoubleSupplier strafeSup, DoubleSupplier rotationSup, BooleanSupplier robotCentricSup,RobotState robotState) {
         this.s_Swerve = s_Swerve;
@@ -55,7 +58,7 @@ public class TeleopSwerve extends CommandBase {
         if (limelightState.getLimelightState() == true && limelightSubsystem.isThereTarget ==1) {
             strafeVal = MathUtil.applyDeadband(limelightSubsystem.whereToMove(), SwerveConstants.stickDeadband);
         } else {
-            strafeVal = MathUtil.applyDeadband(strafeSup.getAsDouble(), SwerveConstants.stickDeadband);
+            strafeVal = MathUtil.applyDeadband(square(strafeSup.getAsDouble()), SwerveConstants.stickDeadband);
         }
         return strafeVal;
     }
@@ -64,8 +67,14 @@ public class TeleopSwerve extends CommandBase {
     
     public void execute() {
         /* Get Values, Deadband*/
+
+        
+
+
+
+
         double translationVal = MathUtil.applyDeadband(getTranslation(), SwerveConstants.stickDeadband);
-        double rotationVal = MathUtil.applyDeadband(rotationSup.getAsDouble(), SwerveConstants.stickDeadband);
+        double rotationVal = MathUtil.applyDeadband(square(rotationSup.getAsDouble()), SwerveConstants.stickDeadband);
         // double strafeVal = MathUtil.applyDeadband(strafeSup.getAsDouble()*.75, SwerveConstants.stickDeadband);
        
        //auto balance if autobalance has been toggled
@@ -87,7 +96,7 @@ public class TeleopSwerve extends CommandBase {
             transValue = getAutoLevel();
         }
         else{
-            transValue = translationSup.getAsDouble();
+            transValue =square(translationSup.getAsDouble());
         }
         return transValue;
     }
@@ -99,7 +108,7 @@ public class TeleopSwerve extends CommandBase {
            robotState.swerveState.noSwerveAutoBalance();;
        }
        autoLevelPwr = -Math.min(error*.023, 1);
-        System.out.println(error+ " " +autoLevelPwr);
+        // System.out.println(error+ " " +autoLevelPwr);
        return autoLevelPwr;
    }
 }

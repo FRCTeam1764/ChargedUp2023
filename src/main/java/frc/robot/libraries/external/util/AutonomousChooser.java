@@ -41,7 +41,7 @@ public class AutonomousChooser {
 
 
         eventMap = new HashMap<>();
-        eventMap.put("PlacePieceCone", new AutoIntakeCommand(robotContainer.getIntake(),false,"Cone"));
+      //  eventMap.put("PlacePieceCone", new AutoIntakeCommand(robotContainer.getIntake(),false,"Cone"));
 
 
         autoBuilder = new SwerveAutoBuilder(

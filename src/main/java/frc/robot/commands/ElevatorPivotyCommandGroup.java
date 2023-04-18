@@ -40,7 +40,7 @@ public class ElevatorPivotyCommandGroup extends SequentialCommandGroup {
 
 
   public ElevatorPivotyCommandGroup(
-    PivotySubsystem pivoty, int desiredEncoderValue, PivotyState pivotyState,
+    PivotySubsystem pivoty, double desiredEncoderValue, PivotyState pivotyState,
     Elevator elevator, double encoderValue, ElevatorState elevatorState) {
 
     // Add your commands in the addCommands() call, e.g.

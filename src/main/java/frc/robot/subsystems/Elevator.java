@@ -47,7 +47,6 @@ public class Elevator extends SubsystemBase {
     negative =1;
 
     this.elevatorState = elevatorState;
-  //  pidController = new PIDController(.00000, 0, 10000); //need tunin
     //feedforward = new ArmFeedforward(0.1, 0.1,0.1 );//needs characterization
 
   }
@@ -62,7 +61,8 @@ public class Elevator extends SubsystemBase {
 //0.00025 - P VALUE
 //0.00002 - P VALUE
 //pidController = new PIDController(SmartDashboard.getNumber("Kp", 0), SmartDashboard.getNumber("Ki", 0), SmartDashboard.getNumber("Kd", 0));
-pidController = new PIDController(SmartDashboard.getNumber("elevator Kp", 0), SmartDashboard.getNumber("elevator Ki", 0), SmartDashboard.getNumber("elevator Kd", 0));
+//pidController = new PIDController(SmartDashboard.getNumber("elevator Kp", 0), SmartDashboard.getNumber("elevator Ki", 0), SmartDashboard.getNumber("elevator Kd", 0));
+pidController = new PIDController(0.00002, 0, 0);
 double variable = pidController.calculate(getEncoderValue(),desiredEncoderValue);
 if(variable<0){
   negative = -1;
@@ -72,14 +72,15 @@ else{
 }
 
  variable = negative*Math.min(7.2, Math.abs(variable));
-
+//0.00002 P, NO OTHER VALUES
 SmartDashboard.putNumber("elevatorPID",variable);
+SmartDashboard.putNumber("elevatorSetpoint", desiredEncoderValue);
 // elevatorMotor1.neutralOutput();
 // elevatorMotor2.neutralOutput();
 // elevatorMotor1.setNeutralMode(NeutralMode.Coast);
 // elevatorMotor2.setNeutralMode(NeutralMode.Coast);
-      elevatorMotor1.setVoltage(velocity+variable);  
-      elevatorMotor2.setVoltage(velocity+variable);  
+      elevatorMotor1.set(ControlMode.PercentOutput,variable);  
+      elevatorMotor2.set(ControlMode.PercentOutput,variable);  
     
   }
   public double getDesiredEncoder(){

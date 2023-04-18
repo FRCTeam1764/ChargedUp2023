@@ -16,6 +16,8 @@ import edu.wpi.first.math.interpolation.TimeInterpolatableBuffer.InterpolateFunc
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import java.rmi.registry.Registry;
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.StatorCurrentLimitConfiguration;
@@ -50,7 +52,7 @@ public class PivotySubsystem extends SubsystemBase {
     
   //  breakBeamTwo = new DigitalInput(6);
   }
-  public void pivotyOn(int desiredEncoderValue, Elevator elevator){
+  public void pivotyOn(double desiredEncoderValue, Elevator elevator){
     // if(desiredEncoderValue == 0) {
     //   pivotyMotor1.config_kP(0, .125);
     //   pivotyMotor2.config_kP(0, .125);
@@ -70,27 +72,41 @@ public class PivotySubsystem extends SubsystemBase {
     //   pivotyMotor1.config_kD(0, 50.00);
     //   pivotyMotor2.config_kD(0, 50.00);
     // }
-    pidController = new PIDController(SmartDashboard.getNumber("Kp", 0), SmartDashboard.getNumber("Ki", 0), SmartDashboard.getNumber("Kd", 0));//.00015, 0, .00003
-    
+   // pidController = new PIDController(SmartDashboard.getNumber("pivoty Kp", 0), SmartDashboard.getNumber("pivoty Ki", 0), SmartDashboard.getNumber("pivoty Kd", 0));//.00015, 0, .00003
+      pidController = new PIDController(0.0015 ,0, 0.012);
      minFeedforwardVelo = minFeedForward.calculate(getEncoderRadians(), .0001); //previously .0002
      maxFeedforwardVelo = maxFeedForward.calculate(getEncoderRadians(), .0001);
      feedforward= interpolate(minFeedforwardVelo, maxFeedforwardVelo, elevator.getEncoderValue());
-     SmartDashboard.putNumber("pivotyPID",pidController.calculate(pivotyMotor1.getSelectedSensorPosition(), desiredEncoderValue));
-     SmartDashboard.putNumber("pivotyFEED",feedforward);
-      double variable = pidController.calculate(pivotyMotor1.getSelectedSensorPosition(), desiredEncoderValue);
+    //  SmartDashboard.putNumber("pivotyPID",pidController.calculate(pivotyMotor1.getSelectedSensorPosition(), desiredEncoderValue));
+    //  SmartDashboard.putNumber("pivotyFEED",feedforward);
+      double variable = pidController.calculate(getEncoderValue(), desiredEncoderValue);
 
-      if(variable > 3){
-        variable = 3;
-      }else if (variable < -3){
-        variable = -3;
+
+      if(variable > 6){
+        variable = 6;
+      }else if (variable < -4){
+        variable = -4;
       }
 
+if(getEncoderValue() <= desiredEncoderValue+4000 && getEncoderValue() >= desiredEncoderValue-4000){
+variable = 0;
+
+}
+
+      SmartDashboard.putNumber("variable", variable);
+      SmartDashboard.putNumber("pivoty feedfoward", feedforward);
+      SmartDashboard.putNumber(" pivoty EncoderValue",getEncoderValue());
+      SmartDashboard.putNumber("pivoty DesiredEncoder", desiredEncoderValue);
+
       
+
+
      pivotyMotor1.setVoltage(feedforward+variable);
      pivotyMotor2.setVoltage(feedforward+variable);
     //System.out.println(pivotyMotor1.get()+", "+desiredEncoderValue);
 
     
+//0.0015 P, 0.003 D
 
 
  
@@ -137,8 +153,17 @@ public class PivotySubsystem extends SubsystemBase {
   }
 
   public double getEncoderRadians(){
-    return ((pivotyMotor1.getSelectedSensorPosition()-encoderOffset)*224)/(2*Math.PI);
+    return ((pivotyMotor2.getSelectedSensorPosition()-encoderOffset)*224)/(2*Math.PI);
   }
 
+
+  // public double getRadians(){
+  //   return (pivotyMotor2.getSelectedSensorPosition()*224)/(2*Math.PI);
+  // }
+
+
+  public double getEncoderRadiansIntake(){
+    return ((pivotyMotor2.getSelectedSensorPosition()-encoderOffset)/(224*2048))*(2*Math.PI);
+  }
 }
 
