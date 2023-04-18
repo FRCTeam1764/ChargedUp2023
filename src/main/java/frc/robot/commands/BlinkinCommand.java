@@ -23,13 +23,13 @@ BlinkinSubsystem Blinkin;
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Blinkin.setLEDs(.67);
+    Blinkin.setLEDs(-.79);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    Blinkin.setLEDs(.89);
+    Blinkin.setLEDs(-.45);
   }
 
   // Returns true when the command should end.
