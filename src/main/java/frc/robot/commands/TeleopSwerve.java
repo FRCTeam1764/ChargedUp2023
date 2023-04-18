@@ -55,9 +55,10 @@ public double square(double num){
      * moves to target
      */
     public double moveLeftOrRight() {
-        if (limelightState.getLimelightState() == true && limelightSubsystem.isThereTarget ==1) {
-            strafeVal = MathUtil.applyDeadband(limelightSubsystem.whereToMove(), SwerveConstants.stickDeadband);
-        } else {
+        if(robotState.swerveState.getSlowMode()){
+            strafeVal = MathUtil.applyDeadband(square(strafeSup.getAsDouble())*.3, SwerveConstants.stickDeadband);
+        }
+        else {
             strafeVal = MathUtil.applyDeadband(square(strafeSup.getAsDouble()), SwerveConstants.stickDeadband);
         }
         return strafeVal;
@@ -81,6 +82,9 @@ public double square(double num){
         if(robotState.swerveState.getStartButton()){
             robotState.swerveState.swerveAutoBalance();
         }
+        if(robotState.swerveState.getSlowButton()){
+            robotState.swerveState.ToggleSlowMode();
+        }
         // System.out.println(translationVal);
         /* Drive */
         s_Swerve.drive(
@@ -94,6 +98,9 @@ public double square(double num){
     public double getTranslation(){
         if(robotState.swerveState.getSwerveState()){
             transValue = getAutoLevel();
+        }
+        else if(robotState.swerveState.getSlowMode()){
+            transValue = translationSup.getAsDouble()*.3;
         }
         else{
             transValue =square(translationSup.getAsDouble());

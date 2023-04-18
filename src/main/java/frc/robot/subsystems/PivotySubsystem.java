@@ -44,6 +44,7 @@ public class PivotySubsystem extends SubsystemBase {
     // pivotyMotor2.config_kP(0, .002);
     // pivotyMotor1.config_kD(0, .0001);
     // pivotyMotor2.config_kD(0, .0001);
+    pidController = new PIDController(0.0015 ,0, 0.012);
     minFeedForward = new ArmFeedforward(0.29772, 0.18567, 3.2669);
     maxFeedForward = new ArmFeedforward(0.78839, 0.55864, 1.9288);
     breakBeamOne = new DigitalInput(Constants.PIVOTY_BREAK_BEAM);

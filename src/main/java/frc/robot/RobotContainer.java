@@ -29,7 +29,7 @@ public class RobotContainer {
 
     /* Driver Buttons */
     private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kY.value);
-    private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kRightBumper.value);
+    private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kBack.value);
    // private final JoystickButton blinkinButton = new JoystickButton(driver, XboxController.Button.kB.value);
     private final JoystickButton elevatorTest = new JoystickButton(driver, XboxController.Button.kA.value);
     // private final JoystickButton highButton = new JoystickButton(driver, XboxController.Button.kY.value);
@@ -117,18 +117,18 @@ private final JoystickButton lowPickUp = new JoystickButton(secondaryController,
         // intakeIn.toggleOnTrue(new intakeCommand(true,intake, .5, blinkin)); //CONE
         intakeOut.toggleOnTrue(new intakeCommand(false,intake, -.4, blinkin)); //CUBE
         //intakeIn.toggleOnTrue(new intakeCommand(0.1, intake));
-        lowRung.toggleOnTrue(new ElevatorPivotyCommandGroup(pivoty, 130000, robotState.pivotyState, elevator, -0,robotState.elevatorState));
+        lowRung.toggleOnTrue(new ElevatorPivotyCommandGroup(pivoty, 135000, robotState.pivotyState, elevator, -50000,robotState.elevatorState));
         midRung.toggleOnTrue(new ElevatorPivotyCommandGroup(pivoty, 70000, robotState.pivotyState, elevator, -40000,robotState.elevatorState)); // TUNE ELEVATOR ENCODERVALUES
         highRung.toggleOnTrue(new ElevatorPivotyCommandGroup(pivoty, 70000, robotState.pivotyState, elevator, -115000,robotState.elevatorState));//previosuly 50000 KEEP ALL ELEVATORVALUES POSITIVE
         // playerStation.toggleOnTrue(new ElevatorPivotyCommandGroup(elevator, .6, pivoty, 4, robotState.pivotyState));
-        playerStation.toggleOnTrue(new ElevatorPivotyCommandGroup(pivoty, 45000, robotState.pivotyState, elevator, -0,robotState.elevatorState));
+        playerStation.toggleOnTrue(new ElevatorPivotyCommandGroup(pivoty, 40000, robotState.pivotyState, elevator, -0,robotState.elevatorState));
         lowPickUp.toggleOnTrue(new ElevatorPivotyCommandGroup(pivoty, 130000, robotState.pivotyState, elevator, -32000,robotState.elevatorState));
         Blinkin.toggleOnTrue(new BlinkinCommand(blinkin));
 
         // toggleDriveTrainAutoBalance.onTrue(new toggleSwerveState(robotState)); // set it up for a toggleontrue later
        // elevatorUp.whileTrue(new ElevatorCommand(elevator, .8 , 3));
         //elevatorDown.whileTrue(new ElevatorCommand(elevator, 0.8, 1));
-        //elevatorLeft.whileTrue(new PivotyCommand(pivoty, 0.8, 69420));
+        //elevatorLeft.whileTrue(new PivotyCommand(pivoty, 0.8, 69420));3
         //elevatorRight.whileTrue(new PivotyCommand(pivoty, -.8, -69420));
         // secondaryController.getDPadButton(Direction.UP).onTrue(new ElevatorCommand(elevator,0.7)); maybe find dpadbuttons
        // secondaryController.getDPadButton(Direction.DOWN).onTrue(new ElevatorCommand(elevator,-0.7));

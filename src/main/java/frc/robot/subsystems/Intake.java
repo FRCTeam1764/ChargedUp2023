@@ -88,7 +88,7 @@ Timer timer = new Timer();
         // }
         SmartDashboard.putNumber("intake speed", m_intakeMotor.get());
         if(!breakBeamCube.get()){
-            m_intakeMotor.set(.05*negative);
+            m_intakeMotor.set(.04*negative);
         }
         else{
         m_intakeMotor.set(speed);
@@ -133,7 +133,7 @@ Timer timer = new Timer();
     double setpoint;
     public void flexClosedLoop() {
        // pid = new PIDController(SmartDashboard.getNumber("intake Kp", 0), SmartDashboard.getNumber("intake Ki", 0), SmartDashboard.getNumber("intake Kd", 0));
-       pid = new PIDController(12, 0, 0.0008);
+       pid = new PIDController(12, 0, 0.001);
        // pid.enableContinuousInput(-Math.PI,  Math.PI);
         //0.0008 D, 012 P, 0.1 V, 140 Offset
         // SmartDashboard.putNumber("Flex velocity", velocity);
@@ -149,10 +149,15 @@ Timer timer = new Timer();
 // SmartDashboard.putNumber("interoplated feedfoward", interoplated);
         setpoint = (((213*Math.PI)/180)-pivoty.getEncoderRadiansIntake());
         SmartDashboard.putNumber("setpoint", setpoint*180/Math.PI);
-        pid.setSetpoint(setpoint );
-        // SmartDashboard.putNumber("getAngleRadians", getAngleRadians());
+        pid.setSetpoint(setpoint);
+        SmartDashboard.putNumber("getAngleRadians", getAngleRadians());
+  
         pidValue = pid.calculate(getAngleRadians()); //calculate feed forward
+        if(Math.abs(setpoint - getAngleRadians())< .0175){
+         pidValue = 0;   
+        }
         SmartDashboard.putNumber("intakePID", pidValue);
+  SmartDashboard.putNumber("totalMotorSet", pidValue+upfeedForward);
         m_flexMotor.setVoltage(Math.min(pidValue+upfeedForward,6));
     }
     //234902788.15639588
@@ -175,15 +180,15 @@ Timer timer = new Timer();
     public void periodic(){
         //  PIDController m_flexPIDController = new PIDController(SmartDashboard.getNumber("intake Kp", 0), SmartDashboard.getNumber("intake Ki", 0), SmartDashboard.getNumber("intake Kd", 0));
         //  m_flexPIDController.enableContinuousInput(0, 2 * Math.PI);
-     //   m_angleEncoder.setZeroOffset(SmartDashboard.getNumber("IntakeOffset",0));
-m_angleEncoder.setZeroOffset(140);
-SmartDashboard.putBoolean("intake1", breakBeamCone.get());
-        SmartDashboard.putBoolean("intake2", breakBeamCube.get());
+        //m_angleEncoder.setZeroOffset(SmartDashboard.getNumber("IntakeOffset",0));
+m_angleEncoder.setZeroOffset(140); // do not remove 
+//SmartDashboard.putBoolean("intake1", breakBeamCone.get());
+        // SmartDashboard.putBoolean("intake2", breakBeamCube.get());
         // SmartDashboard.putNumber("pivotyEncoderRadians", pivoty.getEncoderRadiansIntake());
-        // SmartDashboard.putNumber("WristAngle",((m_angleEncoder.getPosition())));
+        //  SmartDashboard.putNumber("WristAngle",((m_angleEncoder.getPosition())));
         // // System.out.println()
 
-        // SmartDashboard.putNumber("WriseAngleGround",Units.radiansToDegrees(getGroundRelativeWristPossitionRadians())); 
+  //       SmartDashboard.putNumber("WriseAngleGround",Units.radiansToDegrees(getGroundRelativeWristPossitionRadians())); 
         // if (
         //    pivoty.getEncoderRadians() < Units.degreesToRadians(85) || pivoty.getEncoderRadians() > Units.degreesToRadians(200) ){
             // m_flexPIDController.setTolerance(Rotation2d.fromDegrees(2).getRadians());
