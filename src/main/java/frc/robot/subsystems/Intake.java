@@ -46,11 +46,11 @@ private PIDController m_flexPidController;
     private ArmFeedforward m_feedForward = new ArmFeedforward(0.11202, 0.11202,2.0024); 
     private ArmFeedforward down_Feedforward = new ArmFeedforward(0.15488,7.1406E+15 , 1.9548);
     private ArmFeedforward up_Feedforward = new ArmFeedforward(0.15245, 0.16345, 1.9801);
-    private PivotySubsystem pivoty;
+    private PivotyShowcase pivoty;
     private DigitalInput breakBeamCube;
     private DigitalInput breakBeamCone;
 
-    public Intake(PivotySubsystem pivoty) {
+    public Intake(PivotyShowcase pivoty) {
         super();
         m_intakeMotor.restoreFactoryDefaults();
         m_flexMotor.restoreFactoryDefaults();

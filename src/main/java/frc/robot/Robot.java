@@ -164,7 +164,7 @@ public class Robot extends TimedRobot {
    }
 
    public void runPivoty(){
-    robotContainer.getPivotySubsystem().pivotyOn(robotContainer.robotState.pivotyState.getEncoderValue(), robotContainer.getElevatorSubsystem());
+ //   robotContainer.getPivotySubsystem().pivotyOn(robotContainer.robotState.pivotyState.getEncoderValue(), robotContainer.getElevatorSubsystem());
    }
 
    public void runElevator(){
