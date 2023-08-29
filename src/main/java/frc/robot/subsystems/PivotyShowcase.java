@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import javax.lang.model.util.ElementScanner14;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.constants.Constants;
 import frc.robot.libraries.internal.LazyTalonFX;
@@ -29,16 +30,16 @@ public class PivotyShowcase extends SubsystemBase {
   }
 
   public void PivotyUp(){
-pivotyMotor1.setVoltage(.2);
-pivotyMotor2.setVoltage(.2);
+pivotyMotor1.set(.2);
+pivotyMotor2.set(.2);
   }
   public void PivotyDown(){
-    pivotyMotor1.setVoltage(-.2);
-    pivotyMotor2.setVoltage(-.2);
+    pivotyMotor1.set(-.2);
+    pivotyMotor2.set(-.2);
       }
       public void PivotyOff(){
-        pivotyMotor1.setVoltage(0);
-        pivotyMotor2.setVoltage(0);
+        pivotyMotor1.set(0);
+        pivotyMotor2.set(0);
           }
 
 
@@ -57,14 +58,17 @@ pivotyMotor2.setVoltage(.2);
 
 
   public void periodic() {
-if (pivotyMotor2.getSelectedSensorPosition()-encoderOffset <=0){
+    SmartDashboard.putNumber("pivoty encoder", pivotyMotor2.getSelectedSensorPosition());
+    SmartDashboard.putBoolean("UpOrDown", upOrDown);
+
+if (pivotyMotor2.getSelectedSensorPosition() <=0){ //encopder offset was hjere
 upOrDown = true;
   } 
-  else if(pivotyMotor2.getSelectedSensorPosition()-encoderOffset >=120000){
+  else if(pivotyMotor2.getSelectedSensorPosition() >=120000){
 upOrDown = false;
   }
 
-  if (upOrDown == true ){
+  if (upOrDown == true){
 PivotyUp();
   }else{
 PivotyDown();

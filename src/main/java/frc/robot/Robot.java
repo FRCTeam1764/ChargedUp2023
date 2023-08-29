@@ -60,6 +60,7 @@ public class Robot extends TimedRobot {
        RobotController.setBrownoutVoltage(7.0);
          robotContainer = new RobotContainer();
          blinkin = new Spark(Constants.BLINKIN_SPARK);
+
           SmartDashboard.putNumber("auto length", 4.7);
           SmartDashboard.putNumber("auto width", .7);
           SmartDashboard.putNumber("auto extend", 20000);
@@ -112,7 +113,7 @@ public class Robot extends TimedRobot {
         runPivoty();
         runElevator();
 
-        blinkin.set(robotContainer.getBlinkinSubsystem().getLEDColor());
+        blinkin.set(-0.41);
 
         if(!robotContainer.getPivotySubsystem().breakBeamOne.get()){
              robotContainer.getPivotySubsystem().zeroEncoder();
