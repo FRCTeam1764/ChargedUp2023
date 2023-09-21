@@ -5,48 +5,86 @@
 package frc.robot.commands;
 
 
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.constants.SwerveConstants;
 import frc.robot.state.LimelightState;
+import frc.robot.state.SwerveState;
 import frc.robot.subsystems.LimelightSubsystem;
+import frc.robot.subsystems.Swerve;
 
 public class LimelightCommand extends CommandBase {
   LimelightState limelightState;
   private LimelightSubsystem limelight;
   private int pipeline;
   public boolean limelightOn;
+  private Swerve swerve;
+  private SwerveState  swerveState;
   
   
   /** Creates a new LimelightCommand. */
-  public LimelightCommand(LimelightSubsystem limelight, int pipeline) {
+  public LimelightCommand(LimelightSubsystem limelight, int pipeline,Swerve swerve,SwerveState swerveState) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.limelight = limelight;
     this.pipeline = pipeline;
+this.swerve = swerve;
+this.swerveState = swerveState;
+
+  
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
     limelightState.limelightOn();
+    swerveState.swerveAutoAlign();
+
+    limelight.setPipeline(pipeline);
+
+
   }
+
+public double getoffset(){
+
+  if (limelight.updateIsThereTarget() == 0){
+      swerveState.noSwerveAutoAlign();
+      return 0;
+  }
+if (limelight.whereToMove() <= 1.5){
+  swerveState.noSwerveAutoAlign();
+  return 0;
+}
+
+  return limelight.whereToMove();
+}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    limelight.setPipeline(pipeline);
-    limelight.updateIsThereTarget();
+  //  limelight.setPipeline(pipeline);
+
+
+    if (swerveState.swerveAutoAlign == true){
+    swerve.drive(new Translation2d( -getoffset(),0).times(SwerveConstants.Swerve.maxSpeed),
+        0, 
+        false,
+        true
+      );
+          }
+
     // limelight.updateXOffset();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-
+limelightState.limelightOff(); 
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    limelightState.limelightOff();
-    return false;
+    
+    return swerveState.swerveAutoAlign;
   }
 }

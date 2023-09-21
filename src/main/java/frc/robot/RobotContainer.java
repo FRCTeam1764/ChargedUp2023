@@ -39,8 +39,13 @@ public class RobotContainer {
     //private final JoystickButton limelight2 = new JoystickButton(driver, XboxController.Button.kB.value);
 
     /* CoPilot Buttons */
+
+    //    private final JoystickButton midRung = new JoystickButton(secondaryController, XboxController.Button.kX.value);
+
     private final JoystickButton highRung = new JoystickButton(secondaryController, XboxController.Button.kY.value);
+
     private final JoystickButton midRung = new JoystickButton(secondaryController, XboxController.Button.kX.value);
+
     private final JoystickButton lowRung = new JoystickButton(secondaryController, XboxController.Button.kA.value);
     private final JoystickButton Blinkin = new JoystickButton(secondaryController, XboxController.Button.kRightBumper.value);
     private final JoystickButton intakeOut = new JoystickButton(secondaryController, XboxController.Button.kLeftBumper.value);
@@ -115,10 +120,15 @@ private final JoystickButton lowPickUp = new JoystickButton(secondaryController,
         // intakeClose.onFalse(new IntakeCommand(claw, sideRollers, backRollers, -1.0, blinkin));
         // intakeZero.whileTrue(new ZeroIntakeCommand(claw, .2));
         // intakeIn.toggleOnTrue(new intakeCommand(true,intake, .5, blinkin)); //CONE
-        intakeOut.toggleOnTrue(new intakeCommand(false,intake, -.4, blinkin)); //CUBE
+
+//
+
+        intakeOut.toggleOnTrue(new intakeCommand(true,intake, .4, blinkin)); //CUBE
         //intakeIn.toggleOnTrue(new intakeCommand(0.1, intake));
         lowRung.toggleOnTrue(new ElevatorPivotyCommandGroup(pivoty, 135000, robotState.pivotyState, elevator, -50000,robotState.elevatorState));
-        midRung.toggleOnTrue(new ElevatorPivotyCommandGroup(pivoty, 70000, robotState.pivotyState, elevator, -40000,robotState.elevatorState)); // TUNE ELEVATOR ENCODERVALUES
+
+        midRung.toggleOnTrue(new ElevatorPivotyCommandGroup(pivoty, 80000, robotState.pivotyState, elevator, -4000,robotState.elevatorState)); // TUNE ELEVATOR ENCODERVALUES
+
         highRung.toggleOnTrue(new ElevatorPivotyCommandGroup(pivoty, 70000, robotState.pivotyState, elevator, -115000,robotState.elevatorState));//previosuly 50000 KEEP ALL ELEVATORVALUES POSITIVE
         // playerStation.toggleOnTrue(new ElevatorPivotyCommandGroup(elevator, .6, pivoty, 4, robotState.pivotyState));
         playerStation.toggleOnTrue(new ElevatorPivotyCommandGroup(pivoty, 40000, robotState.pivotyState, elevator, -0,robotState.elevatorState));

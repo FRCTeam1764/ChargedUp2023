@@ -29,8 +29,11 @@ public class LimelightSubsystem extends SubsystemBase {
   }
 
   // checks if there is a target in sights 
-  public void updateIsThereTarget() {
+  public double updateIsThereTarget() {
     isThereTarget = table.getEntry("tv").getDouble(0); 
+
+
+    return isThereTarget;
   }
 
   // turns the x offset into how much to move the robot

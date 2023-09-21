@@ -12,9 +12,12 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 public class SwerveState {
     boolean swerveAutoBalance;
     boolean slowMode;
+   public boolean swerveAutoAlign;
+
     private final JoystickButton toggleDriveTrainAutoBalance;
     private final JoystickButton slowButton;
     public SwerveState(Joystick driver){
+        swerveAutoAlign = false;
         swerveAutoBalance = false;
         toggleDriveTrainAutoBalance =  new JoystickButton(driver, XboxController.Button.kStart.value);
         slowButton = new JoystickButton(driver, XboxController.Button.kRightBumper.value);
@@ -26,6 +29,13 @@ public class SwerveState {
     }
     public void noSwerveAutoBalance(){
         swerveAutoBalance = false;
+    }
+
+    public void swerveAutoAlign(){
+        swerveAutoAlign = true;
+    }
+    public void noSwerveAutoAlign(){
+        swerveAutoAlign = false;
     }
     public boolean getSwerveState(){
         return swerveAutoBalance;
