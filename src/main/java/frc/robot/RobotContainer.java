@@ -35,9 +35,10 @@ public class RobotContainer {
     // private final JoystickButton highButton = new JoystickButton(driver, XboxController.Button.kY.value);
     // private final JoystickButton lowButton = new JoystickButton(driver, XboxController.Button.kA.value);
     // private final JoystickButton midButton = new JoystickButton(driver, XboxController.Button.kX.value);
-    //private final JoystickButton limelight1 = new JoystickButton(driver, XboxController.Button.kA.value);
+    private final JoystickButton limelight1 = new JoystickButton(driver, XboxController.Button.kA.value);
     //private final JoystickButton limelight2 = new JoystickButton(driver, XboxController.Button.kB.value);
 
+    
     /* CoPilot Buttons */
 
     //    private final JoystickButton midRung = new JoystickButton(secondaryController, XboxController.Button.kX.value);
@@ -135,7 +136,8 @@ private final JoystickButton lowPickUp = new JoystickButton(secondaryController,
         lowPickUp.toggleOnTrue(new ElevatorPivotyCommandGroup(pivoty, 130000, robotState.pivotyState, elevator, -32000,robotState.elevatorState));
         Blinkin.toggleOnTrue(new BlinkinCommand(blinkin));
 
-        // toggleDriveTrainAutoBalance.onTrue(new toggleSwerveState(robotState)); // set it up for a toggleontrue later
+       //  limelight1.onTrue(new LimelightCommand(limelight, 1, s_Swerve, robotState.swerveState,robotState.limelightState)); // set it up for a toggleontrue later
+
        // elevatorUp.whileTrue(new ElevatorCommand(elevator, .8 , 3));
         //elevatorDown.whileTrue(new ElevatorCommand(elevator, 0.8, 1));
         //elevatorLeft.whileTrue(new PivotyCommand(pivoty, 0.8, 69420));3

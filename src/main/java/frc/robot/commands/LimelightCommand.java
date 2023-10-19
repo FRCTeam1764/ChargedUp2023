@@ -23,19 +23,20 @@ public class LimelightCommand extends CommandBase {
   
   
   /** Creates a new LimelightCommand. */
-  public LimelightCommand(LimelightSubsystem limelight, int pipeline,Swerve swerve,SwerveState swerveState) {
+  public LimelightCommand(LimelightSubsystem limelight, int pipeline,Swerve swerve,SwerveState swerveState,LimelightState limelightState) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.limelight = limelight;
     this.pipeline = pipeline;
 this.swerve = swerve;
 this.swerveState = swerveState;
-
+this.limelightState = limelightState;
   
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    System.out.println("hi world");
     limelightState.limelightOn();
     swerveState.swerveAutoAlign();
 
@@ -45,7 +46,7 @@ this.swerveState = swerveState;
   }
 
 public double getoffset(){
-
+System.out.println("it ot here");
   if (limelight.updateIsThereTarget() == 0){
       swerveState.noSwerveAutoAlign();
       return 0;
